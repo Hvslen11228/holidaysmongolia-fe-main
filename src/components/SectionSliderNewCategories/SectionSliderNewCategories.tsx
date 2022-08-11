@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from "react";
+import React, { FC, useEffect, useMemo, useState, useContext } from "react";
 import Heading from "components/Heading/Heading";
 import Glide from "@glidejs/glide";
 import { TaxonomyType } from "data/types";
@@ -7,7 +7,8 @@ import CardCategory4 from "components/CardCategory4/CardCategory4";
 import NextPrev from "shared/NextPrev/NextPrev";
 import CardCategory5 from "components/CardCategory5/CardCategory5";
 import useNcId from "hooks/useNcId";
-
+import axios from "../../axios";
+import AuthContext from "context/AuthContext";
 export interface SectionSliderNewCategoriesProps {
   className?: string;
   itemClassName?: string;
@@ -88,9 +89,28 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
   sliderStyle = "style1",
   uniqueClassName,
 }) => {
+  const auth: any = useContext(AuthContext);
+  heading = auth.site_data.Heading_of_ections;
+  subHeading = auth.site_data.Descriptions_for_sections;
   const UNIQUE_CLASS =
     "SectionSliderNewCategories__" + uniqueClassName + useNcId();
-
+  const [data, setData] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get(`/category`)
+        .then((result: any) => {
+          setData(result?.data?.data);
+          setLoading(false);
+        })
+        .catch((err: any) => {
+          setData(categories);
+          setLoading(false);
+        });
+    };
+    fetchData();
+  }, []);
   let MY_GLIDEJS = useMemo(() => {
     return new Glide(`.${UNIQUE_CLASS}`, {
       perView: itemPerRow,
@@ -118,13 +138,13 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
         },
       },
     });
-  }, [UNIQUE_CLASS]);
+  }, [UNIQUE_CLASS, data]);
 
   useEffect(() => {
     setTimeout(() => {
       MY_GLIDEJS.mount();
     }, 100);
-  }, [MY_GLIDEJS, UNIQUE_CLASS]);
+  }, [MY_GLIDEJS, UNIQUE_CLASS, data]);
 
   const renderCard = (item: TaxonomyType, index: number) => {
     switch (categoryCardType) {
@@ -141,28 +161,57 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
 
   return (
     <div className={`nc-SectionSliderNewCategories ${className}`}>
-      <div className={`${UNIQUE_CLASS} flow-root`}>
-        <Heading
-          desc={subHeading}
-          hasNextPrev={sliderStyle === "style1"}
-          isCenter={sliderStyle === "style2"}
-        >
-          {heading}
-        </Heading>
-        <div className="glide__track" data-glide-el="track">
-          <ul className="glide__slides">
-            {categories.map((item, index) => (
-              <li key={index} className={`glide__slide ${itemClassName}`}>
-                {renderCard(item, index)}
-              </li>
-            ))}
-          </ul>
+      {loading ? (
+        <div>
+          <div className="p-50">
+            <div className="flex flex-col items-center justify-center">
+              <svg
+                className="animate-spin -ml-1 mr-3 h-10 w-10 text-primary-700"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            </div>
+          </div>
         </div>
+      ) : (
+        <div className={`${UNIQUE_CLASS} flow-root`}>
+          <Heading
+            desc={subHeading}
+            hasNextPrev={sliderStyle === "style1"}
+            isCenter={sliderStyle === "style2"}
+          >
+            {heading}
+          </Heading>
+          <div className="glide__track" data-glide-el="track">
+            <ul className="glide__slides">
+              {data.map((item: any, index: any) => (
+                <li key={index} className={`glide__slide ${itemClassName}`}>
+                  {renderCard(item, index)}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {sliderStyle === "style2" && (
-          <NextPrev className="justify-center mt-16" />
-        )}
-      </div>
+          {sliderStyle === "style2" && (
+            <NextPrev className="justify-center mt-16" />
+          )}
+        </div>
+      )}
     </div>
   );
 };

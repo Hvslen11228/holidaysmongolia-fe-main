@@ -11,10 +11,10 @@ import Avatar from "shared/Avatar/Avatar";
 
 export interface ExperiencesCardHProps {
   className?: string;
-  data?: ExperiencesDataType;
+  data?: any;
 }
 
-const DEMO_DATA: ExperiencesDataType = DEMO_EXPERIENCES_LISTINGS[0];
+const DEMO_DATA: any = DEMO_EXPERIENCES_LISTINGS[0];
 
 const ExperiencesCardH: FC<ExperiencesCardHProps> = ({
   className = "",
@@ -32,7 +32,8 @@ const ExperiencesCardH: FC<ExperiencesCardHProps> = ({
     reviewStart,
     reviewCount,
     author,
-    id,
+    _id,
+    about,
   } = data;
 
   const renderSliderGallery = () => {
@@ -41,8 +42,8 @@ const ExperiencesCardH: FC<ExperiencesCardHProps> = ({
         <GallerySlider
           ratioClass="aspect-w-12 aspect-h-9 md:aspect-h-11"
           galleryImgs={galleryImgs}
-          uniqueID={`ExperiencesCardH_${id}`}
-          href={href}
+          uniqueID={`ExperiencesCardH_${_id}`}
+          href={href + "/" + _id}
         />
         <BtnLikeIcon isLiked={like} className="absolute right-3 top-3" />
         {saleOff && <SaleOffBadge className="absolute left-3 top-3" />}
@@ -73,26 +74,9 @@ const ExperiencesCardH: FC<ExperiencesCardHProps> = ({
         </div>
         {/* <div className="w-14 border-b border-neutral-100 dark:border-neutral-800 my-4"></div> */}
         <div className="hidden sm:block text-sm text-neutral-500 dark:text-neutral-400 mt-4">
-          <span className="line-clamp-2">
-            Making a cup of coffee in Vietnam is a whole process that you barely
-            have free time in the middle. But it's also not a really complicated
-            task to start the day with
-          </span>
+          <span className="line-clamp-4">{about}</span>
         </div>
-        <div className="flex items-center space-x-8 mt-4  ">
-          <div className="flex items-center space-x-2">
-            <i className="las la-clock text-lg"></i>
-            <span className="text-sm text-neutral-500 dark:text-neutral-400">
-              3 hours
-            </span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <i className="las la-user text-lg"></i>
-            <span className="text-sm text-neutral-500 dark:text-neutral-400">
-              Up to 6 people
-            </span>
-          </div>
-        </div>
+
         <div className="w-14 border-b border-neutral-100 dark:border-neutral-800 my-4"></div>
         <div className="flex justify-between items-end">
           <div className="flex items-center space-x-3 text-sm text-neutral-700  dark:text-neutral-300">
@@ -105,9 +89,7 @@ const ExperiencesCardH: FC<ExperiencesCardHProps> = ({
           <span className="text-base font-semibold text-secondary-700">
             {price}
             {` `}
-            <span className="text-sm text-neutral-500 dark:text-neutral-400 font-normal">
-              /person
-            </span>
+            <span className="text-sm text-neutral-500 dark:text-neutral-400 font-normal"></span>
           </span>
         </div>
       </div>
@@ -119,7 +101,7 @@ const ExperiencesCardH: FC<ExperiencesCardHProps> = ({
       className={`nc-ExperiencesCardH group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden hover:shadow-xl transition-shadow will-change-transform ${className}`}
       data-nc-id="ExperiencesCardH"
     >
-      <Link to={href} className="absolute inset-0" />
+      <Link to={href + "/" + _id} className="absolute inset-0" />
       <div className="md:flex md:flex-row">
         {renderSliderGallery()}
         {renderContent()}

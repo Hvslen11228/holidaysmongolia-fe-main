@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { SingleDatePicker, AnchorDirectionShape } from "react-dates";
 import { FC } from "react";
 import moment from "moment";
 import useWindowSize from "hooks/useWindowResize";
 import useNcId from "hooks/useNcId";
-
+import AuthContext from "context/AuthContext";
 export interface ExperiencesDateSingleInputProps {
   defaultValue: moment.Moment | null;
   onChange?: (date: moment.Moment | null) => void;
@@ -24,6 +24,7 @@ const ExperiencesDateSingleInput: FC<ExperiencesDateSingleInputProps> = ({
   className = "",
   fieldClassName = "[ nc-hero-field-padding ]",
 }) => {
+  const auth: any = useContext(AuthContext);
   const [focusedInput, setFocusedInput] = useState(defaultFocus);
   const [startDate, setStartDate] = useState(defaultValue);
   const startDateId = useNcId();
@@ -69,10 +70,14 @@ const ExperiencesDateSingleInput: FC<ExperiencesDateSingleInputProps> = ({
         </div>
         <div className="flex-grow">
           <span className="block xl:text-lg font-semibold">
-            {startDate ? startDate.format("DD MMM") : "Date"}
+            {startDate
+              ? startDate.format("DD MMM")
+              : auth.site_data.home.first.date}
           </span>
           <span className="block mt-1 text-sm text-neutral-400 leading-none font-light">
-            {startDate ? "Date" : `Add date`}
+            {startDate
+              ? auth.site_data.home.first.date
+              : auth.site_data.home.first.add_date}
           </span>
         </div>
       </div>

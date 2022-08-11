@@ -1,13 +1,11 @@
-import React, { FC } from "react";
-import BackgroundSection from "components/BackgroundSection/BackgroundSection";
+import React, { FC, useContext, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import BgGlassmorphism from "components/BgGlassmorphism/BgGlassmorphism";
-import SectionGridAuthorBox from "components/SectionGridAuthorBox/SectionGridAuthorBox";
-import SectionHeroArchivePage from "components/SectionHeroArchivePage/SectionHeroArchivePage";
-import SectionSliderNewCategories from "components/SectionSliderNewCategories/SectionSliderNewCategories";
-import SectionSubscribe2 from "components/SectionSubscribe2/SectionSubscribe2";
-import SectionGridHasMap from "./SectionGridHasMap";
+import SectionHeroArchivePage from "./components/SectionHeroArchivePage";
+import SectionGridHasMap from "./components/SectionGridHasMap";
 import { Helmet } from "react-helmet";
-
+import AuthContext from "context/AuthContext";
+import axios from "../../axios";
 export interface ListingExperiencesMapPageProps {
   className?: string;
 }
@@ -15,13 +13,35 @@ export interface ListingExperiencesMapPageProps {
 const ListingExperiencesMapPage: FC<ListingExperiencesMapPageProps> = ({
   className = "",
 }) => {
+  const auth: any = useContext(AuthContext);
+  const params: any = useParams();
+  const { id } = params;
+  const [data, setData] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (id) {
+          const api = await axios.get(`/category/${id}`);
+          setData(api.data.data);
+          setLoading(false);
+        } else {
+          const api = await axios.get(`/category`);
+          setData(api.data.data[0]);
+          setLoading(false);
+        }
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
+
   return (
     <div
       className={`nc-ListingExperiencesMapPage relative ${className}`}
       data-nc-id="ListingExperiencesMapPage"
     >
       <Helmet>
-        <title>Chisfis || Booking React Template</title>
+        <title>{data.name || ""}</title>
       </Helmet>
       <BgGlassmorphism />
 
@@ -33,39 +53,16 @@ const ListingExperiencesMapPage: FC<ListingExperiencesMapPageProps> = ({
           listingType={
             <>
               <i className="text-2xl las la-umbrella-beach"></i>
-              <span className="ml-2.5">1599 experiences</span>
+              <span className="ml-2.5">{data.count || 0} </span>
             </>
           }
+          data={data}
         />
       </div>
 
       {/* SECTION */}
       <div className="container pb-24 lg:pb-28 2xl:pl-10 xl:pr-0 xl:max-w-none">
-        <SectionGridHasMap />
-      </div>
-
-      <div className="container overflow-hidden">
-        {/* SECTION 1 */}
-        <div className="relative py-16">
-          <BackgroundSection />
-          <SectionSliderNewCategories
-            heading="Explore by types of stays"
-            subHeading="Explore houses based on 10 types of stays"
-            categoryCardType="card5"
-            itemPerRow={5}
-            sliderStyle="style2"
-            uniqueClassName="ListingExperiencesMapPage"
-          />
-        </div>
-
-        {/* SECTION */}
-        <SectionSubscribe2 className="py-24 lg:py-28" />
-
-        {/* SECTION */}
-        <div className="relative py-16 mb-24 lg:mb-28">
-          <BackgroundSection className="bg-orange-50 dark:bg-black dark:bg-opacity-20 " />
-          <SectionGridAuthorBox />
-        </div>
+        <SectionGridHasMap data={data} />
       </div>
     </div>
   );

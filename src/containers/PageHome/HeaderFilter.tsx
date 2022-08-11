@@ -39,7 +39,7 @@ const HeaderFilter: FC<HeaderFilterProps> = ({
           className="sm:space-x-2"
           containerClassName="relative flex w-full overflow-x-auto text-sm md:text-base hiddenScrollbar"
         >
-          {tabs.map((item, index) => (
+          {tabs?.map((item, index) => (
             <NavItem
               key={index}
               isActive={tabActiveState === item}

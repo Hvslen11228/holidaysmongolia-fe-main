@@ -81,7 +81,7 @@ const FlightSearchForm: FC<FlightSearchFormProps> = ({ haveDefaultValue }) => {
     return (
       <div className="">
         <Popover className="relative">
-          {({ open }) => (
+          {({ open }: any) => (
             <>
               <Popover.Button
                 className={`
@@ -130,7 +130,7 @@ const FlightSearchForm: FC<FlightSearchFormProps> = ({ haveDefaultValue }) => {
     return (
       <div className="">
         <Popover className="relative">
-          {({ open, close }) => (
+          {({ open, close }: any) => (
             <>
               <Popover.Button
                 className={`

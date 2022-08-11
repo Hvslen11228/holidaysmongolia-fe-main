@@ -6,7 +6,7 @@ import moment from "moment";
 import { FC } from "react";
 
 // DEFAULT DATA FOR ARCHIVE PAGE
-const defaultLocationValue = "Tokyo, Jappan";
+const defaultLocationValue = "Mongolia";
 const defaultDate = moment();
 const defaultGuestValue: GuestsInputProps["defaultValue"] = {
   guestAdults: 2,
@@ -57,7 +57,6 @@ const ExperiencesSearchForm: FC<ExperiencesSearchFormProps> = ({
           }}
           className="flex-1"
         />
-
         <GuestsInput
           defaultValue={guestValue}
           onChange={(data) => setGuestValue(data)}

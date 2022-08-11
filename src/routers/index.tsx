@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Page } from "./types";
 import ScrollToTop from "./ScrollToTop";
@@ -46,7 +46,9 @@ import ListingFlightsPage from "containers/ListingFlightsPage/ListingFlightsPage
 import FooterNav from "components/FooterNav";
 import useWindowSize from "hooks/useWindowResize";
 import PageHome3 from "containers/PageHome/PageHome3";
-
+import axios from "../axios";
+import AuthContext from "context/AuthContext";
+import data from "../data.json";
 export const pages: Page[] = [
   { path: "/", exact: true, component: PageHome },
   { path: "/#", exact: true, component: PageHome },
@@ -67,7 +69,19 @@ export const pages: Page[] = [
     component: ListingExperiencesMapPage,
   },
   {
+    path: "/listing/:id",
+    component: ListingExperiencesMapPage,
+  },
+  {
+    path: "/listing",
+    component: ListingExperiencesMapPage,
+  },
+  {
     path: "/listing-experiences-detail",
+    component: ListingExperiencesDetailPage,
+  },
+  {
+    path: "/listing-detail/:id",
     component: ListingExperiencesDetailPage,
   },
   //
@@ -112,28 +126,75 @@ export const pages: Page[] = [
 ];
 
 const Routes = () => {
+  const auth: any = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      await auth.HandleData(data[0]);
+      await axios
+        .get(`/verify_token`)
+        .then(async (result: any) => {
+          if (result.data.success) {
+            await auth.HandleLogin(true);
+            await auth.HandleUser(result.data.data);
+          }
+          setLoading(false);
+        })
+        .catch((err: any) => {
+          console.log(err);
+          setLoading(false);
+        });
+    };
+    fetchData();
+  }, []);
   const WIN_WIDTH = useWindowSize().width || window.innerWidth;
   return (
     <BrowserRouter basename="/">
-      <ScrollToTop />
-      <SiteHeader />
+      {!loading && <ScrollToTop />}
+      {!loading && <SiteHeader />}
 
-      <Switch>
-        {pages.map(({ component, path, exact }) => {
-          return (
-            <Route
-              key={path}
-              component={component}
-              exact={!!exact}
-              path={path}
-            />
-          );
-        })}
-        <Route component={Page404} />
-      </Switch>
-
-      {WIN_WIDTH < 768 && <FooterNav />}
-      <Footer />
+      {loading ? (
+        <div>
+          <div className="w-screen h-screen bg-white flex flex-col items-center justify-center">
+            <svg
+              className="animate-spin -ml-1 mr-3 h-10 w-10 text-primary-700"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      ) : (
+        <Switch>
+          {pages.map(({ component, path, exact }) => {
+            return (
+              <Route
+                key={path}
+                component={component}
+                exact={!!exact}
+                path={path}
+              />
+            );
+          })}
+          <Route component={Page404} />
+        </Switch>
+      )}
+      {!loading && WIN_WIDTH < 768 && <FooterNav />}
+      {!loading && <Footer />}
     </BrowserRouter>
   );
 };

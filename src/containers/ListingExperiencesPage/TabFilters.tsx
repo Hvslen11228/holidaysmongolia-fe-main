@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import { Dialog, Popover, Transition } from "@headlessui/react";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import ButtonThird from "shared/Button/ButtonThird";
@@ -6,7 +6,7 @@ import ButtonClose from "shared/ButtonClose/ButtonClose";
 import Checkbox from "shared/Checkbox/Checkbox";
 import convertNumbThousand from "utils/convertNumbThousand";
 import Slider from "rc-slider";
-
+import AuthContext from "context/AuthContext";
 // DEMO DATA
 const typeOfExpriences = [
   {
@@ -26,7 +26,24 @@ const typeOfExpriences = [
     description: "Short description for the experience",
   },
 ];
-
+const typeOfExpriences_mon = [
+  {
+    name: "Хоол, ундаа",
+    description: "Туршлагын товч тайлбар",
+  },
+  {
+    name: "Урлаг, соёл",
+    description: "Туршлагын товч тайлбар",
+  },
+  {
+    name: "Байгаль ба гадаа",
+    description: "Туршлагын товч тайлбар",
+  },
+  {
+    name: "Спорт",
+    description: "Туршлагын товч тайлбар",
+  },
+];
 const timeOfdays = [
   {
     name: "Morning",
@@ -41,12 +58,28 @@ const timeOfdays = [
     description: "Start after 5pm",
   },
 ];
+const timeOfdays_mon = [
+  {
+    name: "Өглөө",
+    description: "12 цагаас өмнө эхэлнэ",
+  },
+  {
+    name: "Үдээс хойш",
+    description: "12 цагаас хойш эхэлнэ",
+  },
+  {
+    name: "Орой",
+    description: "17 цагаас хойш эхэлнэ",
+  },
+];
 
 //
-const moreFilter1 = typeOfExpriences;
-const moreFilter2 = timeOfdays;
 
 const TabFilters = () => {
+  const auth: any = useContext(AuthContext);
+  const moreFilter1 =
+    auth.lang == "mon" ? typeOfExpriences_mon : typeOfExpriences;
+  const moreFilter2 = auth.lang == "mon" ? timeOfdays_mon : timeOfdays;
   const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
   //
   const [isOnSale, setIsOnSale] = useState(true);
@@ -77,14 +110,14 @@ const TabFilters = () => {
   const renderTabsTypeOfPlace = () => {
     return (
       <Popover className="relative">
-        {({ open, close }) => (
+        {({ open, close }: any) => (
           <>
             <Popover.Button
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border border-neutral-300 dark:border-neutral-700 focus:outline-none ${
                 open ? "!border-primary-500 " : ""
               }`}
             >
-              <span>Type of experiences</span>
+              <span>{auth.site_data.Type_of_experiences}</span>
               <i className="las la-angle-down ml-2"></i>
             </Popover.Button>
             <Transition
@@ -111,13 +144,13 @@ const TabFilters = () => {
                   </div>
                   <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird onClick={close} sizeClass="px-4 py-2 sm:px-5">
-                      Clear
+                      {auth.site_data.Clear}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {auth.site_data.Apply}
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -132,14 +165,14 @@ const TabFilters = () => {
   const renderTabsTimeOfDay = () => {
     return (
       <Popover className="relative">
-        {({ open, close }) => (
+        {({ open, close }: any) => (
           <>
             <Popover.Button
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border border-neutral-300 dark:border-neutral-700 focus:outline-none ${
                 open ? "!border-primary-500 " : ""
               }`}
             >
-              <span>Time of day</span>
+              <span>{auth.site_data.Time_of_day}</span>
               <i className="las la-angle-down ml-2"></i>
             </Popover.Button>
             <Transition
@@ -166,13 +199,13 @@ const TabFilters = () => {
                   </div>
                   <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird onClick={close} sizeClass="px-4 py-2 sm:px-5">
-                      Clear
+                      {auth.site_data.Clear}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {auth.site_data.Apply}
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -187,15 +220,17 @@ const TabFilters = () => {
   const renderTabsPriceRage = () => {
     return (
       <Popover className="relative">
-        {({ open, close }) => (
+        {({ open, close }: any) => (
           <>
             <Popover.Button
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-700 focus:outline-none `}
             >
               <span>
-                {`$${convertNumbThousand(
+                {`${auth.site_data.Price_type}${convertNumbThousand(
                   rangePrices[0]
-                )} - $${convertNumbThousand(rangePrices[1])}`}{" "}
+                )} - ${auth.site_data.Price_type}${convertNumbThousand(
+                  rangePrices[1]
+                )}`}{" "}
               </span>
               {renderXClear()}
             </Popover.Button>
@@ -212,7 +247,10 @@ const TabFilters = () => {
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-8">
                     <div className="space-y-5">
-                      <span className="font-medium">Price per day</span>
+                      <span className="font-medium">
+                        {" "}
+                        {auth.site_data.Price}
+                      </span>
                       <Slider
                         range
                         min={0}
@@ -229,12 +267,12 @@ const TabFilters = () => {
                           htmlFor="minPrice"
                           className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                         >
-                          Min price
+                          {auth.site_data.Min_price}
                         </label>
                         <div className="mt-1 relative rounded-md">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <span className="text-neutral-500 sm:text-sm">
-                              $
+                              {auth.site_data.Price_type}
                             </span>
                           </div>
                           <input
@@ -252,12 +290,12 @@ const TabFilters = () => {
                           htmlFor="maxPrice"
                           className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                         >
-                          Max price
+                          {auth.site_data.Max_price}
                         </label>
                         <div className="mt-1 relative rounded-md">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <span className="text-neutral-500 sm:text-sm">
-                              $
+                              {auth.site_data.Price_type}
                             </span>
                           </div>
                           <input
@@ -274,13 +312,13 @@ const TabFilters = () => {
                   </div>
                   <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird onClick={close} sizeClass="px-4 py-2 sm:px-5">
-                      Clear
+                      {auth.site_data.Clear}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {auth.site_data.Apply}
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -302,7 +340,7 @@ const TabFilters = () => {
         }`}
         onClick={() => setIsOnSale(!isOnSale)}
       >
-        <span>On sale</span>
+        <span>{auth.site_data.On_sale}</span>
         {isOnSale && renderXClear()}
       </div>
     );

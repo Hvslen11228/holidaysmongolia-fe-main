@@ -10,7 +10,7 @@ import Badge from "shared/Badge/Badge";
 
 export interface StayCardProps {
   className?: string;
-  data?: StayDataType;
+  data?: any;
   size?: "default" | "small";
 }
 
@@ -34,17 +34,17 @@ const StayCard: FC<StayCardProps> = ({
     price,
     reviewStart,
     reviewCount,
-    id,
+    _id,
   } = data;
 
   const renderSliderGallery = () => {
     return (
       <div className="relative w-full">
         <GallerySlider
-          uniqueID={`StayCard_${id}`}
+          uniqueID={`StayCard_${_id}`}
           ratioClass="aspect-w-4 aspect-h-3 "
           galleryImgs={galleryImgs}
-          href={href}
+          href={href + "/" + _id}
         />
         <BtnLikeIcon isLiked={like} className="absolute right-3 top-3 z-[1]" />
         {saleOff && <SaleOffBadge className="absolute left-3 top-3" />}
@@ -57,7 +57,7 @@ const StayCard: FC<StayCardProps> = ({
       <div className={size === "default" ? "p-4 space-y-4" : "p-3 space-y-2"}>
         <div className="space-y-2">
           <span className="text-sm text-neutral-500 dark:text-neutral-400">
-            {listingCategory.name} · {bedrooms} beds
+            {listingCategory.name}
           </span>
           <div className="flex items-center space-x-2">
             {isAds && <Badge name="ADS" color="green" />}
@@ -97,15 +97,7 @@ const StayCard: FC<StayCardProps> = ({
         </div>
         <div className="w-14 border-b border-neutral-100 dark:border-neutral-800"></div>
         <div className="flex justify-between items-center">
-          <span className="text-base font-semibold">
-            {price}
-            {` `}
-            {size === "default" && (
-              <span className="text-sm text-neutral-500 dark:text-neutral-400 font-normal">
-                /night
-              </span>
-            )}
-          </span>
+          <span className="text-base font-semibold">{price}</span>
           {!!reviewStart && (
             <StartRating reviewCount={reviewCount} point={reviewStart} />
           )}

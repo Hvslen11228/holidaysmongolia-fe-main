@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FC } from "react";
 import { useEffect } from "react";
 import ClearDataButton from "./ClearDataButton";
 import { useRef } from "react";
-
+import axios from "../../axios";
+import AuthContext from "../../context/AuthContext";
 export interface LocationInputProps {
   defaultValue: string;
   onChange?: (value: string) => void;
@@ -23,11 +24,30 @@ const LocationInput: FC<LocationInputProps> = ({
   desc = "Where are you going?",
   className = "nc-flex-1.5",
 }) => {
+  const auth: any = useContext(AuthContext);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [value, setValue] = useState(defaultValue);
   const [showPopover, setShowPopover] = useState(autoFocus);
+
+  const [locations, setData] = useState<any>([]);
+  const getData = async () => {
+    try {
+      const { data } = await axios.get(`/fun/location`);
+      setData(data?.data);
+    } catch (error) {
+      setData([
+        "Hamptons, Suffolk County, NY",
+        "Las Vegas, NV, United States",
+        "Ueno, Taito, Tokyo",
+        "Ikebukuro, Toshima, Tokyo",
+      ]);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
 
   useEffect(() => {
     setValue(defaultValue);
@@ -73,15 +93,12 @@ const LocationInput: FC<LocationInputProps> = ({
     return (
       <>
         <h3 className="block mt-2 sm:mt-0 px-4 sm:px-8 font-semibold text-base sm:text-lg text-neutral-800 dark:text-neutral-100">
-          Recent searches
+          {auth.site_data.home.first.Recent_searches
+            ? auth.site_data.home.first.Recent_searches
+            : "Recent searches"}
         </h3>
         <div className="mt-2">
-          {[
-            "Hamptons, Suffolk County, NY",
-            "Las Vegas, NV, United States",
-            "Ueno, Taito, Tokyo",
-            "Ikebukuro, Toshima, Tokyo",
-          ].map((item) => (
+          {locations.map((item: any) => (
             <span
               onClick={() => handleSelectLocation(item)}
               key={item}
@@ -116,12 +133,7 @@ const LocationInput: FC<LocationInputProps> = ({
   const renderSearchValue = () => {
     return (
       <>
-        {[
-          "Ha Noi, Viet Nam",
-          "San Diego, CA",
-          "Humboldt Park, Chicago, IL",
-          "Bangor, Northern Ireland",
-        ].map((item) => (
+        {locations.map((item: any) => (
           <span
             onClick={() => handleSelectLocation(item)}
             key={item}
@@ -191,7 +203,7 @@ const LocationInput: FC<LocationInputProps> = ({
         <div className="flex-grow">
           <input
             className={`block w-full bg-transparent border-none focus:ring-0 p-0 focus:outline-none focus:placeholder-neutral-300 xl:text-lg font-semibold placeholder-neutral-800 dark:placeholder-neutral-200 truncate`}
-            placeholder={placeHolder}
+            placeholder={auth.site_data.home.first.placeHolder}
             value={value}
             autoFocus={showPopover}
             onChange={(e) => {
@@ -201,7 +213,11 @@ const LocationInput: FC<LocationInputProps> = ({
             ref={inputRef}
           />
           <span className="block mt-0.5 text-sm text-neutral-400 font-light ">
-            <span className="line-clamp-1">{!!value ? placeHolder : desc}</span>
+            <span className="line-clamp-1">
+              {!!value
+                ? auth.site_data.home.first.placeHolder
+                : auth.site_data.home.first.desc}
+            </span>
           </span>
           {value && showPopover && (
             <ClearDataButton

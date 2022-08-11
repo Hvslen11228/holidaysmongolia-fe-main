@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import NcInputNumber from "components/NcInputNumber/NcInputNumber";
 import { FC } from "react";
@@ -6,7 +6,7 @@ import ClearDataButton from "./ClearDataButton";
 import ButtonSubmit from "./ButtonSubmit";
 import { GuestsObject } from "components/HeroSearchForm2Mobile/GuestsInput";
 import { PathName } from "routers/types";
-
+import AuthContext from "context/AuthContext";
 export interface GuestsInputProps {
   defaultValue: GuestsObject;
   onChange?: (data: GuestsObject) => void;
@@ -24,6 +24,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
   buttonSubmitHref = "/listing-stay-map",
   hasButtonSubmit = true,
 }) => {
+  const auth: any = useContext(AuthContext);
   const [guestAdultsInputValue, setGuestAdultsInputValue] = useState(
     defaultValue.guestAdults || 0
   );
@@ -66,7 +67,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
 
   return (
     <Popover className={`flex relative ${className}`}>
-      {({ open }) => (
+      {({ open }: any) => (
         <>
           <div
             className={`flex-1 flex items-center focus:outline-none cursor-pointer ${
@@ -95,10 +96,12 @@ const GuestsInput: FC<GuestsInputProps> = ({
               </div>
               <div className="flex-grow">
                 <span className="block xl:text-lg font-semibold">
-                  {totalGuests || ""} Guests
+                  {totalGuests || ""} {auth.site_data.guests}
                 </span>
                 <span className="block mt-1 text-sm text-neutral-400 leading-none font-light">
-                  {totalGuests ? "Guests" : "Add guests"}
+                  {totalGuests
+                    ? auth.site_data.guests
+                    : auth.site_data.add_guests}
                 </span>
               </div>
             </Popover.Button>
@@ -118,7 +121,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
             {/* BUTTON SUBMIT OF FORM */}
             {hasButtonSubmit && (
               <div className="pr-2 xl:pr-4">
-                <ButtonSubmit href={buttonSubmitHref} />
+                <ButtonSubmit href={auth.site_data.home_search_button_href} />
               </div>
             )}
           </div>
@@ -138,16 +141,16 @@ const GuestsInput: FC<GuestsInputProps> = ({
                 onChange={(value) => handleChangeData(value, "guestAdults")}
                 max={10}
                 min={1}
-                label="Adults"
-                desc="Ages 13 or above"
+                label={auth.site_data.Adults}
+                desc={auth.site_data.Adults_age}
               />
               <NcInputNumber
                 className="w-full mt-6"
                 defaultValue={guestChildrenInputValue}
                 onChange={(value) => handleChangeData(value, "guestChildren")}
                 max={4}
-                label="Children"
-                desc="Ages 2–12"
+                label={auth.site_data.Children}
+                desc={auth.site_data.Children_age}
               />
 
               <NcInputNumber
@@ -155,8 +158,8 @@ const GuestsInput: FC<GuestsInputProps> = ({
                 defaultValue={guestInfantsInputValue}
                 onChange={(value) => handleChangeData(value, "guestInfants")}
                 max={4}
-                label="Infants"
-                desc="Ages 0–2"
+                label={auth.site_data.Infants}
+                desc={auth.site_data.Infants_age}
               />
             </Popover.Panel>
           </Transition>

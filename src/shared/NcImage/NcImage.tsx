@@ -19,6 +19,11 @@ const NcImage: FC<NcImageProps> = ({
   className = "object-cover w-full h-full",
   ...args
 }) => {
+  if (!src.includes("http")) {
+    if (src.includes("holidays")) {
+      src = `${process.env.REACT_APP_CDN_URL}${src}`;
+    }
+  }
   let isMounted = false;
   const _containerRef = useRef(null);
   let _imageEl: HTMLImageElement | null = null;

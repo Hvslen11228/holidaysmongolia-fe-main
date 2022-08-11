@@ -10,7 +10,8 @@ function setCookie(c_name: any, value: any, exdays: any) {
 export const AuthContextProvider = (props: any) => {
   const [logged, setLogged] = useState(false);
   const [token, setToken] = useState("");
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState<any>([]);
+  const [site_data, set_site_data] = useState<any>([]);
   const HandleLogin = (type: any) => {
     setLogged(type);
   };
@@ -21,15 +22,21 @@ export const AuthContextProvider = (props: any) => {
   const HandleUser = (data: any) => {
     setUser(data);
   };
+  const HandleData = (data: any) => {
+    console.log("->", data);
+    set_site_data(data);
+  };
   return (
     <AuthContext.Provider
       value={{
         token,
         logged,
         user,
+        site_data,
         HandleLogin,
         HandleToken,
         HandleUser,
+        HandleData,
       }}
     >
       {props.children}

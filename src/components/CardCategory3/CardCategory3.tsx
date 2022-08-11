@@ -1,32 +1,41 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import NcImage from "shared/NcImage/NcImage";
 import { TaxonomyType } from "data/types";
 import { Link } from "react-router-dom";
 import convertNumbThousand from "utils/convertNumbThousand";
-
+import AuthContext from "context/AuthContext";
 export interface CardCategory3Props {
   className?: string;
-  taxonomy: TaxonomyType;
+  taxonomy: any;
 }
 
 const CardCategory3: FC<CardCategory3Props> = ({
   className = "",
   taxonomy,
 }) => {
-  const { count, name, href = "/", thumbnail } = taxonomy;
+  const auth: any = useContext(AuthContext);
+  const { count, name, href = "/", thumbnail, _id } = taxonomy;
   return (
     <Link
-      to={href}
+      to={href + "/" + _id}
       className={`nc-CardCategory3 flex flex-col ${className}`}
       data-nc-id="CardCategory3"
     >
       <div
         className={`flex-shrink-0 relative w-full aspect-w-5 aspect-h-4 sm:aspect-h-7 h-0 rounded-2xl overflow-hidden group`}
       >
-        <NcImage
-          src={thumbnail}
-          className="object-cover w-full h-full rounded-2xl"
-        />
+        {thumbnail?.includes("http") ? (
+          <NcImage
+            src={thumbnail}
+            className="object-cover w-full h-full rounded-2xl"
+          />
+        ) : (
+          <NcImage
+            src={`${process.env.REACT_APP_CDN_URL}${thumbnail}`}
+            className="object-cover w-full h-full rounded-2xl"
+          />
+        )}
+
         <span className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"></span>
       </div>
       <div className="mt-4 truncate">
@@ -38,7 +47,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
         <span
           className={`block mt-2 text-sm text-neutral-6000 dark:text-neutral-400`}
         >
-          {convertNumbThousand(count || 0)} properties
+          {convertNumbThousand(count || 0)} {auth.site_data.properties}
         </span>
       </div>
     </Link>

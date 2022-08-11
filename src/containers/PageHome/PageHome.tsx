@@ -148,7 +148,7 @@ function PageHome() {
         <SectionHowItWork />
 
         {/* SECTION 1 */}
-        <div className="relative py-16">
+        {/* <div className="relative py-16">
           <BackgroundSection className="bg-orange-50 dark:bg-black dark:bg-opacity-20 " />
           <SectionSliderNewCategories
             categories={DEMO_CATS_2}
@@ -159,10 +159,7 @@ function PageHome() {
             sliderStyle="style2"
             uniqueClassName="PageHome_s2"
           />
-        </div>
-
-        {/* SECTION */}
-        <SectionSubscribe2 />
+        </div> */}
 
         {/* SECTION */}
         <div className="relative py-16">
@@ -171,31 +168,15 @@ function PageHome() {
         </div>
 
         {/* SECTION */}
-        <SectionGridCategoryBox />
-
+        <SectionSubscribe2 />
         {/* SECTION */}
         <div className="relative py-16">
           <BackgroundSection />
           <SectionBecomeAnAuthor />
         </div>
 
-        {/* SECTION 1 */}
-        <SectionSliderNewCategories
-          heading="Explore by types of stays"
-          subHeading="Explore houses based on 10 types of stays"
-          categoryCardType="card5"
-          itemPerRow={5}
-          uniqueClassName="PageHome_s3"
-        />
-
         {/* SECTION */}
         <SectionVideos />
-
-        {/* SECTION */}
-        <div className="relative py-16">
-          <BackgroundSection />
-          <SectionClientSay uniqueClassName="PageHome_" />
-        </div>
       </div>
     </div>
   );
