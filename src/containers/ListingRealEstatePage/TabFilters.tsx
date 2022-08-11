@@ -5,7 +5,7 @@ import ButtonThird from "shared/Button/ButtonThird";
 import ButtonClose from "shared/ButtonClose/ButtonClose";
 import Checkbox from "shared/Checkbox/Checkbox";
 import convertNumbThousand from "utils/convertNumbThousand";
-import { Range } from "rc-slider";
+import Slider from "rc-slider";
 import NcInputNumber from "components/NcInputNumber/NcInputNumber";
 
 // DEMO DATA
@@ -196,12 +196,13 @@ const TabFilters = () => {
                   <div className="relative flex flex-col px-5 py-6 space-y-8">
                     <div className="space-y-5">
                       <span className="font-medium">Price per day</span>
-                      <Range
+                      <Slider
+                        range
                         min={0}
                         max={2000}
                         defaultValue={[rangePrices[0], rangePrices[1]]}
                         allowCross={false}
-                        onChange={setRangePrices}
+                        onChange={(e) => setRangePrices(e as number[])}
                       />
                     </div>
 
@@ -224,7 +225,7 @@ const TabFilters = () => {
                             name="minPrice"
                             disabled
                             id="minPrice"
-                            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
+                            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-3 sm:text-sm"
                             value={rangePrices[0]}
                           />
                         </div>
@@ -247,7 +248,7 @@ const TabFilters = () => {
                             disabled
                             name="maxPrice"
                             id="maxPrice"
-                            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
+                            className="pl-7 pr-3 "
                             value={rangePrices[1]}
                           />
                         </div>
@@ -300,7 +301,7 @@ const TabFilters = () => {
     const list1 = data.filter((_, i) => i < data.length / 2);
     const list2 = data.filter((_, i) => i >= data.length / 2);
     return (
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-2 gap-8">
         <div className="flex flex-col space-y-5">
           {list1.map((item) => (
             <Checkbox
@@ -367,7 +368,7 @@ const TabFilters = () => {
                 &#8203;
               </span>
               <Transition.Child
-                className="inline-block py-8 h-screen w-full"
+                className="inline-block py-8 px-2 h-screen w-full max-w-4xl"
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -389,7 +390,7 @@ const TabFilters = () => {
                   </div>
 
                   <div className="flex-grow overflow-y-auto">
-                    <div className="px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
+                    <div className="px-4 sm:px-6 divide-y divide-neutral-200 dark:divide-neutral-800">
                       <div className="py-7">
                         <h3 className="text-xl font-medium">
                           Type of experiences
@@ -416,13 +417,14 @@ const TabFilters = () => {
                         <div className="mt-6 relative ">
                           <div className="relative flex flex-col space-y-8">
                             <div className="space-y-5">
-                              <Range
+                              <Slider
+                                range
                                 className="text-red-400"
                                 min={0}
                                 max={2000}
                                 defaultValue={[0, 1000]}
                                 allowCross={false}
-                                onChange={setRangePrices}
+                                onChange={(e) => setRangePrices(e as number[])}
                               />
                             </div>
 
@@ -445,7 +447,7 @@ const TabFilters = () => {
                                     name="minPrice"
                                     disabled
                                     id="minPrice"
-                                    className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
+                                    className=" w-full pl-7 pr-3"
                                     value={rangePrices[0]}
                                   />
                                 </div>
@@ -468,7 +470,7 @@ const TabFilters = () => {
                                     disabled
                                     name="maxPrice"
                                     id="maxPrice"
-                                    className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
+                                    className=" pl-7 pr-3 "
                                     value={rangePrices[1]}
                                   />
                                 </div>
@@ -480,7 +482,7 @@ const TabFilters = () => {
                     </div>
                   </div>
 
-                  <div className="p-6 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                  <div className="p-4 sm:p-6 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird
                       onClick={closeModalMoreFilter}
                       sizeClass="px-4 py-2 sm:px-5"

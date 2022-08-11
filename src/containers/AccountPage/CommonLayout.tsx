@@ -2,7 +2,9 @@ import React from "react";
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 
-export interface CommonLayoutProps {}
+export interface CommonLayoutProps {
+  children?: React.ReactNode;
+}
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   return (
@@ -17,7 +19,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
             >
               Account info
             </NavLink>
-            {/* <NavLink
+            <NavLink
               activeClassName="!border-primary-500"
               to="/account-savelists"
               className="block py-5 md:py-8 border-b-2 border-transparent flex-shrink-0"
@@ -37,7 +39,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
               className="block py-5 md:py-8 border-b-2 border-transparent flex-shrink-0"
             >
               Change Billing
-            </NavLink> */}
+            </NavLink>
           </div>
         </div>
       </div>

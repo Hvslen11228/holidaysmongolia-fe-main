@@ -39,11 +39,12 @@ const ExperiencesCard: FC<ExperiencesCardProps> = ({
 
   const renderSliderGallery = () => {
     return (
-      <div className="relative w-full rounded-2xl overflow-hidden">
+      <div className="relative w-full rounded-2xl overflow-hidden will-change-transform">
         <GallerySlider
           uniqueID={`ExperiencesCard_${id}`}
           ratioClass={ratioClass}
           galleryImgs={galleryImgs}
+          href={href}
         />
         <BtnLikeIcon isLiked={like} className="absolute right-3 top-3" />
         {saleOff && <SaleOffBadge className="absolute left-3 top-3" />}
@@ -114,10 +115,8 @@ const ExperiencesCard: FC<ExperiencesCardProps> = ({
       className={`nc-ExperiencesCard group relative ${className}`}
       data-nc-id="ExperiencesCard"
     >
-      <Link to={href}>
-        {renderSliderGallery()}
-        {renderContent()}
-      </Link>
+      {renderSliderGallery()}
+      <Link to={href}>{renderContent()}</Link>
     </div>
   );
 };

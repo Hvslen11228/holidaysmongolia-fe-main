@@ -1,5 +1,5 @@
 import Label from "components/Label/Label";
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import Avatar from "shared/Avatar/Avatar";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import Input from "shared/Input/Input";
@@ -7,15 +7,12 @@ import Select from "shared/Select/Select";
 import Textarea from "shared/Textarea/Textarea";
 import CommonLayout from "./CommonLayout";
 import { Helmet } from "react-helmet";
-import AuthContext from "Context/AuthContext";
-import axios from "../../axios";
+
 export interface AccountPageProps {
   className?: string;
 }
 
 const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
-  const auth = useContext(AuthContext);
-  console.log(auth.user);
   return (
     <div className={`nc-AccountPage ${className}`} data-nc-id="AccountPage">
       <Helmet>
@@ -58,7 +55,7 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
             <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
               <div>
                 <Label>Name</Label>
-                <Input className="mt-1.5" defaultValue={auth.user.user_name} />
+                <Input className="mt-1.5" defaultValue="Eden Tuan" />
               </div>
               {/* ---- */}
               <div>
@@ -71,22 +68,37 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
               </div>
               {/* ---- */}
               <div>
-                <Label>User ID</Label>
-                <Input className="mt-1.5" defaultValue={auth.user.user_id} />
+                <Label>Username</Label>
+                <Input className="mt-1.5" defaultValue="@eden_tuan" />
               </div>
               {/* ---- */}
               <div>
                 <Label>Email</Label>
-                <Input className="mt-1.5" defaultValue={auth.user.user_email} />
+                <Input className="mt-1.5" defaultValue="example@email.com" />
               </div>
               {/* ---- */}
               <div className="max-w-lg">
-                <Label>Date of created</Label>
+                <Label>Date of birth</Label>
                 <Input
                   className="mt-1.5"
                   type="date"
-                  defaultValue={auth.user.user_date}
+                  defaultValue="1990-07-22"
                 />
+              </div>
+              {/* ---- */}
+              <div>
+                <Label>Addess</Label>
+                <Input className="mt-1.5" defaultValue="New york, USA" />
+              </div>
+              {/* ---- */}
+              <div>
+                <Label>Phone number</Label>
+                <Input className="mt-1.5" defaultValue="003 888 232" />
+              </div>
+              {/* ---- */}
+              <div>
+                <Label>About you</Label>
+                <Textarea className="mt-1.5" defaultValue="..." />
               </div>
               <div className="pt-2">
                 <ButtonPrimary>Update info</ButtonPrimary>

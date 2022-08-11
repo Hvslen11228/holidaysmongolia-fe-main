@@ -2,10 +2,8 @@ import Heading from "shared/Heading/Heading";
 import NcImage from "shared/NcImage/NcImage";
 import NcPlayIcon from "shared/NcPlayIcon/NcPlayIcon";
 import NcPlayIcon2 from "shared/NcPlayIcon2/NcPlayIcon2";
-import React, { FC, useState, useEffect, useContext } from "react";
-import Lang from "../../data/jsons/lang.json";
-import axios from "../../axios";
-import AuthContext from "Context/AuthContext";
+import React, { FC, useState } from "react";
+
 export interface VideoType {
   id: string;
   title: string;
@@ -19,7 +17,7 @@ export interface SectionVideosProps {
 
 const VIDEOS_DEMO: VideoType[] = [
   {
-    id: "NcRifDitRnU",
+    id: "Ao7e4iisKMs",
     title: "Magical Scotland - 4K Scenic Relaxation Film with Calming Music",
     thumbnail:
       "https://images.pexels.com/photos/131423/pexels-photo-131423.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
@@ -54,24 +52,14 @@ const SectionVideos: FC<SectionVideosProps> = ({
   videos = VIDEOS_DEMO,
   className = "",
 }) => {
-  const auth = useContext(AuthContext);
   const [isPlay, setIsPlay] = useState(false);
   const [currentVideo, setCurrentVideo] = useState(0);
-  const [data, setData] = useState(videos);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const api_menu_1 = await axios.get(`/function/video`);
-      setData(api_menu_1.data.data);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+
   const renderMainVideo = () => {
-    const video: VideoType = data[currentVideo];
+    const video: VideoType = videos[currentVideo];
     return (
       <div
-        className="group aspect-w-16 aspect-h-16 sm:aspect-h-9 bg-neutral-800 rounded-3xl overflow-hidden border-4 border-white dark:border-neutral-900 sm:rounded-[50px] sm:border-[10px]"
+        className="group aspect-w-16 aspect-h-16 sm:aspect-h-9 bg-neutral-800 rounded-3xl overflow-hidden border-4 border-white dark:border-neutral-900 sm:rounded-[50px] sm:border-[10px] will-change-transform"
         title={video.title}
       >
         {isPlay ? (
@@ -107,7 +95,7 @@ const SectionVideos: FC<SectionVideosProps> = ({
     if (index === currentVideo) return null;
     return (
       <div
-        className="group relative aspect-h-16 aspect-w-16 rounded-2xl cursor-pointer overflow-hidden sm:aspect-h-12 sm:rounded-3xl lg:aspect-h-9"
+        className="group relative aspect-h-16 aspect-w-16 rounded-2xl cursor-pointer overflow-hidden sm:aspect-h-12 sm:rounded-3xl lg:aspect-h-9 will-change-transform"
         onClick={() => {
           setCurrentVideo(index);
           !isPlay && setIsPlay(true);
@@ -131,8 +119,11 @@ const SectionVideos: FC<SectionVideosProps> = ({
 
   return (
     <div className={`nc-SectionVideos ${className}`}>
-      <Heading desc={auth.language.The_Videos_desc}>
-        🎬 {auth.language.The_Videos}
+      <Heading
+        desc="Check out our hottest videos. View more and share more new
+          perspectives on just about any topic. Everyone’s welcome."
+      >
+        🎬 The Videos
       </Heading>
 
       <div className="flex flex-col relative sm:pr-4 sm:py-4 md:pr-6 md:py-6 xl:pr-14 xl:py-14 lg:flex-row">
@@ -141,7 +132,7 @@ const SectionVideos: FC<SectionVideosProps> = ({
           {renderMainVideo()}
         </div>
         <div className="flex-shrink-0 grid gap-2 grid-cols-4 sm:gap-6 lg:grid-cols-1 lg:w-36 xl:w-40">
-          {data.map(renderSubVideo)}
+          {videos.map(renderSubVideo)}
         </div>
       </div>
     </div>

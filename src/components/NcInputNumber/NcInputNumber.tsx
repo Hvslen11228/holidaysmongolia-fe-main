@@ -23,16 +23,22 @@ const NcInputNumber: FC<NcInputNumberProps> = ({
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
-    onChange && onChange(value);
-  }, [value]);
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   const handleClickDecrement = () => {
     if (min >= value) return;
-    setValue((state) => state - 1);
+    setValue((state) => {
+      return state - 1;
+    });
+    onChange && onChange(value - 1);
   };
   const handleClickIncrement = () => {
     if (max && max <= value) return;
-    setValue((state) => state + 1);
+    setValue((state) => {
+      return state + 1;
+    });
+    onChange && onChange(value + 1);
   };
 
   const renderLabel = () => {

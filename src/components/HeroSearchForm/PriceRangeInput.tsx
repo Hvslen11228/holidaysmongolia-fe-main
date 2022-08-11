@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { FC } from "react";
-import { Range } from "rc-slider";
+import Slider from "rc-slider";
 import convertNumbThousand from "utils/convertNumbThousand";
+import ButtonSubmit from "./ButtonSubmit";
 
 export interface PriceRangeInputProps {
   onChange?: (data: any) => void;
@@ -16,65 +17,76 @@ const PriceRangeInput: FC<PriceRangeInputProps> = ({
   const [rangePrices, setRangePrices] = useState([100000, 4000000]);
 
   return (
-    <Popover className="flex relative [ nc-flex-1 ]">
+    <Popover className="flex relative flex-[1.3]">
       {({ open, close }) => (
         <>
-          <Popover.Button
-            className={`flex text-left w-full flex-shrink-0 items-center ${fieldClassName} space-x-3 focus:outline-none cursor-pointer ${
+          <div
+            className={`flex-1 flex items-center focus:outline-none cursor-pointer ${
               open ? "nc-hero-field-focused" : ""
             }`}
           >
-            <div className="text-neutral-300 dark:text-neutral-400">
-              <svg
-                className="nc-icon-field nc-icon-field-2"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="7.25"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                ></circle>
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M14.25 8.75H11.375C10.4775 8.75 9.75 9.47754 9.75 10.375V10.375C9.75 11.2725 10.4775 12 11.375 12H12.625C13.5225 12 14.25 12.7275 14.25 13.625V13.625C14.25 14.5225 13.5225 15.25 12.625 15.25H9.75"
-                ></path>
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M12 7.75V8.25"
-                ></path>
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M12 15.75V16.25"
-                ></path>
-              </svg>
+            <Popover.Button
+              className={`flex-1 flex text-left items-center focus:outline-none ${fieldClassName} space-x-3 `}
+              onClick={() => document.querySelector("html")?.click()}
+            >
+              <div className="text-neutral-300 dark:text-neutral-400">
+                <svg
+                  className="nc-icon-field nc-icon-field-2"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="7.25"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  ></circle>
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="M14.25 8.75H11.375C10.4775 8.75 9.75 9.47754 9.75 10.375V10.375C9.75 11.2725 10.4775 12 11.375 12H12.625C13.5225 12 14.25 12.7275 14.25 13.625V13.625C14.25 14.5225 13.5225 15.25 12.625 15.25H9.75"
+                  ></path>
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="M12 7.75V8.25"
+                  ></path>
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="M12 15.75V16.25"
+                  ></path>
+                </svg>
+              </div>
+              <div className="flex-grow">
+                <span className="block xl:text-lg font-semibold truncate">
+                  {`$${convertNumbThousand(
+                    rangePrices[0] / 1000
+                  )}k ~ $${convertNumbThousand(rangePrices[1] / 1000)}k`}
+                </span>
+                <span className="block mt-1 text-sm text-neutral-400 leading-none font-light ">
+                  Choose price range
+                </span>
+              </div>
+            </Popover.Button>
+
+            {/* BUTTON SUBMIT OF FORM */}
+            <div className="pr-2 xl:pr-4">
+              <ButtonSubmit href="/listing-real-estate" />
             </div>
-            <div className="flex-grow">
-              <span className="block xl:text-lg font-semibold truncate">
-                {`$${convertNumbThousand(
-                  rangePrices[0] / 1000
-                )}k ~ $${convertNumbThousand(rangePrices[1] / 1000)}k`}
-              </span>
-              <span className="block mt-1 text-sm text-neutral-400 leading-none font-light ">
-                Choose price range
-              </span>
-            </div>
-          </Popover.Button>
+          </div>
+
           <Transition
             as={Fragment}
             enter="transition ease-out duration-200"
@@ -88,14 +100,15 @@ const PriceRangeInput: FC<PriceRangeInputProps> = ({
               <div className="relative flex flex-col space-y-8">
                 <div className="space-y-5">
                   <span className="font-medium">Range Price </span>
-                  <Range
+                  <Slider
+                    range
                     className="text-red-400"
                     min={10000}
                     max={10000000}
                     defaultValue={[rangePrices[0], rangePrices[1]]}
                     allowCross={false}
                     step={1000}
-                    onChange={setRangePrices}
+                    onChange={(e) => setRangePrices(e as number[])}
                   />
                 </div>
 

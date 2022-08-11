@@ -4,6 +4,7 @@ import NextPrev from "shared/NextPrev/NextPrev";
 import ButtonClose from "shared/ButtonClose/ButtonClose";
 import Glide from "@glidejs/glide";
 import NcImage from "shared/NcImage/NcImage";
+import useNcId from "hooks/useNcId";
 
 export interface ModalPhotosProps {
   imgs: string[];
@@ -20,7 +21,8 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
   initFocus = 0,
   uniqueClassName = "",
 }) => {
-  const UNIQUE_CLASS = `ModalPhotos_single_glide_${uniqueClassName}`;
+  const UNIQUE_CLASS =
+    `ModalPhotos_single_glide_${uniqueClassName}` + useNcId();
   let completeButtonRef = useRef(null);
 
   let MY_GLIDEJS = useMemo(() => {
@@ -46,7 +48,7 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
   const renderSlider = () => {
     return (
       <div
-        className={`${UNIQUE_CLASS} group relative flex flex-col z-50 w-full h-full`}
+        className={`modalPhotos-single-gallery ${UNIQUE_CLASS} group relative flex flex-col z-50 w-full h-full`}
       >
         {/*  */}
         <div

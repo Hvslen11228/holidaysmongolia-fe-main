@@ -16,9 +16,9 @@
   @apply hidden;
 }
 
-.DateRangePickerInput_clearDates,
-.SingleDatePickerInput_clearDate {
-  @apply z-50 w-6 h-6 p-0 flex items-center justify-center;
+body .DateRangePickerInput_clearDates,
+body .SingleDatePickerInput_clearDate {
+  @apply z-30 w-6 h-6 p-0 flex items-center justify-center;
 }
 
 .DateInput {
@@ -39,10 +39,11 @@
 }
 
 .RentalCarDatesRangeInput {
+  @apply flex;
   .DateInput {
-    @apply absolute top-0 h-1/2 xl:h-full xl:bottom-0 left-0 w-full xl:w-1/2 z-20;
+    @apply absolute top-0 bottom-0 left-0 w-1/2 z-20;
     & ~ .DateInput {
-      @apply top-auto xl:top-0 bottom-0 xl:left-auto right-0;
+      @apply top-0 bottom-0 left-auto right-0;
     }
   }
   &.RentalCarDetailPageDatesRangeInput {
@@ -55,6 +56,15 @@
   }
 }
 
+.nc-ListingStayDetailPage__stayDatesRangeInput {
+  .DateInput {
+    @apply absolute top-0 bottom-0 h-full left-0 w-1/2 z-20;
+    & ~ .DateInput {
+      @apply top-0 bottom-0 left-auto right-0;
+    }
+  }
+}
+
 .nc-date-not-focusedInput {
   .DateRangePickerInput .DateRangePickerInput_clearDates,
   .SingleDatePickerInput_clearDate {
@@ -63,9 +73,6 @@
 }
 
 .DateRangePickerInput > * {
-  // opacity: 0 !important;
-  // z-index: -1 !important;
-  // &.DateRangePicker_picker,
   &.DateRangePickerInput_clearDates {
     @apply z-20;
   }
@@ -81,6 +88,7 @@
     @apply z-20;
   }
 }
+
 .SingleDatePickerInput {
   background: transparent;
 }
@@ -97,6 +105,9 @@
   @apply w-4 h-4;
 }
 
+.CalendarMonth_caption {
+  @apply mb-3;
+}
 .CalendarMonth_caption strong {
   @apply font-semibold text-neutral-800 dark:text-neutral-100;
 }
@@ -170,6 +181,24 @@
       transform: rotate(-40deg);
       background-color: black;
       position: absolute;
+    }
+  }
+}
+
+//
+.HeroSearchFormMobile__Dialog {
+  .DayPicker {
+    @apply min-w-full shadow-none;
+  }
+
+  .CalendarMonth_caption {
+    @apply text-base pt-4;
+  }
+
+  .DayPickerNavigation_button__verticalDefault {
+    @apply inline-flex items-center justify-center shadow-none dark:bg-neutral-800 dark:border-neutral-700;
+    svg {
+      @apply w-6 dark:fill-white;
     }
   }
 }

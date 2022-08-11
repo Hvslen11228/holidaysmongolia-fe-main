@@ -5,13 +5,16 @@ import LocationMarker from "components/AnyReactComponent/LocationMarker";
 import CommentListing from "components/CommentListing/CommentListing";
 import FiveStartIconForRate from "components/FiveStartIconForRate/FiveStartIconForRate";
 import GuestsInput from "components/HeroSearchForm/GuestsInput";
-import StayDatesRangeInput from "components/HeroSearchForm/StayDatesRangeInput";
 import { DateRage } from "components/HeroSearchForm/StaySearchForm";
 import StartRating from "components/StartRating/StartRating";
 import GoogleMapReact from "google-map-react";
 import useWindowSize from "hooks/useWindowResize";
 import moment from "moment";
-import { DayPickerRangeController, FocusedInputShape } from "react-dates";
+import {
+  DayPickerRangeController,
+  FocusedInputShape,
+  isInclusivelyAfterDay,
+} from "react-dates";
 import Avatar from "shared/Avatar/Avatar";
 import Badge from "shared/Badge/Badge";
 import ButtonCircle from "shared/Button/ButtonCircle";
@@ -25,6 +28,8 @@ import ModalPhotos from "./ModalPhotos";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import SectionSliderNewCategories from "components/SectionSliderNewCategories/SectionSliderNewCategories";
 import SectionSubscribe2 from "components/SectionSubscribe2/SectionSubscribe2";
+import StayDatesRangeInput from "components/HeroSearchForm/StayDatesRangeInput";
+import MobileFooterSticky from "./MobileFooterSticky";
 
 export interface ListingStayDetailPageProps {
   className?: string;
@@ -80,10 +85,9 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [openFocusIndex, setOpenFocusIndex] = useState(0);
   const [selectedDate, setSelectedDate] = useState<DateRage>({
-    startDate: moment(),
-    endDate: moment().add(4, "days"),
+    startDate: moment().add(4, "days"),
+    endDate: moment().add(10, "days"),
   });
-
   const [focusedInputSectionCheckDate, setFocusedInputSectionCheckDate] =
     useState<FocusedInputShape>("startDate");
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
@@ -284,8 +288,8 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block py-8 h-screen w-full">
-                <div className="inline-flex flex-col w-full max-w-4xl text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full">
+              <div className="inline-block py-8 h-screen w-full max-w-4xl">
+                <div className="inline-flex pb-2 flex-col w-full text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full">
                   <div className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                     <h3
                       className="text-lg font-medium leading-6 text-gray-900"
@@ -301,7 +305,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({
                     {Amenities_demos.filter((_, i) => i < 1212).map((item) => (
                       <div
                         key={item.name}
-                        className="flex items-center py-6 space-x-8"
+                        className="flex items-center py-2.5 sm:py-4 lg:py-5 space-x-5 lg:space-x-8"
                       >
                         <i
                           className={`text-4xl text-neutral-6000 las ${item.icon}`}
@@ -390,6 +394,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({
               numberOfMonths={windowSize.width < 1280 ? 1 : 2}
               daySize={getDaySize()}
               hideKeyboardShortcutsPanel={false}
+              isOutsideRange={(day) => !isInclusivelyAfterDay(day, moment())}
             />
           </div>
         </div>
@@ -553,10 +558,10 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({
           <div className="rounded-xl overflow-hidden">
             <GoogleMapReact
               bootstrapURLKeys={{
-                key: "AIzaSyDxJaU8bLdx7sSJ8fcRdhYS1pLk8Jdvnx0",
+                key: "AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY",
               }}
-              defaultZoom={15}
               yesIWantToUseGoogleMapApiInternals
+              defaultZoom={15}
               defaultCenter={{
                 lat: 55.9607277,
                 lng: 36.2172614,
@@ -641,21 +646,23 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({
         {/* FORM */}
         <form className="flex flex-col border border-neutral-200 dark:border-neutral-700 rounded-3xl ">
           <StayDatesRangeInput
-            wrapClassName="divide-x divide-neutral-200 dark:divide-neutral-700"
+            wrapClassName="divide-x divide-neutral-200 dark:divide-neutral-700 !grid-cols-1 sm:!grid-cols-2"
             onChange={(date) => setSelectedDate(date)}
-            numberOfMonths={1}
-            fieldClassName="p-5"
+            fieldClassName="p-3"
             defaultValue={selectedDate}
-            anchorDirection={windowSize.width > 1400 ? "left" : "right"}
+            anchorDirection={"right"}
+            className="nc-ListingStayDetailPage__stayDatesRangeInput flex-1"
           />
           <div className="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
           <GuestsInput
-            fieldClassName="p-5"
+            className="nc-ListingStayDetailPage__guestsInput flex-1"
+            fieldClassName="p-3"
             defaultValue={{
               guestAdults: 1,
               guestChildren: 2,
               guestInfants: 0,
             }}
+            hasButtonSubmit={false}
           />
         </form>
 
@@ -677,14 +684,14 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({
         </div>
 
         {/* SUBMIT */}
-        <ButtonPrimary>Reserve</ButtonPrimary>
+        <ButtonPrimary href={"/checkout"}>Reserve</ButtonPrimary>
       </div>
     );
   };
 
   return (
     <div
-      className={`nc-ListingStayDetailPage  ${className}`}
+      className={`ListingDetailPage nc-ListingStayDetailPage ${className}`}
       data-nc-id="ListingStayDetailPage"
     >
       {/* SINGLE HEADER */}
@@ -773,26 +780,13 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({
         </div>
 
         {/* SIDEBAR */}
-        <div className="block flex-grow mt-14 lg:mt-0">
-          <div className="sticky top-24">{renderSidebar()}</div>
+        <div className="hidden lg:block flex-grow mt-14 lg:mt-0">
+          <div className="sticky top-28">{renderSidebar()}</div>
         </div>
       </main>
 
       {/* STICKY FOOTER MOBILE */}
-      {!isPreviewMode && (
-        <div className="block lg:hidden fixed bottom-0 inset-x-0 py-4 bg-white text-neutral-900 border-t border-neutral-200 z-20">
-          <div className="container flex items-center justify-between">
-            <span className="text-2xl font-semibold">
-              $311
-              <span className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
-                /night
-              </span>
-            </span>
-
-            <ButtonPrimary href="##">Reserve</ButtonPrimary>
-          </div>
-        </div>
-      )}
+      {!isPreviewMode && <MobileFooterSticky />}
 
       {/* OTHER SECTION */}
       {!isPreviewMode && (

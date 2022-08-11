@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState, useContext } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 import Heading from "components/Heading/Heading";
 import Glide from "@glidejs/glide";
 import { TaxonomyType } from "data/types";
@@ -6,9 +6,8 @@ import CardCategory3 from "components/CardCategory3/CardCategory3";
 import CardCategory4 from "components/CardCategory4/CardCategory4";
 import NextPrev from "shared/NextPrev/NextPrev";
 import CardCategory5 from "components/CardCategory5/CardCategory5";
-import Lang from "../../data/jsons/lang.json";
-import axios from "../../axios";
-import AuthContext from "Context/AuthContext";
+import useNcId from "hooks/useNcId";
+
 export interface SectionSliderNewCategoriesProps {
   className?: string;
   itemClassName?: string;
@@ -20,6 +19,7 @@ export interface SectionSliderNewCategoriesProps {
   sliderStyle?: "style1" | "style2";
   uniqueClassName: string;
 }
+
 const DEMO_CATS: TaxonomyType[] = [
   {
     id: "1",
@@ -78,8 +78,8 @@ const DEMO_CATS: TaxonomyType[] = [
 ];
 
 const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
-  heading = Lang["mon"].Heading_of_ections,
-  subHeading = Lang["mon"].Descriptions_for_sections,
+  heading = "Heading of sections",
+  subHeading = "Descriptions for sections",
   className = "",
   itemClassName = "",
   categories = DEMO_CATS,
@@ -88,21 +88,9 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
   sliderStyle = "style1",
   uniqueClassName,
 }) => {
-  const auth = useContext(AuthContext);
-  heading = auth.language.Heading_of_ections;
-  subHeading = auth.language.Descriptions_for_sections;
-  const UNIQUE_CLASS = "SectionSliderNewCategories__" + uniqueClassName;
-  const [data, setData] = useState(categories);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const api_menu_1 = await axios.get(`/categories`);
-      setData(api_menu_1.data.data);
-      setLoading(false);
-      console.log(data);
-    };
-    fetchData();
-  }, []);
+  const UNIQUE_CLASS =
+    "SectionSliderNewCategories__" + uniqueClassName + useNcId();
+
   let MY_GLIDEJS = useMemo(() => {
     return new Glide(`.${UNIQUE_CLASS}`, {
       perView: itemPerRow,
@@ -163,9 +151,8 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
         </Heading>
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides">
-            {data.slice(0, 5).map((item, index) => (
+            {categories.map((item, index) => (
               <li key={index} className={`glide__slide ${itemClassName}`}>
-                {/* { JSON.stringify(item, null, 2) } */}
                 {renderCard(item, index)}
               </li>
             ))}

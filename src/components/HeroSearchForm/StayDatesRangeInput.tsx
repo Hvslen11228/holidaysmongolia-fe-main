@@ -5,15 +5,16 @@ import {
   FocusedInputShape,
 } from "react-dates";
 import { DateRage } from "./StaySearchForm";
-import { FC, useContext } from "react";
+import { FC } from "react";
 import useWindowSize from "hooks/useWindowResize";
-import Lang from "../../data/jsons/lang.json";
-import AuthContext from "Context/AuthContext";
+import useNcId from "hooks/useNcId";
+
 export interface StayDatesRangeInputProps {
   defaultValue: DateRage;
   defaultFocus?: FocusedInputShape | null;
   onChange?: (data: DateRage) => void;
   onFocusChange?: (focus: FocusedInputShape | null) => void;
+  className?: string;
   fieldClassName?: string;
   wrapClassName?: string;
   numberOfMonths?: number;
@@ -25,15 +26,16 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
   onChange,
   defaultFocus = null,
   onFocusChange,
+  className = "[ lg:nc-flex-2 ]",
   fieldClassName = "[ nc-hero-field-padding ]",
-  wrapClassName = "divide-y divide-neutral-200 dark:divide-neutral-700 lg:divide-y-0 md:border-l md:border-r border-neutral-200 dark:border-neutral-700 lg:border-none",
+  wrapClassName = "",
   numberOfMonths,
   anchorDirection,
 }) => {
-  const auth = useContext(AuthContext);
   const [focusedInput, setFocusedInput] = useState(defaultFocus);
   const [stateDate, setStateDate] = useState(defaultValue);
-
+  const startDateId = useNcId();
+  const endDateId = useNcId();
   const windowSize = useWindowSize();
 
   useEffect(() => {
@@ -44,12 +46,6 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
     setFocusedInput(defaultFocus);
   }, [defaultFocus]);
 
-  useEffect(() => {
-    if (onChange) {
-      onChange(stateDate);
-    }
-  }, [stateDate]);
-
   const handleDateFocusChange = (focus: FocusedInputShape | null) => {
     setFocusedInput(focus);
     onFocusChange && onFocusChange(focus);
@@ -59,7 +55,7 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
     const focused = focusedInput === "startDate";
     return (
       <div
-        className={`relative flex flex-1 ${fieldClassName} flex-shrink-0 items-center space-x-3 cursor-pointer ${
+        className={`relative flex ${fieldClassName} items-center space-x-3 cursor-pointer ${
           focused ? "nc-hero-field-focused" : " "
         }`}
       >
@@ -79,16 +75,14 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
             />
           </svg>
         </div>
-        <div className="flex-grow">
+        <div className="flex-1">
           <span className="block xl:text-lg font-semibold">
             {stateDate.startDate
               ? stateDate.startDate.format("DD MMM")
-              : auth.language.check_out}
+              : "Check in"}
           </span>
           <span className="block mt-1 text-sm text-neutral-400 leading-none font-light">
-            {stateDate.startDate
-              ? auth.language.check_out
-              : auth.language.add_date}
+            {stateDate.startDate ? "Check in" : `Add date`}
           </span>
         </div>
       </div>
@@ -99,7 +93,7 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
     const focused = focusedInput === "endDate";
     return (
       <div
-        className={`relative flex flex-1 ${fieldClassName} flex-shrink-0 items-center space-x-3 cursor-pointer ${
+        className={`relative flex ${fieldClassName} items-center space-x-3 cursor-pointer ${
           focused ? "nc-hero-field-focused" : " "
         }`}
       >
@@ -119,16 +113,14 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
             />
           </svg>
         </div>
-        <div className="flex-grow">
+        <div className="flex-1">
           <span className="block xl:text-lg font-semibold">
             {stateDate.endDate
               ? stateDate.endDate.format("DD MMM")
-              : auth.language.check_out}
+              : "Check out"}
           </span>
           <span className="block mt-1 text-sm text-neutral-400 leading-none font-light">
-            {stateDate.endDate
-              ? auth.language.check_out
-              : auth.language.add_date}
+            {stateDate.endDate ? "Check out" : `Add date`}
           </span>
         </div>
       </div>
@@ -137,7 +129,7 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
 
   return (
     <div
-      className={`StayDatesRangeInput relative flex-shrink-0 flex z-10 [ lg:nc-flex-2 ] ${
+      className={`StayDatesRangeInput relative flex z-10 ${className} ${
         !!focusedInput ? "nc-date-focusedInput" : "nc-date-not-focusedInput"
       }`}
     >
@@ -146,14 +138,23 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
           startDate={stateDate.startDate}
           endDate={stateDate.endDate}
           focusedInput={focusedInput}
-          onDatesChange={(date) => setStateDate(date)}
+          onDatesChange={(date) => {
+            setStateDate(date);
+            onChange && onChange(date);
+          }}
           onFocusChange={handleDateFocusChange}
           numberOfMonths={
-            numberOfMonths || (windowSize.width <= 1024 ? 1 : undefined)
+            numberOfMonths || (windowSize.width < 1024 ? 1 : undefined)
           }
-          startDateId={"nc-hero-stay-startDateId"}
-          endDateId={"nc-hero-stay-endDateId"}
-          daySize={windowSize.width > 500 ? 56 : undefined}
+          startDateId={startDateId}
+          endDateId={endDateId}
+          daySize={
+            windowSize.width >= 1024
+              ? windowSize.width > 1279
+                ? 56
+                : 44
+              : undefined
+          }
           orientation={"horizontal"}
           showClearDates
           noBorder
@@ -164,11 +165,8 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
         />
       </div>
 
-      <div
-        className={`flex flex-col lg:flex-row lg:items-center w-full flex-shrink-0 relative  ${wrapClassName}`}
-      >
+      <div className={`flex-1 grid grid-cols-2 relative ${wrapClassName}`}>
         {renderInputCheckInDate()}
-
         {renderInputCheckOutDate()}
       </div>
     </div>

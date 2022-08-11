@@ -8,6 +8,7 @@ export interface CommonLayoutProps {
   nextHref: string;
   backtHref: string;
   nextBtnText?: string;
+  children: React.ReactNode;
 }
 
 const CommonLayout: FC<CommonLayoutProps> = ({

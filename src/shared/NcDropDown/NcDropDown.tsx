@@ -1,5 +1,5 @@
 import { DotsHorizontalIcon } from "@heroicons/react/solid";
-import React, { FC, Fragment, ReactNode } from "react";
+import React, { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import twFocusClass from "utils/twFocusClass";
 
@@ -14,8 +14,8 @@ export interface NcDropDownProps {
   panelMenusClass?: string;
   iconClass?: string;
   data: NcDropDownItem[];
-  renderTrigger?: () => ReactNode;
-  renderItem?: (item: NcDropDownItem) => ReactNode;
+  renderTrigger?: () => JSX.Element;
+  renderItem?: (item: NcDropDownItem) => JSX.Element;
   title?: string;
   onClick: (item: NcDropDownItem) => void;
 }
@@ -58,11 +58,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
         >
           <div className="px-1 py-3 text-sm text-neutral-6000 dark:text-neutral-300">
             {data.map((item) => (
-              <Menu.Item
-                key={item.id}
-             //   onClick={() => onClick(item)}
-                data-menu-item-id={item.id}
-              >
+              <Menu.Item key={item.id} data-menu-item-id={item.id}>
                 {() =>
                   renderItem && typeof renderItem(item) !== "undefined" ? (
                     renderItem(item)

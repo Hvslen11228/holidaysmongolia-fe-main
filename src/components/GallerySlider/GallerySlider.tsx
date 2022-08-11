@@ -1,13 +1,16 @@
 import Glide from "@glidejs/glide";
+import useNcId from "hooks/useNcId";
 import React, { FC, useEffect, useMemo } from "react";
 import NcImage from "shared/NcImage/NcImage";
 import NextPrev from "shared/NextPrev/NextPrev";
+import { Link } from "react-router-dom";
 
 export interface GallerySliderProps {
   className?: string;
   galleryImgs: string[];
   ratioClass?: string;
   uniqueID: string;
+  href?: string;
 }
 
 const GallerySlider: FC<GallerySliderProps> = ({
@@ -15,8 +18,9 @@ const GallerySlider: FC<GallerySliderProps> = ({
   galleryImgs,
   ratioClass = "aspect-w-4 aspect-h-3",
   uniqueID = "uniqueID",
+  href = "/listing-stay-detail",
 }) => {
-  const UNIQUE_CLASS = `gallerySlider__${uniqueID}`;
+  const UNIQUE_CLASS = `gallerySlider__${uniqueID}` + useNcId();
 
   let MY_GLIDEJS = useMemo(() => {
     return new Glide(`.${UNIQUE_CLASS}`, {
@@ -56,9 +60,9 @@ const GallerySlider: FC<GallerySliderProps> = ({
           <ul className="glide__slides">
             {galleryImgs.map((item, index) => (
               <li key={index} className="glide__slide">
-                <div className={ratioClass}>
+                <Link to={href} className={`block ${ratioClass}`}>
                   <NcImage src={item} />
-                </div>
+                </Link>
               </li>
             ))}
           </ul>

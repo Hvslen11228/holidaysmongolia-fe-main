@@ -6,6 +6,7 @@ export interface FormItemProps {
   className?: string;
   label?: string;
   desc?: string;
+  children?: React.ReactNode;
 }
 
 const FormItem: FC<FormItemProps> = ({

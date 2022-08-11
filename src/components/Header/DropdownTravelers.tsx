@@ -2,31 +2,41 @@ import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { MenuAlt2Icon } from "@heroicons/react/solid";
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
+import { PathName } from "routers/types";
 
-const solutions = [
+interface SolutionItem {
+  name: string;
+  description: string;
+  href: PathName;
+  icon: any;
+  active?: boolean;
+}
+
+const solutions: SolutionItem[] = [
   {
     name: "Stays",
     description: "Stays rental description ",
-    href: "##",
+    href: "/listing-stay",
     icon: IconFour,
     active: true,
   },
   {
     name: "Flights",
     description: "Flights description",
-    href: "##",
+    href: "/listing-flights",
     icon: IconTwo,
   },
   {
     name: "Things to do",
     description: "Tour and experiences",
-    href: "##",
+    href: "/listing-experiences",
     icon: IconOne,
   },
   {
     name: "Cars",
     description: "Car rental description",
-    href: "##",
+    href: "/listing-car",
     icon: IconThree,
   },
 ];
@@ -35,7 +45,7 @@ export default function DropdownTravelers() {
   return (
     <div className="DropdownTravelers">
       <Popover className="relative">
-        {({ open }) => (
+        {({ open, close }) => (
           <>
             <Popover.Button
               className={`${open ? "" : "text-opacity-90"}
@@ -70,9 +80,10 @@ export default function DropdownTravelers() {
                 <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid grid-cols-1 gap-8 bg-white dark:bg-neutral-800 p-7 ">
                     {solutions.map((item, index) => (
-                      <a
+                      <Link
                         key={index}
-                        href={item.href}
+                        to={item.href}
+                        onClick={() => close()}
                         className={`flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 ${
                           item.active
                             ? "bg-neutral-100 dark:bg-neutral-700"
@@ -88,13 +99,13 @@ export default function DropdownTravelers() {
                             {item.description}
                           </p>
                         </div>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                   {/* FOOTER */}
                   <div className="p-4 bg-neutral-50 dark:bg-neutral-700">
-                    <a
-                      href="##"
+                    <Link
+                      to="##"
                       className="flow-root px-2 py-2 space-y-0.5 transition duration-150 ease-in-out rounded-md focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                     >
                       <span className="flex items-center">
@@ -105,7 +116,7 @@ export default function DropdownTravelers() {
                       <span className="block text-sm text-gray-500 dark:text-neutral-400">
                         Start integrating products and tools
                       </span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </Popover.Panel>

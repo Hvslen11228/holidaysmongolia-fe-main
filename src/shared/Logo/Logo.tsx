@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logoImg from "images/logo_dark.png";
-import logoLightImg from "images/logo_light.png";
+import logoImg from "images/logo.png";
+import logoLightImg from "images/logo-light.png";
 import LogoSvgLight from "./LogoSvgLight";
 import LogoSvg from "./LogoSvg";
-import Logo_fav from "./favicon.png";
+
 export interface LogoProps {
   img?: string;
   imgLight?: string;
@@ -14,21 +14,22 @@ export interface LogoProps {
 const Logo: React.FC<LogoProps> = ({
   img = logoImg,
   imgLight = logoLightImg,
-  className = "",
+  className = "w-24",
 }) => {
   return (
     <Link
       to="/"
-      className={`ttnc-logo inline-block text-primary-6000 ${className}`}
+      className={`ttnc-logo inline-block text-primary-6000 focus:outline-none focus:ring-0 ${className}`}
     >
-      {/* <LogoSvgLight />
-      <LogoSvg /> */}
+      <LogoSvgLight />
+      <LogoSvg />
+
       {/* THIS USE FOR MY CLIENT */}
       {/* PLEASE UN COMMENT BELLOW CODE AND USE IT */}
-      {img ? (
+      {/* {img ? (
         <img
           className={`block max-h-12 ${imgLight ? "dark:hidden" : ""}`}
-          src={Logo_fav}
+          src={img}
           alt="Logo"
         />
       ) : (
@@ -37,10 +38,10 @@ const Logo: React.FC<LogoProps> = ({
       {imgLight && (
         <img
           className="hidden max-h-12 dark:block"
-          src={Logo_fav}
+          src={imgLight}
           alt="Logo-Light"
         />
-      )}
+      )} */}
     </Link>
   );
 };

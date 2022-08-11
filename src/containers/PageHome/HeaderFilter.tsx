@@ -1,11 +1,10 @@
-import React, { FC, useEffect, useState, useContext } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Heading from "shared/Heading/Heading";
 import Nav from "shared/Nav/Nav";
 import NavItem from "shared/NavItem/NavItem";
 import ButtonSecondary from "shared/Button/ButtonSecondary";
 import { ReactNode } from "react";
-import AuthContext from "Context/AuthContext";
-import Lang from "../../data/jsons/lang.json";
+
 export interface HeaderFilterProps {
   tabActive: string;
   tabs: string[];
@@ -21,7 +20,6 @@ const HeaderFilter: FC<HeaderFilterProps> = ({
   heading = "🎈 Latest Articles",
   onClickTab,
 }) => {
-  const auth = useContext(AuthContext);
   const [tabActiveState, setTabActiveState] = useState(tabActive);
 
   useEffect(() => {
@@ -53,7 +51,7 @@ const HeaderFilter: FC<HeaderFilterProps> = ({
         </Nav>
         <span className="hidden sm:block flex-shrink-0">
           <ButtonSecondary className="!leading-none">
-            <span>{auth.language.view_all}</span>
+            <span>View all</span>
             <i className="ml-3 las la-arrow-right text-xl"></i>
           </ButtonSecondary>
         </span>

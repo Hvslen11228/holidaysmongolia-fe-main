@@ -121,7 +121,7 @@ const CarCardH: FC<CarCardHProps> = ({ className = "", data = DEMO_DATA }) => {
 
   return (
     <div
-      className={`nc-CarCardH group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden hover:shadow-xl transition-shadow ${className}`}
+      className={`nc-CarCardH group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden hover:shadow-xl transition-shadow will-change-transform ${className}`}
       data-nc-id="CarCardH"
     >
       <Link to={href} className="flex flex-col md:flex-row">

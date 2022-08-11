@@ -36,11 +36,12 @@ const StayCardH: FC<StayCardHProps> = ({
 
   const renderSliderGallery = () => {
     return (
-      <div className="relative flex-shrink-0 w-full sm:w-72 ">
+      <div className="relative flex-shrink-0 w-full md:w-72 ">
         <GallerySlider
           ratioClass="aspect-w-6 aspect-h-5"
           galleryImgs={galleryImgs}
           uniqueID={`StayCardH_${id}`}
+          href={href}
         />
         <BtnLikeIcon isLiked={like} className="absolute right-3 top-3" />
         {saleOff && <SaleOffBadge className="absolute left-3 top-3" />}
@@ -132,13 +133,14 @@ const StayCardH: FC<StayCardHProps> = ({
 
   return (
     <div
-      className={`nc-StayCardH group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden hover:shadow-xl transition-shadow ${className}`}
+      className={`nc-StayCardH group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden hover:shadow-xl transition-shadow will-change-transform ${className}`}
       data-nc-id="StayCardH"
     >
-      <Link to={href} className="flex flex-col sm:flex-row sm:items-center">
+      <Link to={href} className="absolute inset-0"></Link>
+      <div className="grid grid-cols-1 md:flex md:flex-row ">
         {renderSliderGallery()}
         {renderContent()}
-      </Link>
+      </div>
     </div>
   );
 };

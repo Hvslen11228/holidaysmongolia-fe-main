@@ -5,7 +5,7 @@ import ButtonThird from "shared/Button/ButtonThird";
 import ButtonClose from "shared/ButtonClose/ButtonClose";
 import Checkbox from "shared/Checkbox/Checkbox";
 import convertNumbThousand from "utils/convertNumbThousand";
-import Slider, { Range } from "rc-slider";
+import Slider from "rc-slider";
 
 // DEMO DATA
 const typeOfAirlines = [
@@ -112,8 +112,10 @@ const TabFilters = () => {
               <Tab
                 key={category}
                 className={({ selected }) =>
-                  `w-full py-2.5 text-sm leading-5 font-medium text-primary-700 rounded-lg focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60 ${
-                    selected ? "bg-white shadow" : " hover:bg-white/[0.15]"
+                  `w-full py-2.5 text-sm leading-5 font-medium text-primary-700 dark:text-primary-400 rounded-lg focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60 ${
+                    selected
+                      ? "bg-white dark:bg-neutral-800 shadow"
+                      : " hover:bg-white/[0.15] dark:hover:bg-neutral-800"
                   }`
                 }
               >
@@ -127,10 +129,10 @@ const TabFilters = () => {
                 <Tab.Panel
                   key={idx}
                   className={
-                    "bg-neutral-50 rounded-xl p-3 space-y-8 focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60"
+                    "bg-neutral-50 dark:bg-neutral-900 rounded-xl p-3 space-y-8 focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60"
                   }
                 >
-                  <span className=" text-neutral-6000 text-sm">
+                  <span className=" text-neutral-6000 dark:text-neutral-300 text-sm">
                     {idx ? " Tokyo to Singapore" : " Singapore to Tokyo"}
                   </span>
                   <div></div>
@@ -138,12 +140,13 @@ const TabFilters = () => {
                     <div className="flex space-x-2">
                       <i className="text-lg las la-plane-departure"></i>
                       <span className="text-xs">Departure time:</span>
-                      <span className="text-xs text-primary-500">
+                      <span className="text-xs text-primary-500 dark:text-primary-400">
                         {posts.Departure[0]}:00 - {posts.Departure[1]}
                         :00
                       </span>
                     </div>
-                    <Range
+                    <Slider
+                      range
                       min={0}
                       max={24}
                       defaultValue={posts.Departure}
@@ -154,14 +157,14 @@ const TabFilters = () => {
                                 ...catTimes,
                                 "Take Off": {
                                   ...posts,
-                                  Departure: val,
+                                  Departure: val as [number, number],
                                 },
                               }
                             : {
                                 ...catTimes,
                                 Landing: {
                                   ...posts,
-                                  Departure: val,
+                                  Departure: val as [number, number],
                                 },
                               }
                         )
@@ -173,11 +176,12 @@ const TabFilters = () => {
                     <div className="flex space-x-2">
                       <i className="text-lg las la-plane-arrival"></i>
                       <span className="text-xs">Arrival time:</span>
-                      <span className="text-xs text-primary-500">
+                      <span className="text-xs text-primary-500 dark:text-primary-400">
                         {posts.Arrival[0]}:00 - {posts.Arrival[1]}:00
                       </span>
                     </div>
-                    <Range
+                    <Slider
+                      range
                       min={0}
                       max={24}
                       defaultValue={posts.Arrival}
@@ -188,14 +192,14 @@ const TabFilters = () => {
                                 ...catTimes,
                                 "Take Off": {
                                   ...posts,
-                                  Arrival: val,
+                                  Arrival: val as [number, number],
                                 },
                               }
                             : {
                                 ...catTimes,
                                 Landing: {
                                   ...posts,
-                                  Arrival: val,
+                                  Arrival: val as [number, number],
                                 },
                               }
                         )
@@ -451,7 +455,7 @@ const TabFilters = () => {
                         min={1}
                         max={72}
                         defaultValue={tripTimes}
-                        onChange={setTripTimes}
+                        onChange={(e) => setTripTimes(e as number)}
                       />
                     </div>
                   </div>
@@ -504,12 +508,13 @@ const TabFilters = () => {
                   <div className="relative flex flex-col px-5 py-6 space-y-8">
                     <div className="space-y-5">
                       <span className="font-medium">Price per person</span>
-                      <Range
+                      <Slider
+                        range
                         min={100}
                         max={5000}
                         defaultValue={[rangePrices[0], rangePrices[1]]}
                         allowCross={false}
-                        onChange={setRangePrices}
+                        onChange={(e) => setRangePrices(e as number[])}
                       />
                     </div>
 
@@ -676,7 +681,7 @@ const TabFilters = () => {
                 &#8203;
               </span>
               <Transition.Child
-                className="inline-block py-8 h-screen w-full"
+                className="inline-block py-8 px-2 h-screen w-full max-w-4xl"
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -698,7 +703,7 @@ const TabFilters = () => {
                   </div>
 
                   <div className="flex-grow overflow-y-auto">
-                    <div className="px-8 md:px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
+                    <div className="px-4 md:px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
                       {/* --------- */}
                       {/* ---- */}
                       <div className="py-7">
@@ -723,13 +728,14 @@ const TabFilters = () => {
                         <div className="mt-6 relative ">
                           <div className="relative flex flex-col space-y-8">
                             <div className="space-y-5">
-                              <Range
+                              <Slider
+                                range
                                 className="text-red-400"
                                 min={0}
                                 max={2000}
                                 defaultValue={[0, 1000]}
                                 allowCross={false}
-                                onChange={setRangePrices}
+                                onChange={(e) => setRangePrices(e as number[])}
                               />
                             </div>
 
@@ -797,7 +803,7 @@ const TabFilters = () => {
                             min={1}
                             max={72}
                             defaultValue={tripTimes}
-                            onChange={setTripTimes}
+                            onChange={(e) => setTripTimes(e as number)}
                           />
                         </div>
                       </div>
@@ -813,7 +819,7 @@ const TabFilters = () => {
                     </div>
                   </div>
 
-                  <div className="p-6 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                  <div className="p-4 sm:p-6 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird
                       onClick={closeModalMoreFilter}
                       sizeClass="px-4 py-2 sm:px-5"

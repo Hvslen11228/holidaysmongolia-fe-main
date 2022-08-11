@@ -1,13 +1,12 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Popover, Transition } from "@headlessui/react";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import ButtonThird from "shared/Button/ButtonThird";
 import ButtonClose from "shared/ButtonClose/ButtonClose";
 import Checkbox from "shared/Checkbox/Checkbox";
 import convertNumbThousand from "utils/convertNumbThousand";
-import { Range } from "rc-slider";
-import Lang from "../../data/jsons/lang.json";
-import AuthContext from "Context/AuthContext";
+import Slider from "rc-slider";
+
 // DEMO DATA
 const typeOfExpriences = [
   {
@@ -27,24 +26,7 @@ const typeOfExpriences = [
     description: "Short description for the experience",
   },
 ];
-const typeOfExpriences_mon = [
-  {
-    name: "Хоол, ундаа",
-    description: "Туршлагын товч тайлбар",
-  },
-  {
-    name: "Урлаг, соёл",
-    description: "Туршлагын товч тайлбар",
-  },
-  {
-    name: "Байгаль ба гадаа",
-    description: "Туршлагын товч тайлбар",
-  },
-  {
-    name: "Спорт",
-    description: "Туршлагын товч тайлбар",
-  },
-];
+
 const timeOfdays = [
   {
     name: "Morning",
@@ -59,29 +41,12 @@ const timeOfdays = [
     description: "Start after 5pm",
   },
 ];
-const timeOfdays_mon = [
-  {
-    name: "Өглөө",
-    description: "12 цагаас өмнө эхэлнэ",
-  },
-  {
-    name: "Үдээс хойш",
-    description: "12 цагаас хойш эхэлнэ",
-  },
-  {
-    name: "Орой",
-    description: "17 цагаас хойш эхэлнэ",
-  },
-];
 
 //
+const moreFilter1 = typeOfExpriences;
+const moreFilter2 = timeOfdays;
 
 const TabFilters = () => {
-  const auth = useContext(AuthContext);
-  const moreFilter1 =
-    auth.lang == "mon" ? typeOfExpriences_mon : typeOfExpriences;
-  const moreFilter2 = auth.lang == "mon" ? timeOfdays_mon : timeOfdays;
-
   const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
   //
   const [isOnSale, setIsOnSale] = useState(true);
@@ -119,7 +84,7 @@ const TabFilters = () => {
                 open ? "!border-primary-500 " : ""
               }`}
             >
-              <span>{auth.language.Type_of_experiences}</span>
+              <span>Type of experiences</span>
               <i className="las la-angle-down ml-2"></i>
             </Popover.Button>
             <Transition
@@ -134,7 +99,7 @@ const TabFilters = () => {
               <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-md">
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
-                    {moreFilter1.map((item) => (
+                    {typeOfExpriences.map((item) => (
                       <div key={item.name} className="">
                         <Checkbox
                           name={item.name}
@@ -146,13 +111,13 @@ const TabFilters = () => {
                   </div>
                   <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird onClick={close} sizeClass="px-4 py-2 sm:px-5">
-                      {auth.language.Clear}
+                      Clear
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      {auth.language.Apply}
+                      Apply
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -174,7 +139,7 @@ const TabFilters = () => {
                 open ? "!border-primary-500 " : ""
               }`}
             >
-              <span>{auth.language.Time_of_day}</span>
+              <span>Time of day</span>
               <i className="las la-angle-down ml-2"></i>
             </Popover.Button>
             <Transition
@@ -189,7 +154,7 @@ const TabFilters = () => {
               <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-md">
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900   border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
-                    {moreFilter2.map((item) => (
+                    {timeOfdays.map((item) => (
                       <div key={item.name} className="">
                         <Checkbox
                           name={item.name}
@@ -201,13 +166,13 @@ const TabFilters = () => {
                   </div>
                   <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird onClick={close} sizeClass="px-4 py-2 sm:px-5">
-                      {auth.language.Clear}
+                      Clear
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      {auth.language.Apply}
+                      Apply
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -228,11 +193,9 @@ const TabFilters = () => {
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-700 focus:outline-none `}
             >
               <span>
-                {`${auth.language.Price_type}${convertNumbThousand(
+                {`$${convertNumbThousand(
                   rangePrices[0]
-                )} - ${auth.language.Price_type}${convertNumbThousand(
-                  rangePrices[1]
-                )}`}{" "}
+                )} - $${convertNumbThousand(rangePrices[1])}`}{" "}
               </span>
               {renderXClear()}
             </Popover.Button>
@@ -249,16 +212,14 @@ const TabFilters = () => {
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-8">
                     <div className="space-y-5">
-                      <span className="font-medium">
-                        {" "}
-                        {auth.language.Price}
-                      </span>
-                      <Range
+                      <span className="font-medium">Price per day</span>
+                      <Slider
+                        range
                         min={0}
                         max={2000}
                         defaultValue={[rangePrices[0], rangePrices[1]]}
                         allowCross={false}
-                        onChange={setRangePrices}
+                        onChange={(e) => setRangePrices(e as number[])}
                       />
                     </div>
 
@@ -268,12 +229,12 @@ const TabFilters = () => {
                           htmlFor="minPrice"
                           className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                         >
-                          {auth.language.Min_price}
+                          Min price
                         </label>
                         <div className="mt-1 relative rounded-md">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <span className="text-neutral-500 sm:text-sm">
-                              {auth.language.Price_type}
+                              $
                             </span>
                           </div>
                           <input
@@ -291,7 +252,7 @@ const TabFilters = () => {
                           htmlFor="maxPrice"
                           className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                         >
-                          {auth.language.Max_price}
+                          Max price
                         </label>
                         <div className="mt-1 relative rounded-md">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -313,13 +274,13 @@ const TabFilters = () => {
                   </div>
                   <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird onClick={close} sizeClass="px-4 py-2 sm:px-5">
-                      {auth.language.Clear}
+                      Clear
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={close}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      {auth.language.Apply}
+                      Apply
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -341,7 +302,7 @@ const TabFilters = () => {
         }`}
         onClick={() => setIsOnSale(!isOnSale)}
       >
-        <span> {auth.language.On_sale}</span>
+        <span>On sale</span>
         {isOnSale && renderXClear()}
       </div>
     );
@@ -357,7 +318,7 @@ const TabFilters = () => {
     const list1 = data.filter((_, i) => i < data.length / 2);
     const list2 = data.filter((_, i) => i >= data.length / 2);
     return (
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid sm:grid-cols-2 gap-8">
         <div className="flex flex-col space-y-5">
           {list1.map((item) => (
             <Checkbox
@@ -392,11 +353,7 @@ const TabFilters = () => {
           onClick={openModalMoreFilter}
         >
           <span>
-            <span className="hidden sm:inline">
-              {" "}
-              {auth.language.Experiences}
-            </span>{" "}
-            {auth.language.filters} (3)
+            <span className="hidden sm:inline">Experiences</span> filters (3)
           </span>
           {renderXClear()}
         </div>
@@ -428,7 +385,7 @@ const TabFilters = () => {
                 &#8203;
               </span>
               <Transition.Child
-                className="inline-block py-8 h-screen w-full"
+                className="inline-block py-8 px-2 h-screen w-full max-w-4xl"
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -442,7 +399,7 @@ const TabFilters = () => {
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
                     >
-                      {auth.language.Experiences} {auth.language.filters}
+                      Experiences filters
                     </Dialog.Title>
                     <span className="absolute left-3 top-3">
                       <ButtonClose onClick={closeModalMoreFilter} />
@@ -450,7 +407,7 @@ const TabFilters = () => {
                   </div>
 
                   <div className="flex-grow overflow-y-auto">
-                    <div className="px-10 divide-y divide-neutral-200 dark:divide-neutral-800">
+                    <div className="px-4 sm:px-6 divide-y divide-neutral-200 dark:divide-neutral-800">
                       <div className="py-7">
                         <h3 className="text-xl font-medium">
                           Type of experiences
@@ -460,9 +417,7 @@ const TabFilters = () => {
                         </div>
                       </div>
                       <div className="py-7">
-                        <h3 className="text-xl font-medium">
-                          {auth.language.Time_of_day}
-                        </h3>
+                        <h3 className="text-xl font-medium">Time of day</h3>
                         <div className="mt-6 relative ">
                           {renderMoreFilterItem(moreFilter2)}
                         </div>
@@ -471,20 +426,17 @@ const TabFilters = () => {
                       {/* --------- */}
                       {/* ---- */}
                       <div className="py-7">
-                        <h3 className="text-xl font-medium">
-                          {" "}
-                          {auth.language.Range_Prices}
-                        </h3>
+                        <h3 className="text-xl font-medium">Range Prices</h3>
                         <div className="mt-6 relative ">
                           <div className="relative flex flex-col space-y-8">
                             <div className="space-y-5">
-                              <Range
+                              <Slider
                                 className="text-red-400"
                                 min={0}
                                 max={2000}
                                 defaultValue={[0, 1000]}
                                 allowCross={false}
-                                onChange={setRangePrices}
+                                onChange={(e) => setRangePrices(e as number[])}
                               />
                             </div>
 
@@ -494,12 +446,12 @@ const TabFilters = () => {
                                   htmlFor="minPrice"
                                   className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                                 >
-                                  {auth.language.Min_price}
+                                  Min price
                                 </label>
                                 <div className="mt-1 relative rounded-md">
                                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span className="text-neutral-500 sm:text-sm">
-                                      {auth.language.Price_type}
+                                      $
                                     </span>
                                   </div>
                                   <input
@@ -517,12 +469,12 @@ const TabFilters = () => {
                                   htmlFor="maxPrice"
                                   className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                                 >
-                                  {auth.language.Max_price}
+                                  Max price
                                 </label>
                                 <div className="mt-1 relative rounded-md">
                                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span className="text-neutral-500 sm:text-sm">
-                                      {auth.language.Price_type}
+                                      $
                                     </span>
                                   </div>
                                   <input
@@ -542,18 +494,18 @@ const TabFilters = () => {
                     </div>
                   </div>
 
-                  <div className="p-6 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                  <div className="p-4 sm:p-6 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird
                       onClick={closeModalMoreFilter}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      {auth.language.Clear}
+                      Clear
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={closeModalMoreFilter}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      {auth.language.Apply}
+                      Apply
                     </ButtonPrimary>
                   </div>
                 </div>

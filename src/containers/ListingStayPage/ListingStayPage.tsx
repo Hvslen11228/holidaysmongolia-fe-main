@@ -28,11 +28,11 @@ const ListingStayPage: FC<ListingStayPageProps> = ({ className = "" }) => {
         <SectionHeroArchivePage
           currentPage="Stays"
           currentTab="Stays"
-          className="pt-10 pb-24 lg:pb-32 lg:pt-16 "
+          className="pt-10 pb-24 lg:pb-28 lg:pt-16 "
         />
 
         {/* SECTION */}
-        <SectionGridFilterCard className="pb-24 lg:pb-32" />
+        <SectionGridFilterCard className="pb-24 lg:pb-28" />
 
         {/* SECTION 1 */}
         <div className="relative py-16">
@@ -48,10 +48,10 @@ const ListingStayPage: FC<ListingStayPageProps> = ({ className = "" }) => {
         </div>
 
         {/* SECTION */}
-        <SectionSubscribe2 className="py-24 lg:py-32" />
+        <SectionSubscribe2 className="py-24 lg:py-28" />
 
         {/* SECTION */}
-        <div className="relative py-16 mb-24 lg:mb-32">
+        <div className="relative py-16 mb-24 lg:mb-28">
           <BackgroundSection className="bg-orange-50 dark:bg-black dark:bg-opacity-20 " />
           <SectionGridAuthorBox />
         </div>

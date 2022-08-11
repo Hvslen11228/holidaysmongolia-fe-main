@@ -1,12 +1,11 @@
 import Heading from "components/Heading/Heading";
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import NcImage from "shared/NcImage/NcImage";
 import HIW1img from "images/HIW1.png";
 import HIW2img from "images/HIW2.png";
 import HIW3img from "images/HIW3.png";
 import VectorImg from "images/VectorHIW.svg";
-import Lang from "../../data/jsons/lang.json";
-import AuthContext from "Context/AuthContext";
+
 export interface SectionHowItWorkProps {
   className?: string;
   data?: {
@@ -38,41 +37,18 @@ const DEMO_DATA: SectionHowItWorkProps["data"] = [
     desc: "Let each trip be an inspirational journey, each room a peaceful space",
   },
 ];
-const DEMO_DATA2: SectionHowItWorkProps["data"] = [
-  {
-    id: 1,
-    img: HIW1img,
-    title: "Захиалах",
-    desc: "Та өөрт төөрсан аялалыг сонгож захиалах",
-  },
-  {
-    id: 2,
-    img: HIW2img,
-    title: "Баталгаажуулах",
-    desc: "Урьдчилгаа хийсэнээр баталгаажин",
-  },
-  {
-    id: 3,
-    img: HIW3img,
-    title: "Аялах",
-    desc: "Аялал эхлэх ",
-  },
-];
+
 const SectionHowItWork: FC<SectionHowItWorkProps> = ({
   className = "",
-  data = DEMO_DATA2,
+  data = DEMO_DATA,
 }) => {
-  const auth = useContext(AuthContext);
-  if (auth.lang == "en") {
-    data = DEMO_DATA;
-  }
   return (
     <div
       className={`nc-SectionHowItWork  ${className}`}
       data-nc-id="SectionHowItWork"
     >
-      <Heading isCenter desc={auth.language.How_it_work_desc}>
-        {auth.language.How_it_work}
+      <Heading isCenter desc="Keep calm & travel on">
+        How it work
       </Heading>
       <div className="mt-20 relative grid md:grid-cols-3 gap-20">
         <img

@@ -3,6 +3,7 @@ import { SingleDatePicker, AnchorDirectionShape } from "react-dates";
 import { FC } from "react";
 import moment from "moment";
 import useWindowSize from "hooks/useWindowResize";
+import useNcId from "hooks/useNcId";
 
 export interface ExperiencesDateSingleInputProps {
   defaultValue: moment.Moment | null;
@@ -25,6 +26,7 @@ const ExperiencesDateSingleInput: FC<ExperiencesDateSingleInputProps> = ({
 }) => {
   const [focusedInput, setFocusedInput] = useState(defaultFocus);
   const [startDate, setStartDate] = useState(defaultValue);
+  const startDateId = useNcId();
 
   const windowSize = useWindowSize();
 
@@ -36,12 +38,6 @@ const ExperiencesDateSingleInput: FC<ExperiencesDateSingleInputProps> = ({
     setFocusedInput(defaultFocus);
   }, [defaultFocus]);
 
-  useEffect(() => {
-    if (onChange) {
-      onChange(startDate);
-    }
-  }, [startDate]);
-
   const handleDateFocusChange = (arg: { focused: boolean }) => {
     setFocusedInput(arg.focused);
     onFocusChange && onFocusChange(arg.focused);
@@ -51,7 +47,7 @@ const ExperiencesDateSingleInput: FC<ExperiencesDateSingleInputProps> = ({
     const focused = focusedInput;
     return (
       <div
-        className={`flex w-full relative ${fieldClassName} items-center space-x-3 cursor-pointer ${
+        className={`flex-1 flex relative ${fieldClassName} items-center space-x-3 cursor-pointer ${
           focused ? "nc-hero-field-focused" : ""
         }`}
       >
@@ -88,15 +84,17 @@ const ExperiencesDateSingleInput: FC<ExperiencesDateSingleInputProps> = ({
       className={`ExperiencesDateSingleInput relative flex ${className} ${
         !!focusedInput ? "nc-date-focusedInput" : "nc-date-not-focusedInput"
       }`}
-      style={{ flex: "1 0 0%" }}
     >
       <div className="absolute inset-0 flex">
         <SingleDatePicker
           date={startDate}
-          onDateChange={(date) => setStartDate(date)}
-          id={"nc-hero-ExperiencesDateSingleInput-startDateId"}
+          onDateChange={(date) => {
+            setStartDate(date);
+            onChange && onChange(date);
+          }}
+          id={startDateId}
           focused={focusedInput}
-          daySize={windowSize.width > 425 ? 56 : undefined}
+          daySize={windowSize.width > 1279 ? 56 : 44}
           orientation={"horizontal"}
           onFocusChange={handleDateFocusChange}
           noBorder

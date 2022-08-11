@@ -1,9 +1,8 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import rightImgPng from "images/our-features.png";
 import NcImage from "shared/NcImage/NcImage";
 import Badge from "shared/Badge/Badge";
-import Lang from "../../data/jsons/lang.json";
-import AuthContext from "Context/AuthContext";
+
 export interface SectionOurFeaturesProps {
   className?: string;
   rightImg?: string;
@@ -15,7 +14,6 @@ const SectionOurFeatures: FC<SectionOurFeaturesProps> = ({
   rightImg = rightImgPng,
   type = "type1",
 }) => {
-  const auth = useContext(AuthContext);
   return (
     <div
       className={`nc-SectionOurFeatures relative flex flex-col items-center ${
@@ -32,41 +30,39 @@ const SectionOurFeatures: FC<SectionOurFeaturesProps> = ({
         }`}
       >
         <span className="uppercase text-sm text-gray-400 tracking-widest">
-          {auth.language.select_home_1.start}
+          BENnefits
         </span>
-        <h2 className="font-semibold text-4xl mt-5">
-          {auth.language.select_home_1.h1}
-        </h2>
+        <h2 className="font-semibold text-4xl mt-5">Happening cities </h2>
 
         <ul className="space-y-10 mt-16">
           <li className="space-y-4">
-            <Badge name={auth.language.select_home_1.cat_1_span} />
+            <Badge name="Advertising" />
             <span className="block text-xl font-semibold">
-              {auth.language.select_home_1.cat_1_header}
+              Cost-effective advertising
             </span>
             <span className="block mt-5 text-neutral-500 dark:text-neutral-400">
-              {auth.language.select_home_1.cat_1_text}
+              With a free listing, you can advertise your rental with no upfront
+              costs
             </span>
           </li>
           <li className="space-y-4">
-            <Badge
-              color="green"
-              name={auth.language.select_home_1.cat_2_span}
-            />
+            <Badge color="green" name="Exposure " />
             <span className="block text-xl font-semibold">
-              {auth.language.select_home_1.cat_3_header}
+              Reach millions with Chisfis
             </span>
             <span className="block mt-5 text-neutral-500 dark:text-neutral-400">
-              {auth.language.select_home_1.cat_2_text}
+              Millions of people are searching for unique places to stay around
+              the world
             </span>
           </li>
           <li className="space-y-4">
-            <Badge color="red" name={auth.language.select_home_1.cat_3_span} />
+            <Badge color="red" name="Secure" />
             <span className="block text-xl font-semibold">
-              {auth.language.select_home_1.cat_3_header}
+              Secure and simple
             </span>
             <span className="block mt-5 text-neutral-500 dark:text-neutral-400">
-              {auth.language.select_home_1.cat_3_text}
+              A Holiday Lettings listing gives you a secure and easy way to take
+              bookings and payments online
             </span>
           </li>
         </ul>

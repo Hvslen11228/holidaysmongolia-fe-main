@@ -1,44 +1,29 @@
 import React, { FC } from "react";
-import { Helmet } from "react-helmet";
-import { useEffect } from "react";
-import { useState } from "react";
+import MainNav1 from "./MainNav1";
 import MainNav2 from "./MainNav2";
 
-export interface HeaderProps {}
+export interface HeaderProps {
+  navType?: "MainNav1" | "MainNav2";
+  className?: string;
+}
 
-const Header: FC<HeaderProps> = () => {
-  const [isTop, setisTop] = useState(true);
-
-  useEffect(() => {
-    window.onscroll = function () {
-      scrollFunction();
-    };
-  }, []);
-
-  function scrollFunction() {
-    const $head = document.getElementById("nc-chifis-header");
-    if (!$head) return;
-    if (
-      document.body.scrollTop > 20 ||
-      document.documentElement.scrollTop > 20
-    ) {
-      !!isTop && setisTop(false);
-    } else {
-      setisTop(true);
+const Header: FC<HeaderProps> = ({ navType = "MainNav1", className = "" }) => {
+  const renderNav = () => {
+    switch (navType) {
+      case "MainNav1":
+        return <MainNav1 />;
+      case "MainNav2":
+        return <MainNav2 />;
+      default:
+        return <MainNav1 />;
     }
-  }
+  };
 
   return (
     <div
-      id="nc-chifis-header"
-      className="nc-Header relative lg:sticky lg:top-0 w-full lg:left-0 lg:right-0 z-40"
+      className={`nc-Header sticky top-0 w-full left-0 right-0 z-40 nc-header-bg ${className}`}
     >
-      <Helmet>
-        <title>Chisfis || Booking React Template</title>
-      </Helmet>
-
-      {/* NAV */}
-      <MainNav2 isTop={isTop} />
+      {renderNav()}
     </div>
   );
 };

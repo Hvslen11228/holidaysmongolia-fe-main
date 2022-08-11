@@ -1,14 +1,23 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import NavMobile from "shared/Navigation/NavMobile";
+import { useLocation } from "react-router-dom";
 
-export interface MenuBarProps {}
-const MenuBar: React.FC<MenuBarProps> = () => {
+export interface MenuBarProps {
+  className?: string;
+  iconClassName?: string;
+}
+const MenuBar: React.FC<MenuBarProps> = ({
+  className = "p-2.5 rounded-lg text-neutral-700 dark:text-neutral-300",
+  iconClassName = "h-7 w-7",
+}) => {
   const [isVisable, setIsVisable] = useState(false);
+
+  const location = useLocation();
 
   useEffect(() => {
     setIsVisable(false);
-  }, [window.location.pathname]);
+  }, [location]);
 
   const handleOpenMenu = () => setIsVisable(true);
   const handleCloseMenu = () => setIsVisable(false);
@@ -16,13 +25,20 @@ const MenuBar: React.FC<MenuBarProps> = () => {
   const renderContent = () => {
     return (
       <Transition appear show={isVisable} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-50 overflow-y-auto"
-          onClose={handleCloseMenu}
-        >
-          <div className="fixed left-0 top-0 bottom-0 w-full md:w-auto z-max outline-none focus:outline-none">
-            <React.Fragment>
+        <Dialog as="div" className="relative z-50" onClose={handleCloseMenu}>
+          <Transition.Child
+            as={Fragment}
+            enter=" duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave=" duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-neutral-900 bg-opacity-50" />
+          </Transition.Child>
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full ">
               <Transition.Child
                 as={Fragment}
                 enter="transition duration-100 transform"
@@ -32,23 +48,11 @@ const MenuBar: React.FC<MenuBarProps> = () => {
                 leaveFrom="opacity-100 translate-x-0"
                 leaveTo="opacity-0 -translate-x-14"
               >
-                <div className="z-10 relative">
+                <Dialog.Panel className="w-full max-w-sm transform overflow-hidden transition-all">
                   <NavMobile onClickClose={handleCloseMenu} />
-                </div>
+                </Dialog.Panel>
               </Transition.Child>
-
-              <Transition.Child
-                as={Fragment}
-                enter=" duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave=" duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <Dialog.Overlay className="fixed inset-0 bg-neutral-900 bg-opacity-50" />
-              </Transition.Child>
-            </React.Fragment>
+            </div>
           </div>
         </Dialog>
       </Transition>
@@ -59,11 +63,11 @@ const MenuBar: React.FC<MenuBarProps> = () => {
     <>
       <button
         onClick={handleOpenMenu}
-        className="p-2.5 rounded-lg text-neutral-700 dark:text-neutral-300 focus:outline-none flex items-center justify-center"
+        className={`focus:outline-none flex items-center justify-center ${className}`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-7 w-7"
+          className={iconClassName}
           viewBox="0 0 20 20"
           fill="currentColor"
         >

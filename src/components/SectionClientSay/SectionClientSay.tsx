@@ -11,6 +11,7 @@ import clientSay5 from "images/clientSay5.png";
 import clientSay6 from "images/clientSay6.png";
 import quotationImg from "images/quotation.png";
 import quotationImg2 from "images/quotation2.png";
+import useNcId from "hooks/useNcId";
 
 export interface SectionClientSayProps {
   className?: string;
@@ -45,7 +46,7 @@ const SectionClientSay: FC<SectionClientSayProps> = ({
   className = "",
   uniqueClassName = "",
 }) => {
-  const UNIQUE_CLASS = `SectionClientSay_glide_${uniqueClassName}`;
+  const UNIQUE_CLASS = `SectionClientSay_glide_${uniqueClassName}` + useNcId();
 
   useEffect(() => {
     if (document.querySelector(`.${UNIQUE_CLASS}`)) {

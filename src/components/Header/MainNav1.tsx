@@ -5,34 +5,34 @@ import SearchDropdown from "./SearchDropdown";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import MenuBar from "shared/MenuBar/MenuBar";
 import SwitchDarkMode from "shared/SwitchDarkMode/SwitchDarkMode";
-import LangDropdown from "./LangDropdown";
+
 export interface MainNav1Props {
-  isTop: boolean;
+  className?: string;
 }
 
-const MainNav1: FC<MainNav1Props> = ({ isTop }) => {
+const MainNav1: FC<MainNav1Props> = ({ className = "" }) => {
   return (
-    <div
-      className={`nc-MainNav1 relative z-10 ${
-        isTop ? "onTop " : "notOnTop backdrop-filter"
-      }`}
-    >
-      <div className="container py-5 relative flex justify-between items-center space-x-4 xl:space-x-8">
-        <div className="flex justify-start flex-grow items-center space-x-4 sm:space-x-10 2xl:space-x-14">
+    <div className={`nc-MainNav1 relative z-10 ${className}`}>
+      <div className="px-4 lg:container py-4 lg:py-5 relative flex justify-between items-center">
+        <div className=" md:flex justify-start flex-1 items-center space-x-4 sm:space-x-10">
           <Logo />
           <Navigation />
-          <LangDropdown />
         </div>
-        <div className="flex-shrink-0 flex items-center justify-end text-neutral-700 dark:text-neutral-100 space-x-1">
-          <div className="hidden items-center xl:flex space-x-1">
+
+        {/* <div className="lg:hidden flex-[3] max-w-lg !mx-auto md:px-3">
+          <HeroSearchForm2MobileFactory />
+        </div> */}
+
+        <div className=" md:flex flex-shrink-0 items-center justify-end flex-1 lg:flex-none text-neutral-700 dark:text-neutral-100">
+          <div className="hidden xl:flex items-center space-x-1">
             <SwitchDarkMode />
             <SearchDropdown />
             <div className="px-1" />
             <ButtonPrimary href="/login">Sign up</ButtonPrimary>
           </div>
-          <div className="flex items-center xl:hidden">
+          <div className="flex xl:hidden items-center justify-end ">
             <SwitchDarkMode />
-            <div className="px-1" />
+            <div className="px-0.5" />
             <MenuBar />
           </div>
         </div>

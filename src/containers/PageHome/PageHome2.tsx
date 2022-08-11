@@ -6,7 +6,6 @@ import SectionHowItWork from "components/SectionHowItWork/SectionHowItWork";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import { TaxonomyType } from "data/types";
 import SectionGridAuthorBox from "components/SectionGridAuthorBox/SectionGridAuthorBox";
-import { Helmet } from "react-helmet";
 import SectionHero2 from "components/SectionHero2/SectionHero2";
 //
 import logo1 from "images/logos/nomal/1.png";
@@ -24,7 +23,6 @@ import logo4Dark from "images/logos/dark/4.png";
 import logo5 from "images/logos/nomal/5.png";
 import logo5Dark from "images/logos/dark/5.png";
 //
-
 import HIW1img from "images/HIW2-1.png";
 import HIW2img from "images/HIW2-2.png";
 import HIW3img from "images/HIW2-3.png";
@@ -85,28 +83,23 @@ const DEMO_CATS_2: TaxonomyType[] = [
 ];
 
 function PageHome2() {
+  // CUSTOM THEME STYLE
   useEffect(() => {
     const $body = document.querySelector("body");
-    if ($body) {
-      $body.className = "theme-cyan-blueGrey";
-    }
+    if (!$body) return;
+    $body.classList.add("theme-cyan-blueGrey");
     return () => {
-      if ($body) {
-        $body.className = "";
-      }
+      $body.classList.remove("theme-cyan-blueGrey");
     };
   }, []);
 
   return (
     <div className="nc-PageHome2 relative overflow-hidden">
-      <Helmet>
-        <title>Chisfis || Real Estate React Template</title>
-      </Helmet>
       {/* GLASSMOPHIN */}
       {/* <BgGlassmorphism /> */}
 
-      <div className="container relative space-y-24 mb-24 lg:space-y-32 lg:mb-32">
-        <SectionHero2 className="lg:mt-2" />
+      <div className="container relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
+        <SectionHero2 className="" />
 
         {/* SECTION 1 */}
         <div className="ncSectionLogos grid grid-cols-3 lg:grid-cols-5 gap-5 sm:gap-16">

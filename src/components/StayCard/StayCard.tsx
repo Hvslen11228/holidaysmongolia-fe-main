@@ -10,7 +10,6 @@ import Badge from "shared/Badge/Badge";
 
 export interface StayCardProps {
   className?: string;
-  ratioClass?: string;
   data?: StayDataType;
   size?: "default" | "small";
 }
@@ -21,7 +20,6 @@ const StayCard: FC<StayCardProps> = ({
   size = "default",
   className = "",
   data = DEMO_DATA,
-  ratioClass,
 }) => {
   const {
     galleryImgs,
@@ -44,8 +42,9 @@ const StayCard: FC<StayCardProps> = ({
       <div className="relative w-full">
         <GallerySlider
           uniqueID={`StayCard_${id}`}
-          ratioClass={ratioClass}
+          ratioClass="aspect-w-4 aspect-h-3 "
           galleryImgs={galleryImgs}
+          href={href}
         />
         <BtnLikeIcon isLiked={like} className="absolute right-3 top-3 z-[1]" />
         {saleOff && <SaleOffBadge className="absolute left-3 top-3" />}
@@ -117,7 +116,7 @@ const StayCard: FC<StayCardProps> = ({
 
   return (
     <div
-      className={`nc-StayCard group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden hover:shadow-xl transition-shadow ${className}`}
+      className={`nc-StayCard group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden will-change-transform hover:shadow-xl transition-shadow ${className}`}
       data-nc-id="StayCard"
     >
       {renderSliderGallery()}

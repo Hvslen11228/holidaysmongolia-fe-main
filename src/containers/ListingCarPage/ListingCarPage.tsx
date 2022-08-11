@@ -89,11 +89,11 @@ const ListingCarPage: FC<ListingCarPageProps> = ({ className = "" }) => {
               <span className="ml-2.5">1512 cars</span>
             </>
           }
-          className="pt-10 pb-24 lg:pb-32 lg:pt-16 "
+          className="pt-10 pb-24 lg:pb-28 lg:pt-16 "
         />
 
         {/* SECTION */}
-        <SectionGridFilterCard className="pb-24 lg:pb-32" />
+        <SectionGridFilterCard className="pb-24 lg:pb-28" />
 
         {/* SECTION 1 */}
         <div className="relative py-16">
@@ -110,7 +110,7 @@ const ListingCarPage: FC<ListingCarPageProps> = ({ className = "" }) => {
         </div>
 
         {/* SECTION */}
-        <SectionSubscribe2 className="py-24 lg:py-32" />
+        <SectionSubscribe2 className="py-24 lg:py-28" />
       </div>
     </div>
   );

@@ -73,7 +73,7 @@ const PageSubcription: FC<PageSubcriptionProps> = ({ className = "" }) => {
           <h3 className="block text-sm uppercase tracking-widest text-neutral-6000 dark:text-neutral-300 mb-2 font-medium">
             {pricing.name}
           </h3>
-          <h2 className="text-5xl leading-none flex items-center">
+          <h2 className="text-5xl leading-none flex items-center text-neutral-900 dark:text-neutral-300">
             <span>{pricing.pricing}</span>
             <span className="text-lg ml-1 font-normal text-neutral-500">
               {pricing.per}

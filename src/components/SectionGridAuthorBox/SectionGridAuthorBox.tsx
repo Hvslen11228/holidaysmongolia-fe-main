@@ -3,68 +3,49 @@ import CardAuthorBox2 from "components/CardAuthorBox2/CardAuthorBox2";
 import Heading from "components/Heading/Heading";
 import { DEMO_AUTHORS } from "data/authors";
 import { AuthorType } from "data/types";
-import React, { FC, useEffect, useState, useContext } from "react";
+import React, { FC } from "react";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import ButtonSecondary from "shared/Button/ButtonSecondary";
-import Lang from "../../data/jsons/lang.json";
-import axios from "../../axios";
-import AuthContext from "Context/AuthContext";
+
 export interface SectionGridAuthorBoxProps {
   className?: string;
   authors?: AuthorType[];
   boxCard?: "box1" | "box2";
+  gridClassName?: string;
 }
 
 const DEMO_DATA = DEMO_AUTHORS.filter((_, i) => i < 10);
-console.log("firsts", DEMO_DATA);
-console.log(JSON.stringify(DEMO_DATA));
+
 const SectionGridAuthorBox: FC<SectionGridAuthorBoxProps> = ({
   className = "",
   authors = DEMO_DATA,
   boxCard = "box1",
+  gridClassName = "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 ",
 }) => {
-  const auth = useContext(AuthContext);
-  const [data, setData] = useState(authors);
-  const [loading, setloading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const api_menu_1 = await axios.get(`/author`);
-      setData(api_menu_1.data.data);
-      setloading(false);
-    };
-    fetchData();
-  }, []);
   return (
     <div
       className={`nc-SectionGridAuthorBox relative ${className}`}
       data-nc-id="SectionGridAuthorBox"
     >
-      <Heading desc={auth.language.author_desc} isCenter>
-        {auth.language.author_title}
+      <Heading desc="Rating based on customer reviews" isCenter>
+        Top 10 author of the month
       </Heading>
-      {loading ? (
-        <div className="flex mt-16 justify-center items-center">
-          <ButtonPrimary loading>Loading...</ButtonPrimary>
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8 ">
-          {data.map((author, index) =>
-            boxCard === "box2" ? (
-              <CardAuthorBox2 key={author.id} author={author} />
-            ) : (
-              <CardAuthorBox
-                index={index < 3 ? index + 1 : undefined}
-                key={author.id}
-                author={author}
-              />
-            )
-          )}
-        </div>
-      )}
-
-      <div className="mt-16 flex items-center justify-center space-x-5">
-        <ButtonSecondary>{auth.language.Show_me_more} </ButtonSecondary>
-        <ButtonPrimary>{auth.language.Become_a_host}</ButtonPrimary>
+      <div className={`grid gap-6 md:gap-8 ${gridClassName}`}>
+        {authors.map((author, index) =>
+          boxCard === "box2" ? (
+            <CardAuthorBox2 key={author.id} author={author} />
+          ) : (
+            <CardAuthorBox
+              index={index < 3 ? index + 1 : undefined}
+              key={author.id}
+              author={author}
+            />
+          )
+        )}
+      </div>
+      <div className="mt-16 flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-5">
+        <ButtonSecondary>Show me more </ButtonSecondary>
+        <ButtonPrimary>Become a host</ButtonPrimary>
       </div>
     </div>
   );

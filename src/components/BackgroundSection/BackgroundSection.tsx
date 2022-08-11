@@ -2,6 +2,7 @@ import React, { FC } from "react";
 
 export interface BackgroundSectionProps {
   className?: string;
+  children?: React.ReactNode;
 }
 
 const BackgroundSection: FC<BackgroundSectionProps> = ({

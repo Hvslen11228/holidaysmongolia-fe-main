@@ -1,6 +1,6 @@
 export interface InviewPortType {
   callback: () => void;
-  target: HTMLElement;
+  target: HTMLElement | null;
   options: IntersectionObserverInit | undefined;
   freezeOnceVisible: boolean;
 }

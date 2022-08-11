@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import LocationInput from "./LocationInput";
 import { FocusedInputShape } from "react-dates";
 import RentalCarDatesRangeInput from "./RentalCarDatesRangeInput";
-import ButtonSubmit from "./ButtonSubmit";
 import { FC } from "react";
 import moment from "moment";
 
@@ -89,10 +88,10 @@ const RentalCarSearchForm: FC<RentalCarSearchFormProps> = ({
   const renderForm = () => {
     return (
       <div className="w-full">
-        <form className="w-full relative mt-8 rounded-3xl shadow-xl dark:shadow-2xl bg-white dark:bg-neutral-800">
+        <form className="w-full relative mt-8 rounded-[40px] xl:rounded-[49px] rounded-t-2xl xl:rounded-t-3xl shadow-xl dark:shadow-2xl bg-white dark:bg-neutral-800">
           {renderRadioBtn()}
-          <div className=" flex flex-col md:flex-row w-full rounded-full [ nc-divide-field ] ">
-            <div className="relative flex flex-col md:flex-row flex-grow [ nc-divide-field ] ">
+          <div className="flex ">
+            <div className="flex-1 relative flex flex-row">
               <LocationInput
                 defaultValue={pickUpInputValue}
                 onChange={(e) => setPickUpInputValue(e)}
@@ -105,6 +104,7 @@ const RentalCarSearchForm: FC<RentalCarSearchFormProps> = ({
                 }
                 placeHolder="City or Airport"
                 desc="Pick up location"
+                className="flex-1"
               />
               {dropOffLocationType === "different" && (
                 <LocationInput
@@ -114,6 +114,7 @@ const RentalCarSearchForm: FC<RentalCarSearchFormProps> = ({
                   placeHolder="City or Airport"
                   desc="Drop off location"
                   autoFocus={fieldFocused === "dropOffInput"}
+                  className="flex-1"
                 />
               )}
             </div>
@@ -128,11 +129,11 @@ const RentalCarSearchForm: FC<RentalCarSearchFormProps> = ({
                 setDateRangeValue(data.stateDate);
                 setTimeRangeValue(data.stateTimeRage);
               }}
+              className={` ${
+                dropOffLocationType === "different" ? "flex-1" : "flex-[1.3]"
+              }`}
+              buttonSubmitHref="/listing-car"
             />
-            {/* BUTTON SUBMIT OF FORM */}
-            <div className="px-4 py-3 flex items-center justify-center">
-              <ButtonSubmit />
-            </div>
           </div>
         </form>
       </div>

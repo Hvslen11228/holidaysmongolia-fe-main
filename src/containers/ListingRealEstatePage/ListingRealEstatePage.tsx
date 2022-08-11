@@ -90,10 +90,10 @@ const ListingRealEstatePage: FC<ListingRealEstatePageProps> = ({
 
       <div className="container relative">
         {/* SECTION HERO */}
-        <SectionHero2ArchivePage className="lg:mt-2" />
+        <SectionHero2ArchivePage className="" />
 
         {/* SECTION */}
-        <SectionGridFilterCard className="py-24 lg:py-32" />
+        <SectionGridFilterCard className="py-24 lg:py-28" />
 
         {/* SECTION 1 */}
         <div className="relative py-16">
@@ -110,7 +110,7 @@ const ListingRealEstatePage: FC<ListingRealEstatePageProps> = ({
         </div>
 
         {/* SECTION */}
-        <SectionSubscribe2 className="py-24 lg:py-32" />
+        <SectionSubscribe2 className="py-24 lg:py-28" />
       </div>
     </div>
   );

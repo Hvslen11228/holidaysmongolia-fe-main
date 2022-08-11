@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment, useContext } from "react";
+import React from "react";
 import ButtonClose from "shared/ButtonClose/ButtonClose";
 import Logo from "shared/Logo/Logo";
 import { Disclosure } from "@headlessui/react";
@@ -9,9 +9,8 @@ import ButtonPrimary from "shared/Button/ButtonPrimary";
 import SocialsList from "shared/SocialsList/SocialsList";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import SwitchDarkMode from "shared/SwitchDarkMode/SwitchDarkMode";
-import Lang from "../../data/jsons/lang.json";
-import axios from "../../axios";
-import AuthContext from "Context/AuthContext";
+import LangDropdown from "components/Header/LangDropdown";
+
 export interface NavMobileProps {
   data?: NavItemType[];
   onClickClose?: () => void;
@@ -21,18 +20,6 @@ const NavMobile: React.FC<NavMobileProps> = ({
   data = NAVIGATION_DEMO,
   onClickClose,
 }) => {
-  const auth = useContext(AuthContext);
-  const [datas, setData] = useState(data);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const api_menu_1 = await axios.get(`/menu/menu_tours`);
-      setData(api_menu_1.data.data);
-      setLoading(false);
-      console.log(datas);
-    };
-    fetchData();
-  }, []);
   const _renderMenuChild = (item: NavItemType) => {
     return (
       <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">
@@ -44,23 +31,22 @@ const NavMobile: React.FC<NavMobileProps> = ({
               to={{
                 pathname: i.href || undefined,
               }}
-              className="flex px-4 py-2.5 text-neutral-900 dark:text-neutral-200 text-sm font-medium rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-[2px]"
+              className="flex px-4 text-neutral-900 dark:text-neutral-200 text-sm font-medium rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5"
               activeClassName="text-secondary"
             >
               <span
-                className={!i.children ? "block w-full" : ""}
-                onClick={onClickClose}
+                className={`py-2.5 pr-3 ${!i.children ? "block w-full" : ""}`}
               >
                 {i.name}
               </span>
               {i.children && (
                 <span
-                  className="block flex-grow"
+                  className="flex-1 flex"
                   onClick={(e) => e.preventDefault()}
                 >
                   <Disclosure.Button
                     as="span"
-                    className="flex justify-end flex-grow"
+                    className="py-2.5 flex justify-end flex-1"
                   >
                     <ChevronDownIcon
                       className="ml-2 h-4 w-4 text-neutral-500"
@@ -89,26 +75,22 @@ const NavMobile: React.FC<NavMobileProps> = ({
         <NavLink
           exact
           strict
-          className="flex w-full items-center py-2.5 px-4 font-medium uppercase tracking-wide text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg"
+          className="flex w-full px-4 font-medium uppercase tracking-wide text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg"
           to={{
             pathname: item.href || undefined,
           }}
           activeClassName="text-secondary"
         >
           <span
-            className={!item.children ? "block w-full" : ""}
-            onClick={onClickClose}
+            className={`py-2.5 pr-3 ${!item.children ? "block w-full" : ""}`}
           >
             {item.name}
           </span>
           {item.children && (
-            <span
-              className="block flex-grow"
-              onClick={(e) => e.preventDefault()}
-            >
+            <span className="flex-1 flex" onClick={(e) => e.preventDefault()}>
               <Disclosure.Button
                 as="span"
-                className="flex justify-end flex-grow"
+                className="py-2.5 flex items-center justify-end flex-1 "
               >
                 <ChevronDownIcon
                   className="ml-2 h-4 w-4 text-neutral-500"
@@ -130,7 +112,10 @@ const NavMobile: React.FC<NavMobileProps> = ({
       <div className="py-6 px-5">
         <Logo />
         <div className="flex flex-col mt-5 text-neutral-700 dark:text-neutral-300 text-sm">
-          <span>Holydays Mongolia</span>
+          <span>
+            Discover the most outstanding articles on all topics of life. Write
+            your stories and share them
+          </span>
 
           <div className="flex justify-between items-center mt-4">
             <SocialsList itemClass="w-9 h-9 flex items-center justify-center rounded-full bg-neutral-100 text-xl dark:bg-neutral-800 dark:text-neutral-300" />
@@ -144,10 +129,19 @@ const NavMobile: React.FC<NavMobileProps> = ({
         </span>
       </div>
       <ul className="flex flex-col py-6 px-2 space-y-1">
-        {datas.map(_renderItem)}
+        {data.map(_renderItem)}
       </ul>
-      <div className="flex items-center justify-between py-6 px-5 space-x-4">
-        <ButtonPrimary href="/login">{auth.language.register}</ButtonPrimary>
+      <div className="flex items-center justify-between py-6 px-5">
+        <a
+          className="inline-block"
+          href="https://themeforest.net/item/chisfis-online-booking-react-template/33515927"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <ButtonPrimary>Get Template</ButtonPrimary>
+        </a>
+
+        <LangDropdown panelClassName="z-10 w-screen max-w-[280px] px-4 mb-3 -right-3 bottom-full sm:px-0" />
       </div>
     </div>
   );

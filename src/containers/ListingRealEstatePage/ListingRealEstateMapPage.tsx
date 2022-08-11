@@ -36,12 +36,12 @@ const ListingRealEstateMapPage: FC<ListingRealEstateMapPageProps> = ({
       </Helmet>
 
       {/* SECTION HERO */}
-      <div className="container pb-24 lg:pb-32">
-        <SectionHero2ArchivePage className="lg:mt-2" />
+      <div className="container pb-24 lg:pb-28">
+        <SectionHero2ArchivePage className="" />
       </div>
 
       {/* SECTION */}
-      <div className="container pb-24 lg:pb-32 2xl:pl-10 xl:pr-0 xl:max-w-none">
+      <div className="container pb-24 lg:pb-28 2xl:pl-10 xl:pr-0 xl:max-w-none">
         <SectionGridHasMap />
       </div>
 
@@ -60,10 +60,10 @@ const ListingRealEstateMapPage: FC<ListingRealEstateMapPageProps> = ({
         </div>
 
         {/* SECTION */}
-        <SectionSubscribe2 className="py-24 lg:py-32" />
+        <SectionSubscribe2 className="py-24 lg:py-28" />
 
         {/* SECTION */}
-        <div className="relative py-16 mb-24 lg:mb-32">
+        <div className="relative py-16 mb-24 lg:mb-28">
           <BackgroundSection className="bg-orange-50 dark:bg-black dark:bg-opacity-20 " />
           <SectionGridAuthorBox />
         </div>

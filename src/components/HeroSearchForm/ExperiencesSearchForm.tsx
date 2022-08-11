@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import LocationInput from "./LocationInput";
 import GuestsInput, { GuestsInputProps } from "./GuestsInput";
 import ExperiencesDateSingleInput from "./ExperiencesDateSingleInput";
-import ButtonSubmit from "./ButtonSubmit";
 import moment from "moment";
 import { FC } from "react";
 
@@ -46,6 +45,7 @@ const ExperiencesSearchForm: FC<ExperiencesSearchFormProps> = ({
           defaultValue={locationInputValue}
           onChange={(e) => setLocationInputValue(e)}
           onInputDone={() => setDateFocused(true)}
+          className="flex-[1.5]"
         />
 
         <ExperiencesDateSingleInput
@@ -55,16 +55,15 @@ const ExperiencesSearchForm: FC<ExperiencesSearchFormProps> = ({
           onFocusChange={(focus: boolean) => {
             setDateFocused(focus);
           }}
+          className="flex-1"
         />
 
         <GuestsInput
           defaultValue={guestValue}
           onChange={(data) => setGuestValue(data)}
+          className="flex-[1.5]"
+          buttonSubmitHref="/listing-experiences"
         />
-        {/* BUTTON SUBMIT OF FORM */}
-        <div className="px-4 py-4 lg:py-0 flex items-center justify-center">
-          <ButtonSubmit />
-        </div>
       </form>
     );
   };

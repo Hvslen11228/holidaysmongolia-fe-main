@@ -8,28 +8,30 @@ import AvatarDropdown from "./AvatarDropdown";
 import CurrencyDropdown from "./CurrencyDropdown";
 import DropdownTravelers from "./DropdownTravelers";
 import { Link } from "react-router-dom";
+import HeroSearchForm2MobileFactory from "components/HeroSearchForm2Mobile/HeroSearchForm2MobileFactory";
 
 export interface MainNav2Props {
-  isTop: boolean;
+  className?: string;
 }
 
-const MainNav2: FC<MainNav2Props> = ({ isTop }) => {
+const MainNav2: FC<MainNav2Props> = ({ className = "" }) => {
   return (
-    <div
-      className={`nc-MainNav1 nc-MainNav2 relative z-10 ${
-        isTop ? "onTop " : "notOnTop backdrop-filter"
-      }`}
-    >
-      <div className="container py-5 relative flex justify-between items-center space-x-4 xl:space-x-8">
-        <div className="flex justify-start flex-grow items-center space-x-3 sm:space-x-8 lg:space-x-10">
+    <div className={`nc-MainNav1 nc-MainNav2 relative z-10 ${className}`}>
+      <div className="px-4 lg:container py-4 lg:py-5 relative flex justify-between items-center">
+        <div className="hidden md:flex justify-start flex-1 items-center space-x-3 sm:space-x-8 lg:space-x-10">
           <Logo />
-          <div className="hidden sm:block h-10 border-l border-neutral-300 dark:border-neutral-500"></div>
-          <div className="hidden sm:block">
+          <div className="hidden lg:block h-10 border-l border-neutral-300 dark:border-neutral-500"></div>
+          <div className="hidden lg:block">
             <DropdownTravelers />
           </div>
         </div>
-        <div className="flex-shrink-0 flex items-center justify-end text-neutral-700 dark:text-neutral-100 space-x-1">
-          <div className="hidden items-center xl:flex space-x-1">
+
+        <div className="lg:hidden flex-[3] max-w-lg !mx-auto md:px-3">
+          <HeroSearchForm2MobileFactory />
+        </div>
+
+        <div className="hidden md:flex flex-shrink-0 items-center justify-end flex-1 lg:flex-none text-neutral-700 dark:text-neutral-100">
+          <div className="hidden items-center lg:flex space-x-1">
             <CurrencyDropdown />
             <LangDropdown />
             <Link
@@ -43,11 +45,12 @@ const MainNav2: FC<MainNav2Props> = ({ isTop }) => {
 
             <div></div>
             <SwitchDarkMode />
-            <NotifyDropdown />
-            <div></div>
+            <div className="pr-1.5">
+              <NotifyDropdown className="-ml-2 xl:-ml-1" />
+            </div>
             <AvatarDropdown />
           </div>
-          <div className="flex items-center space-x-4 xl:hidden">
+          <div className="flex items-center space-x-2 lg:hidden">
             <NotifyDropdown />
             <AvatarDropdown />
             <MenuBar />

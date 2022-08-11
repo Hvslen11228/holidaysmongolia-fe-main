@@ -25,7 +25,7 @@ const ListingCarMapPage: FC<ListingCarMapPageProps> = ({ className = "" }) => {
       <BgGlassmorphism />
 
       {/* SECTION HERO */}
-      <div className="container pt-10 pb-24 lg:pt-16 lg:pb-32">
+      <div className="container pt-10 pb-24 lg:pt-16 lg:pb-28">
         <SectionHeroArchivePage
           rightImage={heroRightImage}
           currentPage="Cars"
@@ -40,7 +40,7 @@ const ListingCarMapPage: FC<ListingCarMapPageProps> = ({ className = "" }) => {
       </div>
 
       {/* SECTION */}
-      <div className="container pb-24 lg:pb-32 2xl:pl-10 xl:pr-0 xl:max-w-none">
+      <div className="container pb-24 lg:pb-28 2xl:pl-10 xl:pr-0 xl:max-w-none">
         <SectionGridHasMap />
       </div>
 
@@ -59,10 +59,10 @@ const ListingCarMapPage: FC<ListingCarMapPageProps> = ({ className = "" }) => {
         </div>
 
         {/* SECTION */}
-        <SectionSubscribe2 className="py-24 lg:py-32" />
+        <SectionSubscribe2 className="py-24 lg:py-28" />
 
         {/* SECTION */}
-        <div className="relative py-16 mb-24 lg:mb-32">
+        <div className="relative py-16 mb-24 lg:mb-28">
           <BackgroundSection className="bg-orange-50 dark:bg-black dark:bg-opacity-20 " />
           <SectionGridAuthorBox />
         </div>

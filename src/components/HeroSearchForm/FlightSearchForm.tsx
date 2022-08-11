@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import LocationInput from "./LocationInput";
 import { FocusedInputShape } from "react-dates";
 import RentalCarDatesRangeInput from "./RentalCarDatesRangeInput";
-import ButtonSubmit from "./ButtonSubmit";
 import { FC } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
@@ -88,6 +87,7 @@ const FlightSearchForm: FC<FlightSearchFormProps> = ({ haveDefaultValue }) => {
                 className={`
            ${open ? "" : ""}
             px-4 py-1.5 rounded-md inline-flex items-center font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 text-xs`}
+                onClick={() => document.querySelector("html")?.click()}
               >
                 <span>{`${guests} Guest`}</span>
                 <ChevronDownIcon
@@ -136,6 +136,7 @@ const FlightSearchForm: FC<FlightSearchFormProps> = ({ haveDefaultValue }) => {
                 className={`
            ${open ? "" : ""}
             px-4 py-1.5 rounded-md inline-flex items-center font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 text-xs`}
+                onClick={() => document.querySelector("html")?.click()}
               >
                 <span>{`${flightClassState}`}</span>
                 <ChevronDownIcon
@@ -218,10 +219,10 @@ const FlightSearchForm: FC<FlightSearchFormProps> = ({ haveDefaultValue }) => {
   const renderForm = () => {
     return (
       <div className="w-full">
-        <form className="w-full relative mt-8 rounded-3xl shadow-xl dark:shadow-2xl bg-white dark:bg-neutral-800">
+        <form className="w-full relative mt-8 rounded-[40px] xl:rounded-[49px] rounded-t-2xl xl:rounded-t-3xl shadow-xl dark:shadow-2xl bg-white dark:bg-neutral-800">
           {renderRadioBtn()}
-          <div className=" flex flex-col md:flex-row w-full rounded-full [ nc-divide-field ] ">
-            <div className="relative flex flex-col md:flex-row flex-grow [ nc-divide-field ] ">
+          <div className="flex flex-1 rounded-full">
+            <div className="relative flex flex-1">
               <LocationInput
                 defaultValue={pickUpInputValue}
                 onChange={(e) => setPickUpInputValue(e)}
@@ -249,11 +250,9 @@ const FlightSearchForm: FC<FlightSearchFormProps> = ({ haveDefaultValue }) => {
                 setDateRangeValue(data.stateDate);
                 setTimeRangeValue(data.stateTimeRage);
               }}
+              className="flex-1"
+              buttonSubmitHref="/listing-flights"
             />
-            {/* BUTTON SUBMIT OF FORM */}
-            <div className="px-4 py-3 flex items-center justify-center">
-              <ButtonSubmit />
-            </div>
           </div>
         </form>
       </div>

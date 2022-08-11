@@ -38,8 +38,9 @@ const PropertyCardH: FC<PropertyCardHProps> = ({
         <GallerySlider
           ratioClass="aspect-w-1 aspect-h-1"
           galleryImgs={galleryImgs}
-          className="w-full h-full rounded-2xl overflow-hidden"
+          className="w-full h-full rounded-2xl overflow-hidden will-change-transform"
           uniqueID={`PropertyCardH_${id}`}
+          href={href}
         />
 
         {saleOff && (
@@ -131,13 +132,11 @@ const PropertyCardH: FC<PropertyCardHProps> = ({
       className={`nc-PropertyCardH group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-3xl overflow-hidden hover:shadow-xl transition-shadow ${className}`}
       data-nc-id="PropertyCardH"
     >
-      <Link
-        to={href}
-        className="h-full w-full flex flex-col sm:flex-row sm:items-center"
-      >
+      <Link to={href} className="absolute inset-0"></Link>
+      <div className="h-full w-full flex flex-col sm:flex-row sm:items-center">
         {renderSliderGallery()}
         {renderContent()}
-      </Link>
+      </div>
       <BtnLikeIcon
         colorClass={` bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 hover:bg-opacity-70 text-neutral-6000 dark:text-neutral-400`}
         isLiked={like}

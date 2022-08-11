@@ -1,10 +1,9 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import NcImage from "shared/NcImage/NcImage";
 import { TaxonomyType } from "data/types";
 import { Link } from "react-router-dom";
 import convertNumbThousand from "utils/convertNumbThousand";
-import Lang from "../../data/jsons/lang.json";
-import AuthContext from "Context/AuthContext";
+
 export interface CardCategory3Props {
   className?: string;
   taxonomy: TaxonomyType;
@@ -14,7 +13,6 @@ const CardCategory3: FC<CardCategory3Props> = ({
   className = "",
   taxonomy,
 }) => {
-  const auth = useContext(AuthContext);
   const { count, name, href = "/", thumbnail } = taxonomy;
   return (
     <Link
@@ -40,7 +38,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
         <span
           className={`block mt-2 text-sm text-neutral-6000 dark:text-neutral-400`}
         >
-          {convertNumbThousand(count || 0)} {auth.language.properties}
+          {convertNumbThousand(count || 0)} properties
         </span>
       </div>
     </Link>

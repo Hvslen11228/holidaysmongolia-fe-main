@@ -3,7 +3,6 @@ import LocationInput from "./LocationInput";
 import GuestsInput, { GuestsInputProps } from "./GuestsInput";
 import { FocusedInputShape } from "react-dates";
 import StayDatesRangeInput from "./StayDatesRangeInput";
-import ButtonSubmit from "./ButtonSubmit";
 import moment from "moment";
 import { FC } from "react";
 
@@ -54,25 +53,24 @@ const StaySearchForm: FC<StaySearchFormProps> = ({
 
   const renderForm = () => {
     return (
-      <form className="w-full relative mt-8 flex flex-col md:flex-row  rounded-3xl lg:rounded-full shadow-xl dark:shadow-2xl bg-white dark:bg-neutral-800 divide-y divide-neutral-200 dark:divide-neutral-700 md:divide-y-0">
+      <form className="w-full relative mt-8 flex rounded-full shadow-xl dark:shadow-2xl bg-white dark:bg-neutral-800 ">
         <LocationInput
           defaultValue={locationInputValue}
           onChange={(e) => setLocationInputValue(e)}
           onInputDone={() => setDateFocused("startDate")}
+          className="flex-[1.5]"
         />
         <StayDatesRangeInput
           defaultValue={dateRangeValue}
           defaultFocus={dateFocused}
           onChange={(data) => setDateRangeValue(data)}
+          className="flex-[2]"
         />
         <GuestsInput
           defaultValue={guestValue}
           onChange={(data) => setGuestValue(data)}
+          className="flex-[1.2]"
         />
-        {/* BUTTON SUBMIT OF FORM */}
-        <div className="px-4 py-4 lg:py-0 flex items-center justify-center">
-          <ButtonSubmit />
-        </div>
       </form>
     );
   };

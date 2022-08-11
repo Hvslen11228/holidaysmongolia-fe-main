@@ -8,7 +8,11 @@ import StartRating from "components/StartRating/StartRating";
 import GoogleMapReact from "google-map-react";
 import useWindowSize from "hooks/useWindowResize";
 import moment from "moment";
-import { DayPickerRangeController, FocusedInputShape } from "react-dates";
+import {
+  DayPickerRangeController,
+  FocusedInputShape,
+  isInclusivelyAfterDay,
+} from "react-dates";
 import Avatar from "shared/Avatar/Avatar";
 import Badge from "shared/Badge/Badge";
 import ButtonCircle from "shared/Button/ButtonCircle";
@@ -31,6 +35,7 @@ import carUtilities7 from "images/carUtilities/7.png";
 import carUtilities8 from "images/carUtilities/8.png";
 import RentalCarDatesRangeInput from "components/HeroSearchForm/RentalCarDatesRangeInput";
 import { TimeRage } from "components/HeroSearchForm/RentalCarSearchForm";
+import MobileFooterSticky from "./MobileFooterSticky";
 
 export interface ListingCarDetailPageProps {
   className?: string;
@@ -272,6 +277,7 @@ const ListingCarDetailPage: FC<ListingCarDetailPageProps> = ({
               numberOfMonths={windowSize.width < 1280 ? 1 : 2}
               daySize={getDaySize()}
               hideKeyboardShortcutsPanel
+              isOutsideRange={(day) => !isInclusivelyAfterDay(day, moment())}
             />
           </div>
         </div>
@@ -462,10 +468,10 @@ const ListingCarDetailPage: FC<ListingCarDetailPageProps> = ({
           <div className="rounded-xl overflow-hidden">
             <GoogleMapReact
               bootstrapURLKeys={{
-                key: "AIzaSyDxJaU8bLdx7sSJ8fcRdhYS1pLk8Jdvnx0",
+                key: "AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY",
               }}
-              defaultZoom={15}
               yesIWantToUseGoogleMapApiInternals
+              defaultZoom={15}
               defaultCenter={{
                 lat: 55.9607277,
                 lng: 36.2172614,
@@ -529,15 +535,16 @@ const ListingCarDetailPage: FC<ListingCarDetailPageProps> = ({
           <RentalCarDatesRangeInput
             defaultDateValue={dateRangeValue}
             defaultTimeValue={timeRangeValue}
-            numberOfMonths={1}
-            fieldClassName="p-5"
+            numberOfMonths={2}
+            fieldClassName="p-3"
             wrapFieldClassName="flex flex-col w-full flex-shrink-0 relative divide-y divide-neutral-200 dark:divide-neutral-700"
-            className="RentalCarDetailPageDatesRangeInput"
+            className="RentalCarDetailPageDatesRangeInput flex-1"
             onChange={(data) => {
               setDateRangeValue(data.stateDate);
               setTimeRangeValue(data.stateTimeRage);
             }}
-            anchorDirection={windowSize.width > 1400 ? "left" : "right"}
+            anchorDirection={"right"}
+            hasButtonSubmit={false}
           />
         </form>
 
@@ -556,7 +563,7 @@ const ListingCarDetailPage: FC<ListingCarDetailPageProps> = ({
         </div>
 
         {/* SUBMIT */}
-        <ButtonPrimary>Reserve</ButtonPrimary>
+        <ButtonPrimary href={"/checkout"}>Reserve</ButtonPrimary>
       </div>
     );
   };
@@ -598,7 +605,7 @@ const ListingCarDetailPage: FC<ListingCarDetailPageProps> = ({
 
   return (
     <div
-      className={`nc-ListingCarDetailPage  ${className}`}
+      className={`ListingDetailPage nc-ListingCarDetailPage ${className}`}
       data-nc-id="ListingCarDetailPage"
     >
       {/* SINGLE HEADER */}
@@ -705,23 +712,14 @@ const ListingCarDetailPage: FC<ListingCarDetailPageProps> = ({
         {/* SIDEBAR */}
         <div className="block flex-grow mt-14 lg:mt-0">
           {renderSidebarDetail()}
-          <div className="mt-10 sticky top-24">{renderSidebarPrice()}</div>
+          <div className="hidden lg:block mt-10 sticky top-28">
+            {renderSidebarPrice()}
+          </div>
         </div>
       </main>
 
       {/* STICKY FOOTER MOBILE */}
-      <div className="block lg:hidden fixed bottom-0 inset-x-0 py-4 bg-white text-neutral-900 border-t border-neutral-200 z-20">
-        <div className="container flex items-center justify-between">
-          <span className="text-2xl font-semibold">
-            $311
-            <span className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
-              /day
-            </span>
-          </span>
-
-          <ButtonPrimary href="##">Reserve</ButtonPrimary>
-        </div>
-      </div>
+      <MobileFooterSticky />
 
       {/* OTHER SECTION */}
       <div className="container py-24 lg:py-32">

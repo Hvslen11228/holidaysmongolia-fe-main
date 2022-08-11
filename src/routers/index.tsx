@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Page } from "./types";
 import ScrollToTop from "./ScrollToTop";
@@ -43,13 +43,16 @@ import ListingRealEstateMapPage from "containers/ListingRealEstatePage/ListingRe
 import ListingRealEstatePage from "containers/ListingRealEstatePage/ListingRealEstatePage";
 import SiteHeader from "containers/SiteHeader";
 import ListingFlightsPage from "containers/ListingFlightsPage/ListingFlightsPage";
-import axios from "../axios";
-import AuthContext from "Context/AuthContext";
+import FooterNav from "components/FooterNav";
+import useWindowSize from "hooks/useWindowResize";
+import PageHome3 from "containers/PageHome/PageHome3";
+
 export const pages: Page[] = [
   { path: "/", exact: true, component: PageHome },
   { path: "/#", exact: true, component: PageHome },
   { path: "/home-1-header-2", exact: true, component: PageHome },
   { path: "/home-2", component: PageHome2 },
+  { path: "/home-3", component: PageHome3 },
   //
   { path: "/listing-stay", component: ListingStayPage },
   { path: "/listing-stay-map", component: ListingStayMapPage },
@@ -66,16 +69,7 @@ export const pages: Page[] = [
   {
     path: "/listing-experiences-detail",
     component: ListingExperiencesDetailPage,
-  }, //
-  {
-    path: "/listing/:id",
-    component: ListingExperiencesMapPage,
   },
-  {
-    path: "/detail/:id",
-    component: ListingExperiencesDetailPage,
-  },
-
   //
   { path: "/listing-car", component: ListingCarPage },
   { path: "/listing-car-map", component: ListingCarMapPage },
@@ -86,8 +80,7 @@ export const pages: Page[] = [
   //
   { path: "/listing-flights", component: ListingFlightsPage },
   //
-  // { path: "/checkout", component: CheckOutPage },
-  { path: "/checkout/:id", component: CheckOutPage },
+  { path: "/checkout", component: CheckOutPage },
   { path: "/pay-done", component: PayPage },
   //
   { path: "/author", component: AuthorPage },
@@ -119,24 +112,7 @@ export const pages: Page[] = [
 ];
 
 const Routes = () => {
-  const auth = useContext(AuthContext);
-  useEffect(() => {
-    const fetchData = async () => {
-      await axios
-        .get(`/verify_token`)
-        .then(async (result: any) => {
-          if (result.data.success) {
-            await auth.HandleLogin(true);
-            await auth.HandleUser(result.data.data);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    fetchData();
-  }, []);
-
+  const WIN_WIDTH = useWindowSize().width || window.innerWidth;
   return (
     <BrowserRouter basename="/">
       <ScrollToTop />
@@ -155,6 +131,8 @@ const Routes = () => {
         })}
         <Route component={Page404} />
       </Switch>
+
+      {WIN_WIDTH < 768 && <FooterNav />}
       <Footer />
     </BrowserRouter>
   );

@@ -1,7 +1,7 @@
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { GlobeAltIcon } from "@heroicons/react/outline";
-import { Fragment } from "react";
+import { FC, Fragment } from "react";
 
 export const headerLanguage = [
   {
@@ -43,7 +43,13 @@ export const headerLanguage = [
   },
 ];
 
-export default function LangDropdown() {
+interface LangDropdownProps {
+  panelClassName?: string;
+}
+
+const LangDropdown: FC<LangDropdownProps> = ({
+  panelClassName = "z-10 w-screen max-w-[280px] px-4 mt-3 right-0 sm:px-0",
+}) => {
   return (
     <div className="LangDropdown">
       <Popover className="relative">
@@ -52,7 +58,7 @@ export default function LangDropdown() {
             <Popover.Button
               className={`
                 ${open ? "" : "text-opacity-80"}
-             group px-3 py-1.5  border-neutral-300 hover:border-neutral-400 dark:border-neutral-700 rounded-full inline-flex items-center text-sm text-gray-700 dark:text-neutral-300 font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+             group px-3 py-1.5 border-neutral-300 hover:border-neutral-400 dark:border-neutral-700 rounded-full inline-flex items-center text-sm text-gray-700 dark:text-neutral-300 font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <GlobeAltIcon className="w-[18px] h-[18px] opacity-80" />
 
@@ -72,7 +78,7 @@ export default function LangDropdown() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute z-10 w-screen max-w-[280px] px-4 mt-3 right-0 sm:px-0">
+              <Popover.Panel className={`absolute ${panelClassName}`}>
                 <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid gap-8 bg-white dark:bg-neutral-800 p-7 lg:grid-cols-2">
                     {headerLanguage.map((item, index) => (
@@ -103,4 +109,5 @@ export default function LangDropdown() {
       </Popover>
     </div>
   );
-}
+};
+export default LangDropdown;

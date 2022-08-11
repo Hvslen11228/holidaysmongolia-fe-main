@@ -16,7 +16,7 @@ const CardAuthorBox: FC<CardAuthorBoxProps> = ({
   author,
   index,
 }) => {
-  const { displayName, href = "/", avatar, starRating, jobName } = author;
+  const { displayName, href = "/", avatar, starRating } = author;
   return (
     <Link
       to={href}
@@ -43,7 +43,7 @@ const CardAuthorBox: FC<CardAuthorBoxProps> = ({
         <span
           className={`block mt-1.5 text-sm text-neutral-500 dark:text-neutral-400`}
         >
-          {jobName}
+          New York
         </span>
       </div>
       <div className="py-2 px-4 mt-4 bg-neutral-100 dark:bg-neutral-800 rounded-full flex items-center justify-center leading-none text-xs font-medium">

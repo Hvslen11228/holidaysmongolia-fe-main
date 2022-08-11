@@ -1,49 +1,47 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { FC } from "react";
 import Checkbox from "shared/Checkbox/Checkbox";
-
-// DEMO DATA
-const typeOfProperty = [
-  {
-    name: "Duplex House",
-    description: "Have a place to yourself",
-    checked: true,
-  },
-  {
-    name: "Ferme House",
-    description: "Have your own room and share some common spaces",
-    checked: true,
-  },
-  {
-    name: "Chalet House",
-    description:
-      "Have a private or shared room in a boutique hotel, hostel, and more",
-    checked: true,
-  },
-  {
-    name: "Maison House",
-    description: "Stay in a shared space, like a common room",
-  },
-];
+import { PropertyType } from "components/HeroSearchForm2Mobile/PropertyTypeSelect";
 
 export interface PropertyTypeSelectProps {
   onChange?: (data: any) => void;
   fieldClassName?: string;
+  defaultValue?: PropertyType[];
 }
 
 const PropertyTypeSelect: FC<PropertyTypeSelectProps> = ({
   onChange,
   fieldClassName = "[ nc-hero-field-padding ]",
+  defaultValue,
 }) => {
+  const [typeOfProperty, setTypeOfProperty] = React.useState<PropertyType[]>(
+    defaultValue || []
+  );
+
+  useEffect(() => {
+    if (!defaultValue) return;
+    setTypeOfProperty(defaultValue);
+  }, defaultValue);
+
+  let typeOfPropertyText = "";
+  if (typeOfProperty && typeOfProperty.length > 0) {
+    typeOfPropertyText = typeOfProperty
+      .filter((item) => item.checked)
+      .map((item) => {
+        return item.name;
+      })
+      .join(", ");
+  }
   return (
-    <Popover className="flex relative [ nc-flex-1 ]">
+    <Popover className="flex relative flex-1">
       {({ open, close }) => (
         <>
           <Popover.Button
             className={`flex text-left w-full flex-shrink-0 items-center ${fieldClassName} space-x-3 focus:outline-none cursor-pointer ${
               open ? "nc-hero-field-focused" : ""
             }`}
+            onClick={() => document.querySelector("html")?.click()}
           >
             <div className="text-neutral-300 dark:text-neutral-400">
               <svg
@@ -69,8 +67,12 @@ const PropertyTypeSelect: FC<PropertyTypeSelectProps> = ({
                 ></path>
               </svg>
             </div>
-            <div className="flex-grow">
-              <span className="block xl:text-lg font-semibold">Type</span>
+            <div className="flex-1">
+              <span className="block xl:text-lg font-semibold overflow-hidden">
+                <span className="line-clamp-1">
+                  {typeOfPropertyText || `Type`}
+                </span>
+              </span>
               <span className="block mt-1 text-sm text-neutral-400 leading-none font-light ">
                 Property type
               </span>
@@ -88,13 +90,25 @@ const PropertyTypeSelect: FC<PropertyTypeSelectProps> = ({
             <Popover.Panel className="absolute left-0 z-10 w-full sm:min-w-[340px] max-w-sm bg-white dark:bg-neutral-800 top-full mt-3 py-5 sm:py-6 px-4 sm:px-8 rounded-3xl shadow-xl">
               <div className="">
                 <div className="relative flex flex-col space-y-5">
-                  {typeOfProperty.map((item) => (
+                  {typeOfProperty.map((item, index) => (
                     <div key={item.name} className="">
                       <Checkbox
                         name={item.name}
                         label={item.name}
                         subLabel={item.description}
-                        defaultChecked={item.checked}
+                        defaultChecked={typeOfProperty[index].checked}
+                        onChange={(e) => {
+                          const newState = typeOfProperty.map((item, i) => {
+                            if (i === index) {
+                              return { ...item, checked: e };
+                            }
+                            return item;
+                          });
+                          setTypeOfProperty(() => {
+                            return newState;
+                          });
+                          onChange && onChange(newState);
+                        }}
                       />
                     </div>
                   ))}

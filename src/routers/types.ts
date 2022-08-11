@@ -4,6 +4,7 @@ export interface LocationStates {
   "/"?: {};
   "/#"?: {};
   "/home-2"?: {};
+  "/home-3"?: {};
   "/home-1-header-2"?: {};
   //
   "/listing-flights"?: {};
@@ -15,9 +16,6 @@ export interface LocationStates {
   "/listing-experiences"?: {};
   "/listing-experiences-map"?: {};
   "/listing-experiences-detail"?: {};
-  //1
-  "/listing/:id"?: {};
-  "/detail/:id"?: {};
   //
   "/listing-real-estate"?: {};
   "/listing-real-estate-map"?: {};
@@ -28,7 +26,6 @@ export interface LocationStates {
   "/listing-car-detail"?: {};
   //
   "/checkout"?: {};
-  "/checkout/:id"?: {};
   "/pay-done"?: {};
   //
   "/account"?: {};

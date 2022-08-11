@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext } from "react";
+import React, { FC, useState } from "react";
 import AnyReactComponent from "components/AnyReactComponent/AnyReactComponent";
 import GoogleMapReact from "google-map-react";
 import { DEMO_EXPERIENCES_LISTINGS } from "data/listings";
@@ -8,14 +8,12 @@ import Pagination from "shared/Pagination/Pagination";
 import TabFilters from "./TabFilters";
 import Heading2 from "components/Heading/Heading2";
 import ExperiencesCardH from "components/ExperiencesCardH/ExperiencesCardH";
-import Lang from "../../data/jsons/lang.json";
-import AuthContext from "Context/AuthContext";
+
 const DEMO_EXPERIENCES = DEMO_EXPERIENCES_LISTINGS.filter((_, i) => i < 12);
 
 export interface SectionGridHasMapProps {}
 
 const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
-  const auth = useContext(AuthContext);
   const [currentHoverID, setCurrentHoverID] = useState<string | number>(-1);
   const [showFullMapFixed, setShowFullMapFixed] = useState(false);
 
@@ -25,9 +23,14 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
         {/* CARDSSSS */}
         <div className="min-h-screen w-full xl:w-[780px] 2xl:w-[880px] flex-shrink-0 xl:px-8 ">
           <Heading2
-            heading={auth.language.tours}
+            heading="Experiences in Tokyo"
             subHeading={
-              <span className="block text-neutral-500 dark:text-neutral-400 mt-3"></span>
+              <span className="block text-neutral-500 dark:text-neutral-400 mt-3">
+                233 experiences
+                <span className="mx-2">·</span>
+                Aug 12 - 18
+                <span className="mx-2">·</span>2 Guests
+              </span>
             }
           />
           <div className="mb-8 lg:mb-11">
@@ -75,17 +78,17 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
               <Checkbox
                 className="text-xs xl:text-sm text-neutral-800"
                 name="xx"
-                label={auth.language.Search_as_I_move_the_map}
+                label="Search as I move the map"
               />
             </div>
             {/* BELLOW IS MY GOOGLE API KEY -- PLEASE DELETE AND TYPE YOUR API KEY */}
 
             <GoogleMapReact
               bootstrapURLKeys={{
-                key: "AIzaSyDxJaU8bLdx7sSJ8fcRdhYS1pLk8Jdvnx0",
+                key: "AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY",
               }}
-              defaultZoom={12}
               yesIWantToUseGoogleMapApiInternals
+              defaultZoom={12}
               defaultCenter={DEMO_EXPERIENCES[0].map}
             >
               {DEMO_EXPERIENCES.map((item) => (
