@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from "react";
 import NavigationItem from "./NavigationItem";
 import { NAVIGATION_DEMO } from "data/navigation";
 import axios from "../../axios";
-console.log(JSON.stringify(NAVIGATION_DEMO));
 function Navigation() {
   const [data, setData] = useState(NAVIGATION_DEMO);
   const [data2, setData2] = useState(NAVIGATION_DEMO);

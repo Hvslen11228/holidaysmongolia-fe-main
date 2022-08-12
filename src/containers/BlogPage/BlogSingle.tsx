@@ -1,6 +1,6 @@
 import { DEMO_POSTS } from "data/posts";
 import { PostDataType } from "data/types";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "shared/Avatar/Avatar";
 import Badge from "shared/Badge/Badge";
@@ -11,8 +11,31 @@ import NcImage from "shared/NcImage/NcImage";
 import SocialsList from "shared/SocialsList/SocialsList";
 import Textarea from "shared/Textarea/Textarea";
 import { Helmet } from "react-helmet";
-
+import { useParams } from "react-router-dom";
+import AuthContext from "context/AuthContext";
+import axios from "../../axios";
 const BlogSingle = () => {
+  const auth: any = useContext(AuthContext);
+  const params: any = useParams();
+  const { id } = params;
+  const [data, setData] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (id) {
+          const api = await axios.get(`/blog/${id}`);
+          setData(api.data.data);
+          setLoading(false);
+        } else {
+          const api = await axios.get(`/blog`);
+          setData(api.data.data[0]);
+          setLoading(false);
+        }
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
   const renderHeader = () => {
     return (
       <header className="container rounded-xl">
@@ -304,31 +327,62 @@ const BlogSingle = () => {
       <Helmet>
         <title>Single Blog || Booking React Template</title>
       </Helmet>
-      {renderHeader()}
-      <NcImage
-        className="w-full rounded-xl"
-        containerClassName="container my-10 sm:my-12 "
-        src="https://images.unsplash.com/photo-1605487903301-a1dff2e6bbbe?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1957&q=80"
-      />
-
-      <div className="nc-SingleContent container space-y-10">
-        {renderContent()}
-        {renderTags()}
-        <div className="max-w-screen-md mx-auto border-b border-t border-neutral-100 dark:border-neutral-700"></div>
-        {renderAuthor()}
-        {renderCommentForm()}
-        {renderCommentLists()}
-      </div>
-      <div className="relative bg-neutral-100 dark:bg-neutral-800 py-16 lg:py-28 mt-16 lg:mt-24">
-        <div className="container ">
-          <h2 className="text-3xl font-semibold">Related posts</h2>
-          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-            {/*  */}
-            {DEMO_POSTS.filter((_, i) => i < 4).map(renderPostRelated)}
-            {/*  */}
+      {loading ? (
+        <>
+          <div className="relative flex min-h-screen">
+            <div className="w-screen h-[200px]  flex flex-col items-center justify-center">
+              <svg
+                className="animate-spin -ml-1 mr-3 h-10 w-10 text-primary-700"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            </div>
+          </div>{" "}
+        </>
+      ) : (
+        <>
+          {" "}
+          {renderHeader()}
+          <NcImage
+            className="w-full rounded-xl"
+            containerClassName="container my-10 sm:my-12 "
+            src="https://images.unsplash.com/photo-1605487903301-a1dff2e6bbbe?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1957&q=80"
+          />
+          <div className="nc-SingleContent container space-y-10">
+            {renderContent()}
+            {renderTags()}
+            <div className="max-w-screen-md mx-auto border-b border-t border-neutral-100 dark:border-neutral-700"></div>
+            {renderAuthor()}
+            {renderCommentForm()}
+            {renderCommentLists()}
           </div>
-        </div>
-      </div>
+          <div className="relative bg-neutral-100 dark:bg-neutral-800 py-16 lg:py-28 mt-16 lg:mt-24">
+            <div className="container ">
+              <h2 className="text-3xl font-semibold">Related posts</h2>
+              <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                {/*  */}
+                {DEMO_POSTS.filter((_, i) => i < 4).map(renderPostRelated)}
+                {/*  */}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

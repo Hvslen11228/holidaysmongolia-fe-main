@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext, useState } from "react";
 import facebookSvg from "images/Facebook.svg";
 import twitterSvg from "images/Twitter.svg";
 import googleSvg from "images/Google.svg";
@@ -6,7 +6,9 @@ import { Helmet } from "react-helmet";
 import Input from "shared/Input/Input";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import { Link } from "react-router-dom";
-
+import axios from "../../axios";
+import AuthContext from "context/AuthContext";
+import { useHistory } from "react-router-dom";
 export interface PageSignUpProps {
   className?: string;
 }
@@ -30,14 +32,43 @@ const loginSocials = [
 ];
 
 const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
+  const auth: any = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const loginHandler = async (e: any) => {
+    e.preventDefault();
+    setLoading(true);
+    await axios
+      .post(`/auth/login`, {
+        email,
+        password,
+      })
+      .then(async (result: any) => {
+        setLoading(false);
+        if (result.data.success) {
+          await auth.HandleToken(result.data.token);
+          await auth.HandleLogin(true);
+          await auth.HandleUser(result.data.data);
+          await history.push("/");
+        } else {
+          alert(result.data.message);
+        }
+      })
+      .catch((err: any) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
   return (
     <div className={`nc-PageSignUp  ${className}`} data-nc-id="PageSignUp">
       <Helmet>
-        <title>Sign up || Booking React Template</title>
+        <title>{auth.site_data.Signup}</title>
       </Helmet>
       <div className="container mb-24 lg:mb-32">
         <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
-          Signup
+          {auth.site_data.Signup}
         </h2>
         <div className="max-w-md mx-auto space-y-6 ">
           <div className="grid gap-3">
@@ -66,30 +97,47 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
             <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
           </div>
           {/* FORM */}
-          <form className="grid grid-cols-1 gap-6" action="#" method="post">
+          <form
+            className="grid grid-cols-1 gap-6"
+            action="#"
+            method="post"
+            onSubmit={loginHandler}
+          >
             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
-                Email address
+                {auth.site_data.Email_address}
               </span>
               <Input
                 type="email"
                 placeholder="example@example.com"
                 className="mt-1"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
             </label>
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                Password
+                {auth.site_data.Password}
               </span>
-              <Input type="password" className="mt-1" />
+              <Input
+                type="password"
+                className="mt-1"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
             </label>
-            <ButtonPrimary type="submit">Continue</ButtonPrimary>
+            <ButtonPrimary loading={loading} type="submit">
+              {" "}
+              {auth.site_data.Continue}
+            </ButtonPrimary>
           </form>
 
           {/* ==== */}
           <span className="block text-center text-neutral-700 dark:text-neutral-300">
-            Already have an account? {` `}
-            <Link to="/login">Sign in</Link>
+            {auth.site_data.Already_have_an_account} {` `}
+            <Link to="/login">{auth.site_data.login}</Link>
           </span>
         </div>
       </div>

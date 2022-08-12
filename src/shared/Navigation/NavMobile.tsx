@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ButtonClose from "shared/ButtonClose/ButtonClose";
 import Logo from "shared/Logo/Logo";
 import { Disclosure } from "@headlessui/react";
@@ -10,16 +10,29 @@ import SocialsList from "shared/SocialsList/SocialsList";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import SwitchDarkMode from "shared/SwitchDarkMode/SwitchDarkMode";
 import LangDropdown from "components/Header/LangDropdown";
-
+import axios from "../../axios";
 export interface NavMobileProps {
-  data?: NavItemType[];
+  datas?: NavItemType[];
   onClickClose?: () => void;
 }
 
 const NavMobile: React.FC<NavMobileProps> = ({
-  data = NAVIGATION_DEMO,
+  datas = NAVIGATION_DEMO,
   onClickClose,
 }) => {
+  const [data, setData] = useState(datas);
+  const [data2, setData2] = useState(datas);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const api_menu_1 = await axios.get(`/fun/menu`);
+      setData(api_menu_1.data.data.first_language);
+      setData2(api_menu_1.data.data.second_language);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
   const _renderMenuChild = (item: NavItemType) => {
     return (
       <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">
@@ -29,7 +42,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
               exact
               strict
               to={{
-                pathname: i.href || undefined,
+                pathname: i.href + "/" + i.id || undefined,
               }}
               className="flex px-4 text-neutral-900 dark:text-neutral-200 text-sm font-medium rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5"
               activeClassName="text-secondary"
@@ -77,7 +90,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
           strict
           className="flex w-full px-4 font-medium uppercase tracking-wide text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg"
           to={{
-            pathname: item.href || undefined,
+            pathname: item.href + "/" + item.id || undefined,
           }}
           activeClassName="text-secondary"
         >

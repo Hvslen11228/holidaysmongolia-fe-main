@@ -61,7 +61,7 @@ const SectionVideos: FC<SectionVideosProps> = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const api_menu_1 = await axios.get(`/fun/video`);
+        const api_menu_1 = await axios.get(`/video`);
         setData(api_menu_1.data.data);
         setLoading(false);
       } catch (error) {

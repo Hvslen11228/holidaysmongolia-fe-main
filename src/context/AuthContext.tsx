@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import axios from "../axios";
 const AuthContext: any = createContext("");
 function setCookie(c_name: any, value: any, exdays: any) {
   const exdate = new Date();
@@ -7,6 +8,7 @@ function setCookie(c_name: any, value: any, exdays: any) {
     escape(value) + (exdays == null ? "" : "; expires=" + exdate.toUTCString());
   document.cookie = c_name + "=" + c_value;
 }
+
 export const AuthContextProvider = (props: any) => {
   const [logged, setLogged] = useState(false);
   const [token, setToken] = useState("");
@@ -16,6 +18,7 @@ export const AuthContextProvider = (props: any) => {
     setLogged(type);
   };
   const HandleToken = (data: any) => {
+    axios.defaults.headers.common["Authorization"] = "Bearer " + data;
     setCookie("token", data, 3);
     setToken(data);
   };

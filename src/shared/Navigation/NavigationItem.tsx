@@ -131,7 +131,7 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({
           rel="noopener noreferrer"
           className="inline-flex items-center font-normal text-neutral-6000 dark:text-neutral-300 py-1 px-2 rounded hover:text-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
           to={{
-            pathname: item.href || undefined,
+            pathname: item.href + "/" + item.id || undefined,
           }}
           activeClassName="font-semibold text-neutral-900 dark:!text-neutral-200"
         >
@@ -255,7 +255,7 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({
         rel="noopener noreferrer"
         className="flex items-center font-normal text-neutral-6000 dark:text-neutral-300 py-2 px-4 rounded-md hover:text-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
         to={{
-          pathname: item.href || undefined,
+          pathname: item.href + "/" + item.id || undefined,
         }}
         activeClassName="!font-medium  dark:!text-neutral-100"
       >
@@ -280,7 +280,7 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({
         rel="noopener noreferrer"
         className="inline-flex items-center text-sm xl:text-base font-normal text-neutral-700 dark:text-neutral-300 py-2 px-4 xl:px-5 rounded-full hover:text-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
         to={{
-          pathname: item.href || undefined,
+          pathname: item.href + "/" + item.id || undefined,
         }}
         activeClassName="!font-semibold !text-neutral-900 bg-neutral-100 dark:bg-neutral-800 dark:!text-neutral-100"
       >
