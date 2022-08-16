@@ -7,56 +7,53 @@ import {
   LogoutIcon,
   SupportIcon,
 } from "@heroicons/react/outline";
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import Avatar from "shared/Avatar/Avatar";
-
+import AuthContext from "context/AuthContext";
 const solutions = [
   {
     name: "Account",
-    href: "##",
+    href: "account",
     icon: UserCircleIcon,
   },
   {
-    name: "Messages",
-    href: "##",
-    icon: AnnotationIcon,
-  },
-  {
-    name: "Wishlists",
-    href: "##",
-    icon: HeartIcon,
-  },
-  {
     name: "Booking",
-    href: "##",
+    href: "account-billing",
     icon: HomeIcon,
   },
 ];
 
 const solutionsFoot = [
   {
-    name: "Help",
-    href: "##",
-    icon: SupportIcon,
-  },
-
-  {
     name: "Logout",
-    href: "##",
+    href: "#",
     icon: LogoutIcon,
   },
 ];
 
 export default function AvatarDropdown() {
+  const auth: any = useContext(AuthContext);
+  function logout() {
+    auth.HandleLogin(false);
+    auth.HandleToken("");
+    auth.HandleUser([]);
+  }
   return (
     <div className="AvatarDropdown">
       <Popover className="relative">
-        {({ open }) => (
+        {({ open }: any) => (
           <>
             <Popover.Button
               className={`inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
-              <Avatar sizeClass="w-8 h-8 sm:w-9 sm:h-9" />
+              <Avatar
+                sizeClass="w-8 h-8 sm:w-9 sm:h-9"
+                imgUrl={
+                  "/uploads/holidays/image/png/62f9ef566818fb894eb44e61.png"
+                }
+                userName={auth?.user?.user_email}
+                hasChecked={true}
+              />
             </Popover.Button>
             <Transition
               as={Fragment}
@@ -92,6 +89,11 @@ export default function AvatarDropdown() {
                         key={index}
                         href={item.href}
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                        onClick={() => {
+                          if (item.name == "Logout") {
+                            logout();
+                          }
+                        }}
                       >
                         <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
                           <item.icon aria-hidden="true" className="w-6 h-6" />
