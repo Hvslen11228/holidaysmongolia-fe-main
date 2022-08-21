@@ -30,7 +30,6 @@ import ExperiencesDateSingleInput from "components/HeroSearchForm/ExperiencesDat
 import MobileFooterSticky from "./MobileFooterSticky";
 import axios from "../../axios";
 import AuthContext from "context/AuthContext";
-import { includes } from "lodash";
 export interface ListingExperiencesDetailPageProps {
   className?: string;
 }
@@ -233,29 +232,15 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
   const { id } = params;
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
-  const [guestAdults, setguestAdults] = useState<any | null>(1);
-  const [guestChildren, setguestChildren] = useState<any | null>(0);
-  const [guestInfants, setguestInfants] = useState<any | null>(0);
-  const [amount, seamount] = useState([0, 0, 0]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (id) {
-          const api = await axios.get(`/tour/${id}`);
-          seamount([
-            api.data.data.amount_0,
-            api.data.data.amount_1,
-            api.data.data.amount_2,
-          ]);
+          const api = await axios.get(`/complex/${id}`);
           setData(api.data.data);
           setLoading(false);
         } else {
-          const api = await axios.get(`/tour`);
-          seamount([
-            api.data.data.amount_0,
-            api.data.data.amount_1,
-            api.data.data.amount_2,
-          ]);
+          const api = await axios.get(`/complex`);
           setData(api.data.data[0]);
           setLoading(false);
         }
@@ -264,7 +249,11 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
     fetchData();
   }, [id]);
   ///
-
+  const [guestAdults, setguestAdults] = useState<any | null>(1);
+  const [guestChildren, setguestChildren] = useState<any | null>(0);
+  const [guestInfants, setguestInfants] = useState<any | null>(0);
+  const [amount, seamount] = useState([0, 0, 0]);
+  const [icons, seticons] = useState(icon_demo);
   const ordering = async () => {
     const amount_all =
       amount[0] * guestAdults +
@@ -400,23 +389,14 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         {/* 6 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-sm text-neutral-700 dark:text-neutral-300 ">
-          {data?.icons && (
-            <>
-              {icon_demo
-                .filter((element: any) => [...data?.icons].includes(element.id))
-                .map((item) => (
-                  <div
-                    key={item.name_1}
-                    className="flex items-center space-x-3"
-                  >
-                    <i className={`text-3xl las ${item.class}`}></i>
-                    <span className=" ">
-                      {auth.lang == "mon" ? item.name_1 : item.name_2}
-                    </span>
-                  </div>
-                ))}
-            </>
-          )}
+          {icons.map((item) => (
+            <div key={item.name_1} className="flex items-center space-x-3">
+              <i className={`text-3xl las ${item.class}`}></i>
+              <span className=" ">
+                {auth.lang == "mon" ? item.name_1 : item.name_2}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -457,7 +437,90 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
   };
 
   const renderSection8 = () => {
-    return "";
+    if (auth.lang == "mon") {
+      return (
+        <div className="listingSection__wrap">
+          {/* HEADING */}
+          <h2 className="text-2xl font-semibold">Мэдэх зүйлс</h2>
+          <div className="w-14 border-b border-neutral-200 dark:border-neutral-700" />
+
+          {/* CONTENT */}
+          <div>
+            <h4 className="text-lg font-semibold">Цуцлах бодлого</h4>
+            <span className="block mt-3 text-neutral-500 dark:text-neutral-400">
+              Аливаа туршлагыг худалдан авснаас хойш 24 цагийн дотор эсвэл
+              туршлага эхлэхээс 7-оос доошгүй хоногийн өмнө цуцалж, төлбөрийг
+              бүрэн буцаан олгох боломжтой.
+            </span>
+          </div>
+          <div className="w-14 border-b border-neutral-200 dark:border-neutral-700" />
+
+          {/* CONTENT */}
+          <div>
+            <h4 className="text-lg font-semibold">Зочинд тавигдах шаардлага</h4>
+            <span className="block mt-3 text-neutral-500 dark:text-neutral-400">
+              4 ба түүнээс дээш насны 10 хүртэлх зочид оролцох боломжтой. Мөн
+              эцэг эхчүүд 2-оос доош насны хүүхдүүдийг авчирч болно.
+            </span>
+          </div>
+          <div className="w-14 border-b border-neutral-200 dark:border-neutral-700" />
+
+          {/* CONTENT */}
+          {/* <div>
+            <h4 className="text-lg font-semibold">Юу авчрах вэ</h4>
+            <div className="prose sm:prose">
+              <ul className="mt-3 text-neutral-500 dark:text-neutral-400 space-y-2">
+                <li>
+                  Formal Wear To Visit Bai Dinh Pagoda Be ready before 7.30 Am.
+                </li>
+                <li>We will pick up from 07.30 to 08.00 AM</li>
+              </ul>
+            </div>
+          </div> */}
+        </div>
+      );
+    } else {
+      return (
+        <div className="listingSection__wrap">
+          {/* HEADING */}
+          <h2 className="text-2xl font-semibold">Things to know</h2>
+          <div className="w-14 border-b border-neutral-200 dark:border-neutral-700" />
+
+          {/* CONTENT */}
+          <div>
+            <h4 className="text-lg font-semibold">Cancellation policy</h4>
+            <span className="block mt-3 text-neutral-500 dark:text-neutral-400">
+              Any experience can be canceled and fully refunded within 24 hours
+              of purchase, or at least 7 days before the experience starts.
+            </span>
+          </div>
+          <div className="w-14 border-b border-neutral-200 dark:border-neutral-700" />
+
+          {/* CONTENT */}
+          <div>
+            <h4 className="text-lg font-semibold">Guest requirements</h4>
+            <span className="block mt-3 text-neutral-500 dark:text-neutral-400">
+              Up to 10 guests ages 4 and up can attend. Parents may also bring
+              children under 2 years of age.
+            </span>
+          </div>
+          <div className="w-14 border-b border-neutral-200 dark:border-neutral-700" />
+
+          {/* CONTENT */}
+          {/* <div>
+            <h4 className="text-lg font-semibold">What to bring</h4>
+            <div className="prose sm:prose">
+              <ul className="mt-3 text-neutral-500 dark:text-neutral-400 space-y-2">
+                <li>
+                  Formal Wear To Visit Bai Dinh Pagoda Be ready before 7.30 Am.
+                </li>
+                <li>We will pick up from 07.30 to 08.00 AM</li>
+              </ul>
+            </div>
+          </div> */}
+        </div>
+      );
+    }
   };
 
   const renderSidebar = () => {

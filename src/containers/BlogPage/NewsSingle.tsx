@@ -24,11 +24,11 @@ const BlogSingle = () => {
     const fetchData = async () => {
       try {
         if (id) {
-          const api = await axios.get(`/blog/${id}`);
+          const api = await axios.get(`/news/${id}`);
           setData(api.data.data);
           setLoading(false);
         } else {
-          const api = await axios.get(`/blog`);
+          const api = await axios.get(`/news`);
           setData(api.data.data[0]);
           setLoading(false);
         }

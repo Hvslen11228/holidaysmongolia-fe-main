@@ -19,6 +19,7 @@ export interface LocationStates {
   "/listing/:id"?: {};
   "/listing-experiences-detail"?: {};
   "/listing-detail/:id"?: {};
+  "/listing-detail-2/:id"?: {};
   //
   "/listing-real-estate"?: {};
   "/listing-real-estate-map"?: {};
@@ -38,6 +39,10 @@ export interface LocationStates {
   //
   "/blog"?: {};
   "/blog-single"?: {};
+  "/blog-detail/:id"?: {};
+  "/news"?: {};
+  "/news-single"?: {};
+  "/news-detail/:id"?: {};
   //
   "/add-listing-1"?: {};
   "/add-listing-2"?: {};

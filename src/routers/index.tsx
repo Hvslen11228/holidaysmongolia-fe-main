@@ -11,6 +11,7 @@ import ListingExperiencesPage from "containers/ListingExperiencesPage/ListingExp
 import ListingExperiencesMapPage from "containers/ListingExperiencesPage/ListingExperiencesMapPage";
 import ListingStayDetailPage from "containers/ListingDetailPage/ListingStayDetailPage";
 import ListingExperiencesDetailPage from "containers/ListingDetailPage/ListingExperiencesDetailPage";
+import ListingExperiencesDetailPageComplex from "containers/ListingDetailPage/ListingExperiencesDetailPage_complex";
 import ListingCarPage from "containers/ListingCarPage/ListingCarPage";
 import ListingCarMapPage from "containers/ListingCarPage/ListingCarMapPage";
 import ListingCarDetailPage from "containers/ListingDetailPage/ListingCarDetailPage";
@@ -28,6 +29,10 @@ import PageLogin from "containers/PageLogin/PageLogin";
 import PageSubcription from "containers/PageSubcription/PageSubcription";
 import BlogPage from "containers/BlogPage/BlogPage";
 import BlogSingle from "containers/BlogPage/BlogSingle";
+
+import NewsPage from "containers/BlogPage/NewsPage";
+import NewsSingle from "containers/BlogPage/NewsSingle";
+
 import PageAddListing1 from "containers/PageAddListing1/PageAddListing1";
 import PageAddListing2 from "containers/PageAddListing1/PageAddListing2";
 import PageAddListing3 from "containers/PageAddListing1/PageAddListing3";
@@ -84,6 +89,10 @@ export const pages: Page[] = [
     path: "/listing-detail/:id",
     component: ListingExperiencesDetailPage,
   },
+  {
+    path: "/listing-detail-2/:id",
+    component: ListingExperiencesDetailPageComplex,
+  },
   //
   { path: "/listing-car", component: ListingCarPage },
   { path: "/listing-car-map", component: ListingCarMapPage },
@@ -105,6 +114,10 @@ export const pages: Page[] = [
   //
   { path: "/blog", component: BlogPage },
   { path: "/blog-single", component: BlogSingle },
+  { path: "/blog-detail/:id", component: BlogSingle },
+  { path: "/news", component: NewsPage },
+  { path: "/news-single", component: NewsSingle },
+  { path: "/news-detail/:id", component: NewsSingle },
   //
   { path: "/add-listing-1", component: PageAddListing1 },
   { path: "/add-listing-2", component: PageAddListing2 },
