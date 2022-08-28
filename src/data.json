@@ -102,7 +102,20 @@
     "Date": "Date",
     "үнийн_задаргаа": "Үнийн дэлгэрэнгүй",
     "нийт_үнэ": "Нийт үнэ",
-    "Одоо_төлөх": "Одоо төлөх"
+    "Одоо_төлөх": "Одоо төлөх",
+    "Latest_Articles": "Latest Articles",
+    "Latest_Articles_dec": "Popular places to stay that Chisfis recommends for you",
+    "About_us": "👋 About Us.",
+    "About_rightImg": "/uploads/holidays/image/png/630b5cc532063aaac834693d.png",
+    "about_subHeading": "We’re impartial and independent, and every day we create distinctive, world-class programmes and content which inform, educate and entertain millions of people in the around the world.",
+    "About_h1": "About_h1",
+    "About_h2": "About_h2",
+    "About_p": "About_p",
+    "About_text": "We’re impartial and independent, and every day we create distinctive, world-class programmes and content",
+    "Account_infomation": "Account infomation",
+    "Update_info": "Update info",
+    "Booking": "Booking",
+    "orders": "Orders"
   },
   {
     "img": "/uploads/holidays/image/png/6304330d8012b68f51719fe1.png",
@@ -207,6 +220,19 @@
     "Date": "Date",
     "үнийн_задаргаа": "Үнийн дэлгэрэнгүй",
     "нийт_үнэ": "Нийт үнэ",
-    "Одоо_төлөх": "Одоо төлөх"
+    "Одоо_төлөх": "Одоо төлөх",
+    "Latest_Articles": "Latest Articles",
+    "Latest_Articles_dec": "Popular places to stay that Chisfis recommends for you",
+    "About_us": "👋 About Us.",
+    "About_rightImg": "/uploads/holidays/image/png/630b5cc532063aaac834693d.png",
+    "about_subHeading": "We’re impartial and independent, and every day we create distinctive, world-class programmes and content which inform, educate and entertain millions of people in the around the world.",
+    "About_h1": "About_h1",
+    "About_h2": "About_h2",
+    "About_p": "About_p",
+    "About_text": "We’re impartial and independent, and every day we create distinctive, world-class programmes and content",
+    "Account_infomation": "Account infomation",
+    "Update_info": "Update info",
+    "Booking": "Booking",
+    "orders": "Orders"
   }
 ]
