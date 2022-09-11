@@ -269,29 +269,21 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
       try {
         if (id) {
           const api = await axios.get(`/complex/${id}`);
-<<<<<<< HEAD
+          seamount([
+            api?.data?.data?.amount_0,
+            api?.data?.data?.amount_1,
+            api?.data?.data?.amount_2,
+          ]);
           setData(api?.data?.data);
           setLoading(false);
         } else {
           const api = await axios.get(`/complex`);
+          seamount([
+            api?.data?.data?.amount_0,
+            api?.data?.data?.amount_1,
+            api?.data?.data?.amount_2,
+          ]);
           setData(api?.data?.data[0]);
-=======
-          seamount([
-            api.data.data.amount_0,
-            api.data.data.amount_1,
-            api.data.data.amount_2,
-          ]);
-          setData(api.data.data);
-          setLoading(false);
-        } else {
-          const api = await axios.get(`/complex`);
-          seamount([
-            api.data.data.amount_0,
-            api.data.data.amount_1,
-            api.data.data.amount_2,
-          ]);
-          setData(api.data.data[0]);
->>>>>>> 635ed161a471083b21f56a46c38081631c2ac536
           setLoading(false);
         }
       } catch (error) {}
