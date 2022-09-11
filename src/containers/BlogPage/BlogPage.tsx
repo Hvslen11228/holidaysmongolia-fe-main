@@ -20,7 +20,7 @@ const BlogPage: React.FC = () => {
     const fetchData = async () => {
       try {
         const api_menu_1 = await axios.get(`/blog`);
-        setData(api_menu_1.data.data);
+        setData(api_menu_1?.data?.data);
         setLoading(false);
       } catch (error) {
         setData(MAGAZINE1_POSTS);

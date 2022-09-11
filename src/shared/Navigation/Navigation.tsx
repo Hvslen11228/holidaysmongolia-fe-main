@@ -11,8 +11,8 @@ function Navigation() {
   useEffect(() => {
     const fetchData = async () => {
       const api_menu_1 = await axios.get(`/fun/menu`);
-      setData(api_menu_1.data.data.first_language);
-      setData2(api_menu_1.data.data.second_language);
+      setData(api_menu_1?.data?.data?.first_language);
+      setData2(api_menu_1?.data?.data?.second_language);
       setLoading(false);
     };
     fetchData();
@@ -25,14 +25,14 @@ function Navigation() {
         <Fragment>
           {auth.lang == "en" ? (
             <>
-              {data.map((item) => (
-                <NavigationItem key={item.id} menuItem={item} />
+              {data.map((item: any, index: any) => (
+                <NavigationItem key={"nav" + index} menuItem={item} />
               ))}
             </>
           ) : (
             <>
-              {data2.map((item) => (
-                <NavigationItem key={item.id} menuItem={item} />
+              {data2.map((item, index: any) => (
+                <NavigationItem key={"nav" + index} menuItem={item} />
               ))}
             </>
           )}

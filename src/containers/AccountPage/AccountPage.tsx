@@ -71,6 +71,20 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
                 <Input className="mt-1.5" defaultValue={auth?.user?.user_id} />
               </div>
               <div>
+                <Label>First Name</Label>
+                <Input
+                  className="mt-1.5"
+                  defaultValue={auth?.user?.first_name}
+                />
+              </div>
+              <div>
+                <Label>Last Name</Label>
+                <Input
+                  className="mt-1.5"
+                  defaultValue={auth?.user?.last_name}
+                />
+              </div>
+              <div>
                 <Label>Email</Label>
                 <Input
                   className="mt-1.5"

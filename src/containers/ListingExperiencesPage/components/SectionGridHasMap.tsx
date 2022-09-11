@@ -30,13 +30,13 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = ({ data }) => {
       try {
         if (!data?._id && !id) {
           const api_ = await axios.get(`/tour`);
-          setData(api_.data.data);
+          setData(api_?.data?.data);
           setTimeout(function () {
             setLoading(false);
           }, 2000);
         } else {
           const api_ = await axios.get(`/tour/category/${data?._id || id}`);
-          setData(api_.data.data);
+          setData(api_?.data?.data);
           setTimeout(function () {
             setLoading(false);
           }, 2000);

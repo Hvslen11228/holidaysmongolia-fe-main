@@ -34,7 +34,7 @@ const CheckOutPage: FC<CheckOutPageProps> = ({ className = "" }) => {
   useEffect(() => {
     const fetchData = async () => {
       const api_ = await axios.get(`/order/${id}`);
-      setdata(api_.data.data);
+      setdata(api_?.data?.data);
       // const api_2 = await axios.post(`/pay/qpay/create_simple/${id}`);
       // setqpay(api_2.data.data);
       setLoading(false);

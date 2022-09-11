@@ -36,6 +36,8 @@ export const AuthContextProvider = (props: any) => {
     } else {
       HandleData(datas[1]);
     }
+    axios.defaults.headers.common["Accept-Language"] = data;
+    setCookie("language", data, 3);
     setLang(data);
   };
 

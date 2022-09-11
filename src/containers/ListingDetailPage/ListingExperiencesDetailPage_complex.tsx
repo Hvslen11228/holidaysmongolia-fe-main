@@ -264,11 +264,11 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
       try {
         if (id) {
           const api = await axios.get(`/complex/${id}`);
-          setData(api.data.data);
+          setData(api?.data?.data);
           setLoading(false);
         } else {
           const api = await axios.get(`/complex`);
-          setData(api.data.data[0]);
+          setData(api?.data?.data[0]);
           setLoading(false);
         }
       } catch (error) {}

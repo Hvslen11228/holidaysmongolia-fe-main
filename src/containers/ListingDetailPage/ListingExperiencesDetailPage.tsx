@@ -270,20 +270,20 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
         if (id) {
           const api = await axios.get(`/tour/${id}`);
           seamount([
-            api.data.data.amount_0,
-            api.data.data.amount_1,
-            api.data.data.amount_2,
+            api?.data?.data?.amount_0,
+            api?.data?.data?.amount_1,
+            api?.data?.data?.amount_2,
           ]);
-          setData(api.data.data);
+          setData(api?.data?.data);
           setLoading(false);
         } else {
           const api = await axios.get(`/tour`);
           seamount([
-            api.data.data.amount_0,
-            api.data.data.amount_1,
-            api.data.data.amount_2,
+            api?.data?.data?.amount_0,
+            api?.data?.data?.amount_1,
+            api?.data?.data?.amount_2,
           ]);
-          setData(api.data.data[0]);
+          setData(api?.data?.data[0]);
           setLoading(false);
         }
       } catch (error) {}

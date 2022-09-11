@@ -11,7 +11,7 @@ const AccountBilling = () => {
   useEffect(() => {
     const fetchData = async () => {
       const api_ = await axios.get(`/order/find/my`);
-      setdata(api_.data.data);
+      setdata(api_?.data?.data);
       setLoading(false);
     };
     fetchData();
