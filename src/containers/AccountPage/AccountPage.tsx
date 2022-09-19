@@ -15,10 +15,7 @@ export interface AccountPageProps {
 const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
   const auth: any = useContext(AuthContext);
   return (
-    <div
-      className={`nc-AccountPage ${className}  h-screen`}
-      data-nc-id="AccountPage"
-    >
+    <div className={`nc-AccountPage ${className} `} data-nc-id="AccountPage">
       <Helmet>
         <title>Account</title>
       </Helmet>

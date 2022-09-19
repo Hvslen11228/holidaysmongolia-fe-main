@@ -17,7 +17,7 @@ const SectionHero: FC<SectionHeroProps> = ({
   btnText,
 }) => {
   if (!rightImg.includes("http")) {
-    if (rightImg.includes("holidays")) {
+    if (rightImg.includes("holidays") || rightImg.includes("trip")) {
       rightImg = `${process.env.REACT_APP_CDN_URL}${rightImg}`;
     }
   }
