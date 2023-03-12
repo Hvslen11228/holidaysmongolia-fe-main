@@ -83,9 +83,9 @@ const Footer: React.FC = () => {
   return (
     <div className="nc-Footer relative py-5 border-t border-neutral-200 dark:border-neutral-700">
       <div className="container grid grid-cols-3 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-3 lg:grid-cols-3 lg:gap-x-10 ">
-        <div>Mongolia, Ulaanbaatar, Bayanzurh, 6-horoo , 22b</div>
+        {/* <div>Mongolia, Ulaanbaatar, Bayanzurh, 6-horoo , 22b</div>
         <div>+976-88093431 & +976-88014117 카카오 ID: SKYTOUR88</div>
-        <div>SKYTOURSMONGOLIA@GMAIL.COM</div>
+        <div>SKYTOURSMONGOLIA@GMAIL.COM</div> */}
 
         {/* {widgetMenus.map(renderWidgetMenuItem)} */}
       </div>

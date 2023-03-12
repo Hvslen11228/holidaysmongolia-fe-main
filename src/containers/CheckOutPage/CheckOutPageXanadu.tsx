@@ -33,14 +33,17 @@ const CheckOutPage: FC<CheckOutPageProps> = ({ className = "" }) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
-      const api_ = await axios.get(`/order/${id}`);
+      const api_ = await axios.get(`/order/${id}/xanadu/order/`);
       setdata(api_?.data?.data);
-      const api_2 = await axios.post(`/checkout/create`, {
-        order_id: id,
-        amount: api_?.data?.data.income_amount,
-        order_type: "order",
-      });
-      setpay(api_2.data.data);
+      if (!api_?.data?.data.type) {
+        const api_2 = await axios.post(`/checkout/create`, {
+          order_id: id,
+          amount: api_?.data?.data?.amount,
+          order_type: "xanadu",
+        });
+        setpay(api_2.data.data);
+      }
+
       setLoading(false);
     };
     fetchData();
@@ -60,16 +63,20 @@ const CheckOutPage: FC<CheckOutPageProps> = ({ className = "" }) => {
         <div className="flex flex-col sm:flex-row sm:items-center">
           <div className="flex-shrink-0 w-full sm:w-40">
             <div className=" aspect-w-4 aspect-h-3 sm:aspect-h-4 rounded-2xl overflow-hidden">
-              <NcImage src={data.tour.featuredImage} />
+              <NcImage
+                src={
+                  "/uploads/holidays/image/jpeg/640b110bc73d2960253fe3bb.jpg"
+                }
+              />
             </div>
           </div>
           <div className="py-5 sm:px-5 space-y-3">
             <div>
               <span className="text-sm text-neutral-500 dark:text-neutral-400 line-clamp-1">
-                {data.tour.title}
+                Xanadu festival
               </span>
               <span className="text-base font-medium mt-1 block">
-                {data.tour.address}
+                Xanadu festival
               </span>
             </div>
             <span className="block  text-sm text-neutral-500 dark:text-neutral-400"></span>
@@ -89,7 +96,7 @@ const CheckOutPage: FC<CheckOutPageProps> = ({ className = "" }) => {
           <div className="border-b border-neutral-200 dark:border-neutral-700"></div>
           <div className="flex justify-between font-semibold">
             <span>{auth.site_data.Одоо_төлөх}</span>
-            <span>${data.income_amount}</span>
+            <span>${data.amount}</span>
           </div>
         </div>
       </div>
@@ -103,49 +110,6 @@ const CheckOutPage: FC<CheckOutPageProps> = ({ className = "" }) => {
           {auth.site_data.Confirm_and_payment}
         </h2>
         <div className="border-b border-neutral-200 dark:border-neutral-700"></div>
-        <div>
-          <div>
-            <h3 className="text-2xl font-semibold">
-              {" "}
-              {auth.site_data.Your_trip}
-            </h3>
-            <NcModal
-              renderTrigger={(openModal) => (
-                <span
-                  onClick={() => openModal()}
-                  className="block lg:hidden underline  mt-1 cursor-pointer"
-                >
-                  View booking details
-                </span>
-              )}
-              renderContent={renderSidebar}
-            />
-          </div>
-          <div className="mt-6 border border-neutral-200 dark:border-neutral-700 rounded-3xl flex flex-col sm:flex-row divide-y sm:divide-x sm:divide-y-0 divide-neutral-200 dark:divide-neutral-700">
-            <div className="flex-1 p-5 flex justify-between space-x-5">
-              <div className="flex flex-col">
-                <span className="text-sm text-neutral-400">
-                  {auth.site_data.Date}
-                </span>
-                <span className="mt-1.5 text-lg font-semibold">
-                  {moment(data.date).format("DD-MM-YYYY ")}
-                </span>
-              </div>
-              <PencilAltIcon className="w-6 h-6 text-neutral-300 dark:text-neutral-6000" />
-            </div>
-            <div className="flex-1 p-5 flex justify-between space-x-5">
-              <div className="flex flex-col">
-                <span className="text-sm text-neutral-400">
-                  {auth.site_data.Guests}
-                </span>
-                <span className="mt-1.5 text-lg font-semibold">
-                  {array_sum(data.travelers)} {auth.site_data.Guests}
-                </span>
-              </div>
-              <PencilAltIcon className="w-6 h-6 text-neutral-300 dark:text-neutral-6000" />
-            </div>
-          </div>
-        </div>
 
         <div>
           <h3 className="text-2xl font-semibold">{auth.site_data.Pay_with}</h3>

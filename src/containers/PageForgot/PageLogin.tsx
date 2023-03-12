@@ -62,10 +62,7 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
       });
   };
   return (
-    <div
-      className={`nc-PageLogin  h-screen ${className}`}
-      data-nc-id="PageLogin"
-    >
+    <div className={`nc-PageLogin ${className}`} data-nc-id="PageLogin">
       <Helmet>
         <title> {auth.site_data.login}</title>
       </Helmet>
@@ -93,12 +90,12 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
             ))}
           </div> */}
           {/* OR */}
-          {/* <div className="relative text-center">
+          <div className="relative text-center">
             <span className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
               OR
             </span>
             <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
-          </div> */}
+          </div>
           {/* FORM */}
           <form
             className="grid grid-cols-1 gap-6"

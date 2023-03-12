@@ -16,6 +16,7 @@ export interface LocationStates {
   "/listing-experiences"?: {};
   "/listing-experiences-map"?: {};
   "/listing"?: {};
+  "/xanadu"?: {};
   "/listing/:id"?: {};
   "/listing-experiences-detail"?: {};
   "/listing-detail/:id"?: {};
@@ -30,6 +31,7 @@ export interface LocationStates {
   "/listing-car-detail"?: {};
   //
   "/checkout/:id"?: {};
+  "/checkoutxanadu/:id"?: {};
   "/pay-done"?: {};
   //
   "/account"?: {};

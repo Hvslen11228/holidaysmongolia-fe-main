@@ -10,12 +10,14 @@ import ListingStayMapPage from "containers/ListingStayPage/ListingStayMapPage";
 import ListingExperiencesPage from "containers/ListingExperiencesPage/ListingExperiencesPage";
 import ListingExperiencesMapPage from "containers/ListingExperiencesPage/ListingExperiencesMapPage";
 import ListingStayDetailPage from "containers/ListingDetailPage/ListingStayDetailPage";
+import Xanadu from "containers/ListingDetailPage/xanadu";
 import ListingExperiencesDetailPage from "containers/ListingDetailPage/ListingExperiencesDetailPage";
 import ListingExperiencesDetailPageComplex from "containers/ListingDetailPage/ListingExperiencesDetailPage_complex";
 import ListingCarPage from "containers/ListingCarPage/ListingCarPage";
 import ListingCarMapPage from "containers/ListingCarPage/ListingCarMapPage";
 import ListingCarDetailPage from "containers/ListingDetailPage/ListingCarDetailPage";
 import CheckOutPage from "containers/CheckOutPage/CheckOutPage";
+import CheckOutPageXanadu from "containers/CheckOutPage/CheckOutPageXanadu";
 import PayPage from "containers/PayPage/PayPage";
 import AuthorPage from "containers/AuthorPage/AuthorPage";
 import AccountPage from "containers/AccountPage/AccountPage";
@@ -82,6 +84,10 @@ export const pages: Page[] = [
     component: ListingExperiencesMapPage,
   },
   {
+    path: "/xanadu",
+    component: Xanadu,
+  },
+  {
     path: "/listing-experiences-detail",
     component: ListingExperiencesDetailPage,
   },
@@ -104,6 +110,7 @@ export const pages: Page[] = [
   { path: "/listing-flights", component: ListingFlightsPage },
   //
   { path: "/checkout/:id", component: CheckOutPage },
+  { path: "/checkoutxanadu/:id", component: CheckOutPageXanadu },
   { path: "/pay-done", component: PayPage },
   //
   { path: "/author", component: AuthorPage },
