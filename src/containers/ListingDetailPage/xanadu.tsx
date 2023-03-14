@@ -654,7 +654,55 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
               hasButtonSubmit={false}
             />
           </div>
+          <div className="flex-1">
+            <GuestsInput
+              fieldClassName="p-5"
+              onChange={(e) => {
+                console.log(e);
+                settent(e.tent);
+                setyurt(e.yurt);
+              }}
+              defaultValue={{
+                tent: tent,
+                yurt: yurt,
+              }}
+              hasButtonSubmit={false}
+            />
+          </div>
         </form>
+        <form className="flex flex-col sm:flex-row border divide-y sm:divide-y-0 sm:divide-x divide-neutral-200 dark:divide-neutral-700 border-neutral-200 dark:border-neutral-700 rounded-3xl ">
+          <div className="flex-1">
+            <GuestsInput
+              fieldClassName="p-5"
+              onChange={(e) => {
+                console.log(e);
+                settent(e.tent);
+                setyurt(e.yurt);
+              }}
+              defaultValue={{
+                tent: tent,
+                yurt: yurt,
+              }}
+              hasButtonSubmit={false}
+            />
+          </div>
+          <div className="flex-1">
+            <GuestsInput
+              fieldClassName="p-5"
+              onChange={(e) => {
+                console.log(e);
+                settent(e.tent);
+                setyurt(e.yurt);
+              }}
+              defaultValue={{
+                tent: tent,
+                yurt: yurt,
+              }}
+              hasButtonSubmit={false}
+            />
+          </div>
+        </form>
+
         {/* SUM */}
         <div className="flex flex-col space-y-4">
           {yurt >= 1 ? (
