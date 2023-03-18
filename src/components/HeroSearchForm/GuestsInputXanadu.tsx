@@ -28,6 +28,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
   //             yurt: yurt,
   const auth: any = useContext(AuthContext);
   const [ticket, setticket] = useState(defaultValue.yurt || 0);
+  const [valueRV, setvalueRV] = useState(defaultValue.rv || 0);
   const [guestAdultsInputValue, setGuestAdultsInputValue] = useState(
     defaultValue.yurt || 0
   );
@@ -38,17 +39,18 @@ const GuestsInput: FC<GuestsInputProps> = ({
   useEffect(() => {
     setGuestAdultsInputValue(defaultValue.yurt || 0);
     setGuestChildrenInputValue(defaultValue.tent || 0);
+    setvalueRV(defaultValue.rv || 0);
   }, [defaultValue]);
 
   const handleChangeData = (value: number, type: keyof any) => {
     let newValue = {
       yurt: guestAdultsInputValue,
       tent: guestChildrenInputValue,
-      ticket: ticket,
+      rv: valueRV,
     };
-    if (type === "ticket") {
+    if (type === "rv") {
       setticket(value);
-      newValue.ticket = value;
+      newValue.rv = value;
     }
     if (type === "guestAdults") {
       setGuestAdultsInputValue(value);
@@ -61,7 +63,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
     onChange && onChange(newValue);
   };
 
-  const totalGuests = guestChildrenInputValue + guestAdultsInputValue;
+  const totalGuests = guestChildrenInputValue + guestAdultsInputValue + valueRV;
 
   return (
     <Popover className={`flex relative ${className}`}>
@@ -131,20 +133,13 @@ const GuestsInput: FC<GuestsInputProps> = ({
           >
             <Popover.Panel className="absolute right-0 z-10 w-full sm:min-w-[340px] max-w-sm bg-white dark:bg-neutral-800 top-full mt-3 py-5 sm:py-6 px-4 sm:px-8 rounded-3xl shadow-xl">
               <NcInputNumber
-                className="w-full"
-                defaultValue={ticket}
-                onChange={(value) => handleChangeData(value, "ticket")}
-                min={1}
-                label={"Ticket"}
-                desc={"13 yeasrs and order"}
-              />
-              <NcInputNumber
                 className="w-full  mt-6"
-                defaultValue={ticket}
-                onChange={(value) => handleChangeData(value, "ticket")}
-                min={1}
-                label={"Ticket"}
-                desc={"13 yeasrs and order"}
+                defaultValue={valueRV}
+                onChange={(value) => handleChangeData(value, "rv")}
+                min={0}
+                max={1}
+                label={"RV"}
+                desc={"Capacity of 2 person max "}
               />
               <NcInputNumber
                 className="w-full mt-6"
@@ -152,31 +147,9 @@ const GuestsInput: FC<GuestsInputProps> = ({
                 onChange={(value) => handleChangeData(value, "guestAdults")}
                 max={4}
                 label={"Yurt"}
-                desc={"4 Bed"}
-              />
-              <NcInputNumber
-                className="w-full mt-6"
-                defaultValue={guestAdultsInputValue}
-                onChange={(value) => handleChangeData(value, "guestAdults")}
-                max={4}
-                label={"Yurt"}
-                desc={"3 Bed"}
-              />
-              <NcInputNumber
-                className="w-full mt-6"
-                defaultValue={guestAdultsInputValue}
-                onChange={(value) => handleChangeData(value, "guestAdults")}
-                max={4}
-                label={"Yurt"}
-                desc={"2 Bed"}
-              />
-              <NcInputNumber
-                className="w-full mt-6"
-                defaultValue={guestAdultsInputValue}
-                onChange={(value) => handleChangeData(value, "guestAdults")}
-                max={4}
-                label={"Yurt"}
-                desc={"1 Bed"}
+                desc={
+                  "Yurt has the capacity of 4 person max. Eg: 100$ per night per person."
+                }
               />
               <NcInputNumber
                 className="w-full mt-6"
@@ -184,15 +157,9 @@ const GuestsInput: FC<GuestsInputProps> = ({
                 onChange={(value) => handleChangeData(value, "guestChildren")}
                 max={2}
                 label={"Tent"}
-                desc={"2 bed"}
-              />
-              <NcInputNumber
-                className="w-full mt-6"
-                defaultValue={guestChildrenInputValue}
-                onChange={(value) => handleChangeData(value, "guestChildren")}
-                max={2}
-                label={"Tent"}
-                desc={"1 bed"}
+                desc={
+                  "The tent can fit up to 2 person max. EG: 100$ per night per person"
+                }
               />
             </Popover.Panel>
           </Transition>

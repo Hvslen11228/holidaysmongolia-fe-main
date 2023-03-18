@@ -367,6 +367,7 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
   const [amount, seamount] = useState([0, 0, 0]);
   const [yurt, setyurt] = useState<any | null>(0);
   const [tent, settent] = useState<any | null>(0);
+  const [rv, setrv] = useState<any | null>(0);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -403,7 +404,7 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
     const body = {
       user_id: auth?.user?._id,
       amount: amount,
-      accommodations: { yurt, tent },
+      accommodations: { yurt, tent, rv },
       tour_id: id,
     };
     await axios
@@ -445,13 +446,13 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
   const YurtCount = (count: any) => {
     switch (count) {
       case 1:
-        return 600;
+        return 600 * 3;
       case 2:
-        return 300;
+        return 300 * 3;
       case 3:
-        return 200;
+        return 200 * 3;
       case 4:
-        return 600;
+        return 150 * 3;
       default:
         return 0;
     }
@@ -459,9 +460,17 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
   const TentCount = (count: any) => {
     switch (count) {
       case 1:
-        return 200;
+        return 200 * 3;
       case 2:
-        return 100;
+        return 100 * 3;
+      default:
+        return 0;
+    }
+  };
+  const rvCount = (count: any) => {
+    switch (count) {
+      case 1:
+        return 300 * 3;
       default:
         return 0;
     }
@@ -646,57 +655,12 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
                 console.log(e);
                 settent(e.tent);
                 setyurt(e.yurt);
+                setrv(e.rv);
               }}
               defaultValue={{
                 tent: tent,
                 yurt: yurt,
-              }}
-              hasButtonSubmit={false}
-            />
-          </div>
-          <div className="flex-1">
-            <GuestsInput
-              fieldClassName="p-5"
-              onChange={(e) => {
-                console.log(e);
-                settent(e.tent);
-                setyurt(e.yurt);
-              }}
-              defaultValue={{
-                tent: tent,
-                yurt: yurt,
-              }}
-              hasButtonSubmit={false}
-            />
-          </div>
-        </form>
-        <form className="flex flex-col sm:flex-row border divide-y sm:divide-y-0 sm:divide-x divide-neutral-200 dark:divide-neutral-700 border-neutral-200 dark:border-neutral-700 rounded-3xl ">
-          <div className="flex-1">
-            <GuestsInput
-              fieldClassName="p-5"
-              onChange={(e) => {
-                console.log(e);
-                settent(e.tent);
-                setyurt(e.yurt);
-              }}
-              defaultValue={{
-                tent: tent,
-                yurt: yurt,
-              }}
-              hasButtonSubmit={false}
-            />
-          </div>
-          <div className="flex-1">
-            <GuestsInput
-              fieldClassName="p-5"
-              onChange={(e) => {
-                console.log(e);
-                settent(e.tent);
-                setyurt(e.yurt);
-              }}
-              defaultValue={{
-                tent: tent,
-                yurt: yurt,
+                rv: rv,
               }}
               hasButtonSubmit={false}
             />
@@ -707,7 +671,7 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
         <div className="flex flex-col space-y-4">
           {yurt >= 1 ? (
             <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
-              <span>{yurt} person yurt</span>
+              <span>{yurt} person yurt x3 days</span>
               <span>${YurtCount(yurt)}</span>
             </div>
           ) : (
@@ -715,8 +679,16 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
           )}
           {tent >= 1 ? (
             <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
-              <span>{tent} person tent</span>
+              <span>{tent} person tent x3 days</span>
               <span>${TentCount(tent)}</span>
+            </div>
+          ) : (
+            ""
+          )}
+          {rv >= 1 ? (
+            <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
+              <span>2 person RV x3 days</span>
+              <span>${rvCount(rv)}</span>
             </div>
           ) : (
             ""
