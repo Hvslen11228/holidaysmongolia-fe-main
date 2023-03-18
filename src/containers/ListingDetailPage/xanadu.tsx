@@ -371,8 +371,17 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setData(xanaduData?.data);
-        setLoading(false);
+        let person = prompt("Password", "");
+        if (person == null || person == "") {
+          window.location.href = "https://holidaysmongolia.com/";
+        } else {
+          if (person == "xanadu111") {
+            setData(xanaduData?.data);
+            setLoading(false);
+          } else {
+            window.location.href = "https://holidaysmongolia.com/";
+          }
+        }
 
         // if (id) {
         //   const api = await axios.get(`/tour/${id}`);
