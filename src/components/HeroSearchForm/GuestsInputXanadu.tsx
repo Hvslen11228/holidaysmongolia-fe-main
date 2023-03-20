@@ -96,10 +96,10 @@ const GuestsInput: FC<GuestsInputProps> = ({
               </div>
               <div className="flex-grow">
                 <span className="block xl:text-lg font-semibold">
-                  {totalGuests || ""} Accommodations
+                  Accommodations
                 </span>
                 <span className="block mt-1 text-sm text-neutral-400 leading-none font-light">
-                  {totalGuests ? "Accommodations" : "Add accommodations"}
+                  Add accommodations
                 </span>
               </div>
             </Popover.Button>
