@@ -353,6 +353,10 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
   const [yurt, setyurt] = useState<any | null>(0);
   const [tent, settent] = useState<any | null>(0);
   const [rv, setrv] = useState<any | null>(0);
+
+  const [user_name, setuser_name] = useState<any | null>("");
+  const [user_email, setuser_email] = useState<any | null>("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -367,7 +371,8 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
             window.location.href = "https://holidaysmongolia.com/";
           }
         }
-
+        // setData(xanaduData?.data);
+        // setLoading(false);
         // if (id) {
         //   const api = await axios.get(`/tour/${id}`);
         //   seamount([
@@ -400,6 +405,8 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
       amount: amount,
       accommodations: { yurt, tent, rv },
       tour_id: id,
+      user_name: user_name || "",
+      user_email: user_email || "",
     };
     await axios
       .post(`/order/xanadu`, body)
@@ -660,7 +667,32 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
             />
           </div>
         </form>
-
+        <label className="">
+          <span className="text-neutral-800 dark:text-neutral-200">
+            {auth.site_data.first_name}
+          </span>
+          <Input
+            type="text"
+            placeholder="Name"
+            className="mt-1"
+            onChange={(e) => {
+              setuser_name(e.target.value);
+            }}
+          />
+        </label>
+        <label className="">
+          <span className="text-neutral-800 dark:text-neutral-200">
+            {auth.site_data.Email_address}
+          </span>
+          <Input
+            type="email"
+            placeholder="example@example.com"
+            className=""
+            onChange={(e) => {
+              setuser_email(e.target.value);
+            }}
+          />
+        </label>
         {/* SUM */}
         <div className="flex flex-col space-y-4">
           {yurt >= 1 ? (
