@@ -101,7 +101,7 @@ const xanaduData = {
     map: { lat: 55.2094559, lng: 61.5594641 },
     about:
       "<h3><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ITINERARY OF THE XANADU EVENT</strong></h3><h3>&nbsp;</h3><h3><i>We welcome you with open arms and warm hearts in Ulaanbaatar, Mongolia, in June 2023.</i></h3><h3><i>For THE XANADU event and retreat, Ulaanbaatar is the place of entertainment in the city, where you will experience and explore the history, arts and nightlife of modern-day Mongolia. Then just outside of the city, your time travelling starts at the 13th Century theme park, where you will meet the horse-riding archers and fabled beauties of the steppe. See you there.</i></h3><h3>&nbsp;</h3><h3><strong>June 10th&nbsp;</strong></h3><h3>&nbsp;</h3><h3><strong>Arrivals Chinggis Khaan Airport, Ulaanbaatar, Mongolia.</strong></h3><h3>&nbsp;</h3><h3>Welcome to Mongolia! Upon your arrival at Chinggis Khaan Airport, our guide greets you and transfers you to your hotel at Zaisan Hill Complex. The rest of the day is yours. Please enjoy yourself, and relax after your long-distance flights.&nbsp;</h3><h3>&nbsp;</h3><h3><strong>June 11th City tour day</strong></h3><h3>&nbsp;</h3><h3><strong>Morning:</strong></h3><h3>Your day starts with breakfast at your hotel and a refreshing climb up to the Zaisan Tolgoi monument where you will have a panoramic view of the city and explore the well-known Soviet-era monument.&nbsp;</h3><h3><strong>Mid-Morning:</strong></h3><h3>After your morning hike, you will have time to do some shopping at the Zaisan Hill Complex. The complex has a great variety of souvenir shops and boutiques selling Mongolian clothing, jewellery, and handicrafts. Take your time browsing and picking up some unique souvenirs or gifts.&nbsp;</h3><h3><strong>Lunch:</strong></h3><h3>For lunch, head to one of the best in the city restaurants in Zaisan Hill for a delicious meal. Some popular options include Modern Nomads, Khara Khorum, and Ananda Coffee &amp; Restaurant.</h3><h3><strong>Afternoon:</strong></h3><h3>After lunch, we get down for business and attend a business conference in the afternoon. Please keep in mind that you may take a taxi or a bus to get to the location.&nbsp;</h3><h3><strong>Evening:</strong></h3><h3>For dinner, you will be at the Choijin Temple, a historic Buddhist temple that now serves as a museum and cultural centre. Enjoy a traditional Mongolian meal there and take in the clashing yet beautiful surroundings of centuries-old buildings and newly built city towers.&nbsp;</h3><h3>Business Lunch hosted by Young Entrepreneurs Counsil &amp; Mongolia Business Counsil.&nbsp;</h3><h3>After dinner, the private fashion show for investors in the temple's main hall will be waiting for you.</h3><h3>With fashion in mind, and at the centre of the city, you are at the right location for bar hopping and clubbing. Some popular options include UB Blues, Metropolis Club, and the Grand Khaan Irish Pub.</h3><h3>&nbsp;</h3><h3><strong>June 12th&nbsp;</strong></h3><h3>&nbsp;</h3><h3><strong>Morning:</strong></h3><h3>Your day starts with breakfast at your hotel. After breakfast, head out to the Chinggis Khaan Statue Complex, about an hour's drive outside Ulaanbaatar. This impressive complex features a massive&nbsp;<a href=\"https://en.wikipedia.org/wiki/Equestrian_statue_of_Genghis_Khan\">Equestrian statue of Genghis Khan</a>, as well as a museum that explores the history and culture of Mongolia.</h3><h3><strong>Lunch:</strong></h3><h3>Enjoy lunch at the Chinggis Khaan Statue restaurant, where you can sample traditional Mongolian cuisine while taking in the stunning views of the surrounding countryside.</h3><h3><strong>Afternoon:</strong></h3><h3>After lunch,&nbsp; as a welcoming gift, we present you with a traditional Mongolian scarf or other small souvenirs to help you feel at home.&nbsp;</h3><h3>Just outside of the statue complex, you will enjoy and experience a mini Naadam festival, a traditional celebration dating back to the time of the Mongol Empire to modern day Mongolia, reimagined and held just for your entertainment.&nbsp;</h3><h3>Afterwards, you’ll elevate your spiritual experience by meeting with a local shaman. Shamanism is an ancient spiritual practice in Mongolia, and a shaman can help you connect with the natural world and gain insights into your own life.</h3><h3><strong>Evening:</strong></h3><h3>For dinner, you will head to the 13th Century Theme Park, for a unique dining experience that transports you back in time to the era of Chinggis Khaan. Enjoy a traditional Mongolian feast in a ger (yurt), complete with traditional live music and dancers.</h3><h3>The after-party in the 13th Century starts there.</h3><h3>&nbsp;</h3><h3><strong>June 13th&nbsp;</strong></h3><h3>&nbsp;</h3><h3><strong>Morning:</strong></h3><h3>Start your day with energizing yoga and a meditation session outside in nature to help you focus and prepare for the day ahead. After your practice, enjoy a delicious breakfast at one of the park's restaurants.&nbsp;</h3><h3><strong>Late Morning:</strong></h3><h3>You will have a chance to learn about Mongolian traditions and culture with a variety of activities, such as horseback riding, archery, and traditional games like ankle bone shooting. The park is yours to explore the museum and exhibitions to learn more about the history of Mongolia.</h3><h3><strong>Lunch:</strong></h3><h3>Take a break from all the exciting activities and enjoy a tasty lunch at one of the park's restaurants.</h3><h3><strong>Afternoon:</strong></h3><h3>In the afternoon, relax and explore the park at your leisure. You can visit the traditional Mongolian village, watch craftsmen at work, or enjoy a horse show. Witness the gripping agility and speed of the horse-riding archers like in 13th-century Mongolia.&nbsp;</h3><h3><strong>Evening:</strong></h3><h3>For dinner, enjoy a delicious meal at the park's restaurant. You'll have a variety of options to choose from, including traditional Mongolian cuisine, international dishes, and vegetarian options. After dinner, you will attend a shamanic ceremony, a powerful and spiritual experience that connects you with the natural world and helps you gain insight and clarity.&nbsp;</h3><h3>With the spiritual enlightenment in you, you will enjoy the afterparty like never before.<strong>&nbsp;</strong></h3><h3>&nbsp;</h3><h3><strong>June 14th&nbsp;</strong></h3><h3>&nbsp;</h3><h3><strong>Morning:</strong></h3><h3>Start your day with a calming yoga and meditation session to help you focus and prepare for the day ahead. After your practice, enjoy a delicious breakfast at one of the park's restaurants.</h3><h3><strong>Late Morning:</strong></h3><h3>Learn about the ancient traditions of the Mongols through various cultural activities, such as a demonstration of traditional Mongolian wrestling, a display of horseback archery, or a lesson in playing the morin khuur, a traditional Mongolian stringed instrument.</h3><h3><strong>Lunch:</strong></h3><h3>Take a break and enjoy a tasty lunch at one of the park's restaurants.</h3><h3><strong>Afternoon:</strong></h3><h3>The day is filled with live music, dancing, and games. Enjoy yourself and the day.</h3><h3><strong>Evening:</strong></h3><h3>In the evening, you will see a theatrical performance that tells the story of the Mongols and their history. Enjoy a delicious dinner from a variety of options, including traditional Mongolian cuisine, international dishes, and vegetarian options.&nbsp;</h3><h3>After dinner, gather around a bonfire party and enjoy a fire performance with dancing, drumming, and a salute to the ancient traditions of the Mongols.&nbsp;</h3><h3>Party like a Mongol!</h3><h3>&nbsp;</h3><h3><strong>June 15th&nbsp;</strong></h3><h3>&nbsp;</h3><h3><strong>Morning:</strong></h3><h3>After a night full of activities, you will go back to the future and to Ulaanbaatar. Your hotel at Zaisan Hill Complex will be waiting for you.</h3><br>Dress code: Marco Polo The 13th century eclefic",
-    amount_0: 1,
+    amount_0: 1111,
     amount_1: 0,
     amount_2: 0,
     icons: [3, 7, 14, 18, 27, 13, 24],
@@ -343,7 +343,7 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
 
   const auth: any = useContext(AuthContext);
   const params: any = useParams();
-  const id = "640b1569f77276d04edaf890";
+  const id = "647627065bc63859cf8c26af";
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const [guestAdults, setguestAdults] = useState<any | null>(1);
@@ -365,8 +365,27 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
           window.location.href = "https://holidaysmongolia.com/";
         } else {
           if (person == "xanadu111") {
-            setData(xanaduData?.data);
-            setLoading(false);
+            const api = await axios.get(`/tour/category/${id}`)
+            if(api?.data?.data[0]){
+              seamount([
+                api?.data?.data[0]?.amount_0,
+                api?.data?.data[0]?.amount_1,
+                api?.data?.data[0]?.amount_2,
+                ]);
+                setData(api?.data?.data[0]);
+                setLoading(false);
+            }else{
+               seamount([
+                xanaduData?.data?.amount_0,
+                xanaduData?.data?.amount_1,
+                xanaduData?.data?.amount_2,
+                ]);
+                setData(xanaduData?.data);
+                setLoading(false);
+            }
+            console.log(api)
+            //setData(xanaduData?.data);
+            //setLoading(false);
           } else {
             window.location.href = "https://holidaysmongolia.com/";
           }
@@ -399,10 +418,10 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
   ///
 
   const ordering = async () => {
-    const amount = 1111 + TentCount(tent) + YurtCount(yurt);
+    const amount_all = amount[0] + TentCount(tent) + YurtCount(yurt);
     const body = {
       user_id: auth?.user?._id,
-      amount: amount,
+      amount: amount_all,
       accommodations: { yurt, tent, rv },
       tour_id: id,
       user_name: user_name || "",
@@ -732,7 +751,7 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
           <div className="border-b border-neutral-200 dark:border-neutral-700"></div>
           <div className="flex justify-between font-semibold">
             <span>{auth.site_data.Total}</span>
-            <span>${1111 + TentCount(tent) + YurtCount(yurt)}</span>
+            <span>${amount[0] + TentCount(tent) + YurtCount(yurt)}</span>
           </div>
         </div>
         {/* SUBMIT */}
