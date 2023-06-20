@@ -34,12 +34,15 @@ const CheckOutPage: FC<CheckOutPageProps> = ({ className = "" }) => {
   useEffect(() => {
     const fetchData = async () => {
       const api_ = await axios.get(`/order/${id}`);
+            console.log(api_.data.data);
+
       setdata(api_?.data?.data);
       const api_2 = await axios.post(`/checkout/create`, {
         order_id: id,
         amount: api_?.data?.data.income_amount,
         order_type: "order",
       });
+      console.log(api_2)
       setpay(api_2.data.data);
       setLoading(false);
     };

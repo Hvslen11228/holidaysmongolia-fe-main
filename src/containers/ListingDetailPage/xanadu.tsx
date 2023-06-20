@@ -1,4 +1,5 @@
 import React, { FC, useState, useContext, useEffect } from "react";
+import { Tab } from "@headlessui/react";
 import { ArrowRightIcon } from "@heroicons/react/outline";
 import LocationMarker from "components/AnyReactComponent/LocationMarker";
 import CommentListing from "components/CommentListing/CommentListing";
@@ -23,6 +24,7 @@ import Input from "shared/Input/Input";
 import NcImage from "shared/NcImage/NcImage";
 import LikeSaveBtns from "./LikeSaveBtns";
 import ModalPhotos from "./ModalPhotos";
+import logoImg from "images/logo.jpeg";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import SectionSliderNewCategories from "components/SectionSliderNewCategories/SectionSliderNewCategories";
 import SectionSubscribe2 from "components/SectionSubscribe2/SectionSubscribe2";
@@ -331,6 +333,26 @@ const icon_demo = [
     type: false,
   },
 ];
+function extractSections(html: string): { key: string, text: string }[] {
+  // Regular expression to match the desired sections
+  //var regex = /<h\d+>(.*?)<\/h\d+>(.*?)(?=<h\d+>|$)/g;
+var regex = /<h\d+>(?:<.*?>)*(.*?)<\/h\d+>(.*?)(?=<h\d+>|$)/g;
+
+
+
+  // Array to store extracted sections
+  const sections: { key: string, text: string }[] = [];
+
+  // Execute the regular expression repeatedly to find all matches
+  let match;
+  while ((match = regex.exec(html))) {
+    var key = match[1];
+    var text = match[2];
+    sections.push({ "key": key, "text": text });
+  }
+
+  return sections;
+}
 const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
   className = "",
 }) => {
@@ -558,14 +580,18 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
       </div>
     );
   };
+ function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ')
+}
 
   const renderSection2 = () => {
+    const tabs = extractSections(data.about)
     return (
       <div className="listingSection__wrap">
         <h2 className="text-2xl font-semibold  flex justify-between">
           {auth.site_data.description}
           <a
-            href="https://filepublic.link/uploads/seller.mn/application/pdf/64182a3884336b520f54f698.pdf"
+            href="https://drive.google.com/file/d/15xLs7HS_YWw4HTaESs2mpU7meAKkPOtv/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm"
@@ -573,10 +599,37 @@ const ListingExperiencesDetailPage: FC<ListingExperiencesDetailPageProps> = ({
             File download
           </a>
         </h2>
-        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-        <div className="text-neutral-6000 dark:text-neutral-300">
-          <p dangerouslySetInnerHTML={{ __html: data.about }}></p>
-        </div>
+<div className="w-full px-2 sm:px-0">
+
+
+
+<Tab.Group>
+      <Tab.List className="flex space-x-1 rounded-xl p-1">
+      {tabs.map((tab, index) => (
+      <Tab className={({ selected }) =>
+                classNames(
+                  'w-full  rounded-lg py-2.5 text-sm font-medium leading-5',
+                  'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                  selected
+                    ? 'bg-primary-700 text-neutral-50'
+                    : 'hover:text-blue-400'
+                )
+              }>
+      <p dangerouslySetInnerHTML={{ __html: tab.key  }}></p>
+      </Tab>
+          ))}
+      </Tab.List>
+                    <div className="w-100 border-b border-neutral-200 dark:border-neutral-700"></div>
+
+      <Tab.Panels>
+           {tabs.map((tab, index) => (
+      <Tab.Panel>
+      <div dangerouslySetInnerHTML={{ __html: tab.text.replace(/<figure class="media"><oembed url="(.*?)"><\/oembed><\/figure>/g, '<iframe src="$1" style="width:100%" height="500"></iframe>')  }}></div>
+      </Tab.Panel>
+          ))}
+          </Tab.Panels>
+    </Tab.Group>
+      </div>
       </div>
     );
   };

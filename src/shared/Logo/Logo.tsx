@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import logoImg from "images/logo.png";
+import logoImg from "images/logo.jpeg";
 import logoLightImg from "images/logo-light.png";
 import LogoSvgLight from "./LogoSvgLight";
 import LogoSvg from "./LogoSvg";
@@ -17,8 +17,8 @@ const Logo: React.FC<LogoProps> = ({
   className = "w-24",
 }) => {
   const auth: any = useContext(AuthContext);
-  img = auth.site_data.img;
-  imgLight = auth.site_data.imgLight;
+  img = logoImg;
+  imgLight = logoImg;
   return (
     <Link
       to="/"
@@ -32,7 +32,7 @@ const Logo: React.FC<LogoProps> = ({
       {img ? (
         <img
           className={`block max-h-12 ${imgLight ? "dark:hidden" : ""}`}
-          src={process.env.REACT_APP_CDN_URL + img}
+          src={img}
           alt="Logo"
         />
       ) : (
@@ -41,7 +41,7 @@ const Logo: React.FC<LogoProps> = ({
       {imgLight && (
         <img
           className="hidden max-h-12 dark:block"
-          src={process.env.REACT_APP_CDN_URL + imgLight}
+          src={imgLight}
           alt="Logo-Light"
         />
       )}
