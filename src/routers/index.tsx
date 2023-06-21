@@ -5,6 +5,7 @@ import ScrollToTop from "./ScrollToTop";
 import Footer from "shared/Footer/Footer";
 import PageHome from "containers/PageHome/PageHome";
 import Page404 from "containers/Page404/Page404";
+import HotelsListingPage from "containers/ListingStayPage/HotelsListPage";
 import ListingStayPage from "containers/ListingStayPage/ListingStayPage";
 import ListingStayMapPage from "containers/ListingStayPage/ListingStayMapPage";
 import ListingExperiencesPage from "containers/ListingExperiencesPage/ListingExperiencesPage";
@@ -13,6 +14,7 @@ import ListingStayDetailPage from "containers/ListingDetailPage/ListingStayDetai
 import Xanadu from "containers/ListingDetailPage/xanadu";
 import ListingExperiencesDetailPage from "containers/ListingDetailPage/ListingExperiencesDetailPage";
 import ListingExperiencesDetailPageComplex from "containers/ListingDetailPage/ListingExperiencesDetailPage_complex";
+import ListingExperiencesDetailPageHotel from "containers/ListingDetailPage/ListingExperiencesDetailPage_hotel";
 import ListingCarPage from "containers/ListingCarPage/ListingCarPage";
 import ListingCarMapPage from "containers/ListingCarPage/ListingCarMapPage";
 import ListingCarDetailPage from "containers/ListingDetailPage/ListingCarDetailPage";
@@ -64,6 +66,8 @@ export const pages: Page[] = [
   { path: "/home-3", component: PageHome3 },
   //
   { path: "/listing-stay", component: ListingStayPage },
+  { path: "/hotels", component: HotelsListingPage },
+  { path: "/hotel-detail/:id", component: ListingExperiencesDetailPageHotel },
   { path: "/listing-stay-map", component: ListingStayMapPage },
   { path: "/listing-stay-detail", component: ListingStayDetailPage },
   //

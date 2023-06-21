@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import ButtonClose from "shared/ButtonClose/ButtonClose";
 import Logo from "shared/Logo/Logo";
 import { Disclosure } from "@headlessui/react";
@@ -11,6 +11,7 @@ import { ChevronDownIcon } from "@heroicons/react/solid";
 import SwitchDarkMode from "shared/SwitchDarkMode/SwitchDarkMode";
 import LangDropdown from "components/Header/LangDropdown";
 import axios from "../../axios";
+import AuthContext from "context/AuthContext";
 export interface NavMobileProps {
   datas?: NavItemType[];
   onClickClose?: () => void;
@@ -23,6 +24,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
   const [data, setData] = useState(datas);
   const [data2, setData2] = useState(datas);
   const [loading, setLoading] = useState(true);
+  const auth: any = useContext(AuthContext);
   useEffect(() => {
     const fetchData = async () => {
       const api_menu_1 = await axios.get(`/fun/menu`);
@@ -144,15 +146,15 @@ const NavMobile: React.FC<NavMobileProps> = ({
       <ul className="flex flex-col py-6 px-2 space-y-1">
         {data.map(_renderItem)}
       </ul>
-      <div className="flex items-center justify-between py-6 px-5">
-        <a
-          className="inline-block"
-          href="https://themeforest.net/item/chisfis-online-booking-react-template/33515927"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <ButtonPrimary></ButtonPrimary>
-        </a>
+      <div className="flex items-center py-6 px-5">
+            {!auth.logged && (
+              <>
+                <div className="px-1" />
+                <ButtonPrimary href="/login">
+                  {auth.site_data.Signup}
+                </ButtonPrimary>
+              </>
+            )}
 
         <LangDropdown panelClassName="z-10 w-screen max-w-[280px] px-4 mb-3 -right-3 bottom-full sm:px-0" />
       </div>
